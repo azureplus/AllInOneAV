@@ -48,14 +48,15 @@ namespace Service
 
                 foreach (var node in nodes)
                 {
-                    busCategory.Add(node.InnerText.Trim());
+                    busCategory.Add(FileUtility.GetJianTiStr(node.InnerText.Trim()));
                 }
             }
 
+            var copyBus = string.Join("\r\n", busCategory);
+            var copyLib = string.Join("\r\n", javLibrary);
+
             for (int i = 0; i < busCategory.Count; i++)
             {
-                busCategory[i] = FileUtility.GetJianTiStr(busCategory[i]);
-
                 if (javLibrary.Contains(busCategory[i]))
                 {
                     if (!ret.ContainsKey(busCategory[i]))

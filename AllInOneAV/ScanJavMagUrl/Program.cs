@@ -117,6 +117,7 @@ namespace ScanJavMagUrl
         {
             Random ran = new Random();
             int count = 1;
+            string sukebei = JavINIClass.IniReadValue("Mag", "sukebei");
 
             Parallel.ForEach(models, new ParallelOptions { MaxDegreeOfParallelism = 10 }, rm =>
             {
@@ -127,8 +128,16 @@ namespace ScanJavMagUrl
 
                 var matchFiles = new EverythingHelper().SearchFile("!c:\\ " + rm.Id + " | " + rm.Id.Replace("-", ""), EverythingSearchEnum.Video);
 
-                var list = MagService.SearchSukebei(id: rm.Id, web: "pro");
-                //list.AddRange(MagService.SearchSukebei(id: rm.Id, web: "pro"));
+                List<SeedMagnetSearchModel> list = new List<SeedMagnetSearchModel>();
+
+                if (sukebei == "pro" || sukebei == "si")
+                {
+                    list = MagService.SearchSukebei(id: rm.Id, web: sukebei);
+                }
+                else
+                {
+                    list = MagService.SearchJavBus(rm.Id, null);
+                }
 
                 if (list != null && list.Count > 0)
                 {

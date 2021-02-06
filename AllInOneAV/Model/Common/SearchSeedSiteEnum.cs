@@ -10,5 +10,6 @@ namespace Model.Common
     {
         Btsow = 1,
         Sukebei = 2,
+        JavBus = 3
     }
 }

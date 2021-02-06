@@ -20,8 +20,81 @@ namespace NewUnitTest
     {
         static void Main(string[] args)
         {
-            CheckAvatorMatch();
+            var files = Directory.GetFiles(@"R:\testrename").OrderBy(x => x.Length);
 
+            Console.ReadKey();
+        }
+
+        public static void Rename()
+        {
+            string src = "";
+            string desc = "";
+
+            while (string.IsNullOrWhiteSpace(src))
+            {
+                Console.WriteLine("请输入需要重命名的文件夹...");
+                src = Console.ReadLine();
+            }
+
+            if (Directory.Exists(src))
+            {
+                Console.WriteLine("正在初始化数据...");
+
+                var ret = RenameService.PrepareRename(src, 500).OrderBy(x => x.Key).ThenBy(x => x.Key.Length).ToDictionary(x => x.Key, x => x.Value);
+
+                Console.WriteLine($"共找到 {ret.Count} 个文件需要重命名...");
+
+                while (string.IsNullOrWhiteSpace(desc))
+                {
+                    Console.WriteLine("请输入重命名到的文件夹...");
+                    desc = Console.ReadLine();
+                }
+
+                if (!Directory.Exists(desc))
+                {
+                    Directory.CreateDirectory(desc);
+                }
+
+                foreach (var f in ret)
+                {
+                    var finalFile = "";
+
+                    if (f.Value.Count == 1)
+                    {
+                        finalFile = f.Value.FirstOrDefault().MoveFile;
+                    }
+
+                    if (f.Value.Count > 1)
+                    {
+                        int index = 1;
+                        int choose = 0;
+
+                        Console.WriteLine($"文件 {f.Key} 有多个匹配...");
+
+                        foreach (var l in f.Value)
+                        {
+                            Console.WriteLine($"\t{index++}. {l.MoveFile}");
+                        }
+
+                        while (choose <= 0)
+                        {
+                            Console.WriteLine("输入序号选择...");
+                            int.TryParse(Console.ReadLine(), out choose);
+                        }
+
+                        finalFile = f.Value[choose - 1].MoveFile;
+                    }
+
+                    FileUtility.FileRenameUsingSystem(f.Key, src + "\\" + finalFile);
+                    FileUtility.TransferFileUsingSystem(new List<string>() { src + "\\" + finalFile }, desc + "\\" + finalFile, true, false);
+                }
+            }
+            else
+            {
+                Console.WriteLine("无效文件夹...");
+            }
+
+            Console.WriteLine("按任意键退出...");
             Console.ReadKey();
         }
 
@@ -51,7 +124,7 @@ namespace NewUnitTest
         {
             var descFolder = (sourceFolder.EndsWith("\\") || sourceFolder.EndsWith("/")) ? sourceFolder + "tempFile\\" : sourceFolder + "\\tempFin\\";
 
-            var ret = RenameService.PrepareRename(sourceFolder, descFolder, fileSizeLimit);
+            var ret = RenameService.PrepareRename(sourceFolder, fileSizeLimit);
         }
 
         public static void ReFormatName(string folder)

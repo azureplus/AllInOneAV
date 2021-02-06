@@ -261,6 +261,47 @@ namespace Utils
             return res;
         }
 
+        public static HtmlResponse GetHtmlWebClient(string url, CookieContainer cc = null, string cookieHost = "", string host = "", string refere = "")
+        {
+            HtmlResponse res = new HtmlResponse
+            {
+                Success = false
+            };
+
+            try
+            {
+                var wc = new WebClient();
+
+                if (cc != null)
+                {
+                    wc.Headers.Add(HttpRequestHeader.Cookie, cc.GetCookieHeader(new Uri(cookieHost)));
+                }
+
+                wc.Headers.Add(HttpRequestHeader.UserAgent, string.Format(UserAgent, GetChromeVersion()));
+
+                if (!string.IsNullOrEmpty(host))
+                {
+                    wc.Headers.Add(HttpRequestHeader.Host, host);
+                }
+
+                if (!string.IsNullOrEmpty(refere))
+                {
+                    wc.Headers.Add(HttpRequestHeader.Referer, refere);
+                }
+
+                var hltext = wc.DownloadData(url);
+                res.Content = (Encoding.GetEncoding("UTF-8").GetString(hltext));
+
+                res.Success = true;
+            }
+            catch (Exception ex)
+            {
+                res.Content = ex.ToString();
+            }
+
+            return res;
+        }
+
         public static HtmlResponse GetHtmlWebClientWithRenewCC(string cookieHost, string url, CookieContainer cc = null, bool userProxy = false)
         {
             HtmlResponse res = new HtmlResponse

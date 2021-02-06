@@ -1631,6 +1631,7 @@ namespace CombineEpisode
             p.StartInfo.UseShellExecute = false;
             p.StartInfo.CreateNoWindow = true;
             p.StartInfo.FileName = ffmpeg;//要调用外部程序的绝对路径
+            //TODO
             p.StartInfo.Arguments = string.Format("-f concat -safe 0 -i \"{0}\" -c:v hevc_nvenc -preset:v fast \"{1}\"", combineFile, fileName);
             p.StartInfo.UseShellExecute = false;//不使用操作系统外壳程序启动线程(一定为FALSE,详细的请看MSDN)
             p.StartInfo.RedirectStandardError = true;//把外部程序错误输出写到StandardError流中(这个一定要注意,FFMPEG的所有输出信息,都为错误输出流,用StandardOutput是捕获不到任何消息的...这是我耗费了2个多月得出来的经验...mencoder就是用standardOutput来捕获的)

@@ -18,18 +18,12 @@ namespace Service
         private static List<string> formats = JavINIClass.IniReadValue("Scan", "Format").Split(',').ToList();
         private static List<string> excludes = JavINIClass.IniReadValue("Scan", "Exclude").Split(',').ToList();
 
-        public static Dictionary<string, List<RenameModel>> PrepareRename(string sourceFolder, string descFolder, int fileSizeLimit)
+        public static Dictionary<string, List<RenameModel>> PrepareRename(string sourceFolder, int fileSizeLimit)
         {
             Dictionary<string, List<RenameModel>> ret = new Dictionary<string, List<RenameModel>>();
-            Dictionary<string, int> MoveFileCheck = new Dictionary<string, int>();
 
             if (Directory.Exists(sourceFolder))
             {
-                if (!Directory.Exists(descFolder))
-                {
-                    Directory.CreateDirectory(descFolder);
-                }
-
                 var files = new DirectoryInfo(sourceFolder).GetFiles();
 
                 if (fileSizeLimit > 0)
@@ -113,34 +107,23 @@ namespace Service
                             }
                         }
 
+                        List<RenameModel> temp = new List<RenameModel>();
                         foreach (var av in possibleAv)
                         {
                             var chinese = (fileNameWithoutFormat.EndsWith("-c") || fileNameWithoutFormat.EndsWith("-ch") || fileNameWithoutFormat.EndsWith("ch")) ? "-C" : "";
 
-                            var tempName = descFolder + av.ID + "-" + av.Name + chinese + file.Extension;
-                            var beforeChange = tempName;
+                            var tempName = av.ID + "-" + av.Name + chinese + file.Extension;
 
-                            if (MoveFileCheck.ContainsKey(tempName))
-                            {
-                                var index = MoveFileCheck[tempName] + 1;
-                                tempName = descFolder + av.ID + "-" + av.Name + chinese + "_" + index + file.Extension;
-                                MoveFileCheck[beforeChange] = index;
-                            }
-                            else
-                            {
-                                MoveFileCheck.Add(tempName, 1);
-                            }
-
-                            tempRet.Add(new RenameModel
-                            {
+                            temp.Add(new RenameModel() 
+                            { 
                                 AvId = av.ID,
-                                AvName = av.Name,
                                 AvImg = av.PictureURL,
+                                AvName = av.Name,
                                 MoveFile = tempName
                             });
                         }
 
-                        ret.Add(file.FullName, tempRet);
+                        ret.Add(file.FullName, temp);
                     }
                 }
             }

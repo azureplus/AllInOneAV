@@ -1204,9 +1204,9 @@ namespace AVWeb.Controllers
         }
 
         [Rights]
-        public ActionResult BatchRenameList(string folder, string toFolder, int limit)
+        public ActionResult BatchRenameList(string folder, int limit)
         {
-            var model = RenameService.PrepareRename(folder, toFolder, limit);
+            var model = RenameService.PrepareRename(folder, limit);
 
             return View(model);
         }

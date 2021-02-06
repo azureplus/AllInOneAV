@@ -8,6 +8,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using Utils;
@@ -88,13 +89,6 @@ namespace Service
 
         public static List<SeedMagnetSearchModel> SearchSukebei(string id, CookieContainer cc = null, string web = "")
         {
-            //if (cc == null)
-            //{
-            //    var c = HtmlManager.GetCookies("https://sukebei.nyaa.si/");
-            //    cc = new CookieContainer();
-            //    cc.Add(c);
-            //}
-
             List<SeedMagnetSearchModel> ret = new List<SeedMagnetSearchModel>();
 
             try
@@ -178,6 +172,94 @@ namespace Service
             return ret.Where(x => x.Size >= 0).OrderByDescending(x => x.CompleteCount).ThenByDescending(x => x.Size).ToList();
         }
 
+        public static List<SeedMagnetSearchModel> SearchJavBus(string avId, CookieContainer cc = null)
+        {
+            List<SeedMagnetSearchModel> ret = new List<SeedMagnetSearchModel>();
+
+            var refere = "https://www.javbus.com/" + avId;
+
+            var html = HtmlManager.GetHtmlContentViaUrl(refere, "utf-8", false, cc);
+
+            if (html.Success)
+            {
+                var gidPattern = "var gid = (.*?);";
+                var ucPattern = "var uc = (.*?);";
+                var picPattern = "var img = '(.*?)';";
+
+                var gidMatch = Regex.Match(html.Content, gidPattern);
+                var ucMatch = Regex.Match(html.Content, ucPattern);
+                var picMatch = Regex.Match(html.Content, picPattern);
+
+                var gid = gidMatch.Groups[1].Value;
+                var uc = ucMatch.Groups[1].Value;
+                var pic = picMatch.Groups[1].Value;
+
+                var url = $"https://www.javbus.com/ajax/uncledatoolsbyajax.php?gid={gid}&lang=zh&img={pic}&uc={uc}&floor=922";
+
+                var magHtml = HtmlManager.GetHtmlWebClient(url, null, "javbus.com", "", refere);
+
+                if (magHtml.Success)
+                {
+                    HtmlDocument htmlDocument = new HtmlDocument();
+                    htmlDocument.LoadHtml(magHtml.Content);
+
+                    var magPattern = "//tr[@style=' border-top:#DDDDDD solid 1px']";
+
+                    HtmlNodeCollection nodes = htmlDocument.DocumentNode.SelectNodes(magPattern);
+
+                    foreach (var node in nodes)
+                    {
+
+                        var namePart = "";
+                        var sizePart = "";
+                        var datePart = "";
+                        var magUrl = "";
+                        var size = 0d;
+
+                        try
+                        {
+                            if (node != null)
+                            {
+                                if (node.ChildNodes.Count >= 2)
+                                {
+                                    namePart = node.ChildNodes[1].InnerText.Trim();
+                                    magUrl = node.ChildNodes[1].ChildNodes[1].Attributes["href"].Value;
+                                }
+
+                                if (node.ChildNodes.Count >= 4)
+                                {
+                                    sizePart = node.ChildNodes[3].InnerText.Trim();
+                                    size = FileSize.GetByteFromStr(sizePart);
+                                }
+
+                                if (node.ChildNodes.Count >= 5)
+                                {
+                                    datePart = node.ChildNodes[5].InnerText.Trim();
+                                }
+
+                                ret.Add(new SeedMagnetSearchModel()
+                                {
+                                    CompleteCount = 0,
+                                    Date = DateTime.Parse(datePart),
+                                    Size = size,
+                                    MagUrl = magUrl,
+                                    Source = SearchSeedSiteEnum.JavBus,
+                                    Title = namePart,
+                                    Url = ""
+                                });
+                            }
+                        }
+                        catch (Exception)
+                        {
+
+                        }
+                    }
+                }
+            }
+
+            return ret;
+        }
+
         public static async Task<Torrent> GetTorrentInfo(string magurl, string webUrl, string saveFolder, string fileName)
         {
             Torrent ret = null;
@@ -238,5 +320,6 @@ namespace Service
 
             return ret;
         }
+
     }
 }

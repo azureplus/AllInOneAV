@@ -36,5 +36,41 @@ namespace Utils
                 return Math.Round(size / TBCount, roundCount) + "TB";
             }
         }
+
+        public static double GetByteFromStr(string content)
+        {
+            double ret = 0d;
+            content = content.ToLower();
+
+            if (content.EndsWith("kb"))
+            {
+                double.TryParse(content.Replace("kb", ""), out ret);
+
+                return ret * KBCount;
+            }
+
+            if (content.EndsWith("mb"))
+            {
+                double.TryParse(content.Replace("mb", ""), out ret);
+
+                return ret * MBCount;
+            }
+
+            if (content.EndsWith("gb"))
+            {
+                double.TryParse(content.Replace("gb", ""), out ret);
+
+                return ret * GBCount;
+            }
+
+            if (content.EndsWith("tb"))
+            {
+                double.TryParse(content.Replace("tb", ""), out ret);
+
+                return ret * TBCount;
+            }
+
+            return ret;
+        }
     }
 }

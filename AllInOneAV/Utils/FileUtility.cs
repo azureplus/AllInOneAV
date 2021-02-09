@@ -709,10 +709,11 @@ namespace Utils
                 {
                     if (r.Value.Count > 1)
                     {
-                        var maxL = r.Value.Max(x => x.Length);
-                        var minL = r.Value.Min(x => x.Length);
+                        var maxL = r.Value.Max(x => x.Replace("Duplicate", "").Length);
+                        var minL = r.Value.Min(x => x.Replace("Duplicate", "").Length);
 
-                        if (maxL - minL <= 3)
+                        //排除文件名称差距太大的文件
+                        if (maxL - minL <= 5)
                         {
                             ret.Add(r.Key, r.Value);
                         }

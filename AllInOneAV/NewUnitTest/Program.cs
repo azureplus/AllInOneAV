@@ -20,7 +20,23 @@ namespace NewUnitTest
     {
         static void Main(string[] args)
         {
-            var files = Directory.GetFiles(@"R:\testrename").OrderBy(x => x.Length);
+            //RenameService.RemoveSubFolder(@"R:\New folder", @"r:\New folder\movefiles");
+
+            var list = RenameService.PrepareRename(@"r:\New folder\movefiles", 500);
+
+            List<ValueTuple<string, string>> renamne = new List<ValueTuple<string, string>>();
+
+            foreach (var l in list)
+            {
+                if (l.Value != null && l.Value.Count > 0)
+                {
+                    ValueTuple<string, string> vt = new ValueTuple<string, string>(l.Key, @"r:\New folder\movefiles\" + l.Value.FirstOrDefault().MoveFile);
+
+                    renamne.Add(vt);
+
+                    RenameService.Rename(renamne, @"r:\new folder\movefiles\fin\");
+                }
+            }
 
             Console.ReadKey();
         }

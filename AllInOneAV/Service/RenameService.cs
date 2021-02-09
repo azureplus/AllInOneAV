@@ -7,7 +7,6 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using Utils;
 
 namespace Service
@@ -18,7 +17,7 @@ namespace Service
         private static List<string> formats = JavINIClass.IniReadValue("Scan", "Format").Split(',').ToList();
         private static List<string> excludes = JavINIClass.IniReadValue("Scan", "Exclude").Split(',').ToList();
 
-        public static Dictionary<string, List<RenameModel>> PrepareRename(string sourceFolder, int fileSizeLimit)
+        public static Dictionary<string, List<RenameModel>> PrepareRename(string sourceFolder, int fileSizeLimit, int take = 1)
         {
             Dictionary<string, List<RenameModel>> ret = new Dictionary<string, List<RenameModel>>();
 
@@ -108,7 +107,7 @@ namespace Service
                         }
 
                         List<RenameModel> temp = new List<RenameModel>();
-                        foreach (var av in possibleAv)
+                        foreach (var av in possibleAv.Take(take))
                         {
                             var chinese = (fileNameWithoutFormat.EndsWith("-c") || fileNameWithoutFormat.EndsWith("-ch") || fileNameWithoutFormat.EndsWith("ch")) ? "-C" : "";
 
@@ -129,6 +128,15 @@ namespace Service
             }
 
             return ret;
+        }
+
+        public static void Rename(List<ValueTuple<string, string>> files, string desc)
+        {
+            foreach (var fi in files)
+            {
+                FileUtility.FileRenameUsingSystem(fi.Item1, fi.Item2);
+                FileUtility.TransferFileUsingSystem(new List<string>() { fi.Item2 }, desc, true, false);
+            }
         }
 
         public static List<RemoveSubModel> RemoveSubFolder(string sourceFolder, string descFolder, string excludeFolder = "tempFin,Fin,movefiles", int fileSizeLimit = 200)
@@ -152,30 +160,11 @@ namespace Service
 
                 if (string.IsNullOrWhiteSpace(status))
                 {
-                    foreach (var file in files)
+                    List<string> transferFiles = files.Select(x => x.FullName).ToList();
+
+                    if (transferFiles != null && transferFiles.Count > 0)
                     {
-                        var tempFile = descFolder + file.Name;
-
-                        if (moveFileCheck.ContainsKey(tempFile))
-                        {
-                            var index = moveFileCheck[tempFile] + 1;
-                            tempFile = descFolder + file.Name.Replace(file.Extension, "") + "_" + index + file.Extension;
-                            moveFileCheck[tempFile] = index;
-                        }
-                        else
-                        {
-                            moveFileCheck.Add(tempFile, 1);
-                        }
-
-                        var template = "_\\d{1,}\\.";
-
-                        ret.Add(new RemoveSubModel {
-                            SrcFile = file.FullName,
-                            DescFile = tempFile,
-                            IsDuplicate = Regex.Matches(tempFile, template, RegexOptions.IgnoreCase).Count > 0 ? true : false,
-                            SrcFileSize = file.Length,
-                            ScrFileSizeStr = FileSize.GetAutoSizeString(file.Length, 1)
-                        });
+                        FileUtility.TransferFileUsingSystem(transferFiles, descFolder, true);
                     }
                 }
             }

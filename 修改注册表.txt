@@ -1,0 +1,8 @@
+Computer\HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\NamingTemplates
+下新增项
+	NamingTemplates
+	下新增字符串
+		CopyNameTemplate 
+		值
+			%sDuplicate (1)
+	

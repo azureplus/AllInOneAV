@@ -45,7 +45,6 @@ namespace CombineEpisode
         private bool OkToStart = true;
         private string[] ImportedFiles = null;
         private Font font = new Font("微软雅黑", 10);
-        private Guid ForPlay;
 
         public static List<string> FaviUrls = new List<string>();
         public delegate void ProcessPb(ProgressBar pb, int value);
@@ -909,9 +908,20 @@ namespace CombineEpisode
             }
         }
 
+        private void notifyIcon1_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                notifyIcon1.Visible = true;
+                this.Show();
+                WindowState = FormWindowState.Normal;
+                this.Focus();
+            }
+        }
+
         private void notifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            notifyIcon1.Visible = false;
+            notifyIcon1.Visible = true;
             this.Show();
             WindowState = FormWindowState.Normal;
             this.Focus();
@@ -1001,7 +1011,6 @@ namespace CombineEpisode
                     p.Y = e.Location.Y + this.Location.Y + 100;
 
                     contextMenuStrip4.Show(p);
-
                 }
             }
         }
@@ -3283,31 +3292,33 @@ namespace CombineEpisode
             }
         }
 
-        private void RefreshPlayUi()
+        private async void RefreshPlayUi()
         {
-            var actress = JavDataBaseManager.GetSimilarContent("actress").Select(x => x.Name).ToArray();
-            var category = JavDataBaseManager.GetSimilarContent("category").Select(x => x.Name).ToArray();
+            var actress = await Task.Run(() => JavDataBaseManager.GetSimilarContent("actress").Select(x => x.Name).ToArray());
+            var category = await Task.Run(() =>JavDataBaseManager.GetSimilarContent("category").Select(x => x.Name).ToArray());
 
             cbPlayActress.DataSource = actress;
             cbPlayCategory.DataSource = category;
 
             cbPlayActress.Text = "";
             cbPlayCategory.Text = "";
-
-            ForPlay = Guid.NewGuid();
         }
 
         private async void BtnPlayClick(int page, int pageSize, bool isBack = false)
         {
+            bool reOrder = false;
             lvPlay.Items.Clear();
 
             if (scanResult == null || scanResult.Count <= 0)
             {
-                scanResult = ScanDataBaseManager.GetMatchScanResult();
+                scanResult = await Task.Run(() =>ScanDataBaseManager.GetMatchScanResult());
                 scanResult = scanResult.Where(x => !string.IsNullOrEmpty(x.Location)).ToList();
+
+                reOrder = true;
+
+                toBePlay = scanResult;
             }
 
-            toBePlay = scanResult;
             List<ScanResult> actressPlay = new List<ScanResult>();
             List<ScanResult> categoryPlay = new List<ScanResult>();
             List<ScanResult> prefixPlay = new List<ScanResult>();
@@ -3366,9 +3377,9 @@ namespace CombineEpisode
                 toBePlay = toBePlay.Intersect(prefixPlay).OrderBy(x => x.AvId).ToList();
             }
 
-            if (string.IsNullOrEmpty(cbPlayActress.Text) && string.IsNullOrEmpty(cbPlayCategory.Text) && string.IsNullOrWhiteSpace(cbPlayPrefix.Text))
+            if (reOrder)
             {
-                toBePlay = toBePlay.OrderBy(i => new Guid()).ToList();
+                toBePlay = toBePlay.OrderBy(x => Guid.NewGuid()).ToList();
             }
 
             lbPlayStatus.Text = "一共有: " + toBePlay.Count + " 条";
@@ -3380,7 +3391,7 @@ namespace CombineEpisode
             await Task.Run(() => ShowPlayContent(pageContent));
         }
 
-        private void ShowPlayContent(List<ScanResult> list)
+        private async void ShowPlayContent(List<ScanResult> list)
         {
             foreach (var l in list)
             {
@@ -3392,23 +3403,50 @@ namespace CombineEpisode
                 }
             }
 
-            lvPlay.BeginUpdate();
+            Progress<ListViewItem> progress = new Progress<ListViewItem>();
+            progress.ProgressChanged += ReportProgress;
 
+            ShowPlayContent(progress, list);
+
+            //lvPlay.BeginUpdate();
+
+            //foreach (var l in list)
+            //{
+            //    if (l.FileSize > 0)
+            //    { 
+            //        ListViewItem lvi = new ListViewItem(FileSize.GetAutoSizeString(new FileInfo(l.AvFilePath).Length, 2) + " " + l.AvId + " " + l.AvName + " " + l.MatchAvId)
+            //        {
+            //            ImageIndex = ilPlay.Images.IndexOfKey(l.AvName),
+            //            Tag = l.AvFilePath
+            //        };
+
+            //        ListViewItemUpdate2(lvPlay, lvi);
+            //    }
+            //}
+
+            //lvPlay.EndUpdate();
+        }
+
+        private void ReportProgress(object sender, ListViewItem e)
+        {
+            lvPlay.Items.Add(e);
+        }
+
+        private void ShowPlayContent(IProgress<ListViewItem> progrss, List<ScanResult> list)
+        {
             foreach (var l in list)
             {
                 if (l.FileSize > 0)
-                { 
+                {
                     ListViewItem lvi = new ListViewItem(FileSize.GetAutoSizeString(new FileInfo(l.AvFilePath).Length, 2) + " " + l.AvId + " " + l.AvName + " " + l.MatchAvId)
                     {
                         ImageIndex = ilPlay.Images.IndexOfKey(l.AvName),
                         Tag = l.AvFilePath
                     };
 
-                    ListViewItemUpdate2(lvPlay, lvi);
+                    progrss.Report(lvi);
                 }
             }
-
-            lvPlay.EndUpdate();
         }
 
         private void txtPlaySkipClick(object sender, KeyPressEventArgs e)

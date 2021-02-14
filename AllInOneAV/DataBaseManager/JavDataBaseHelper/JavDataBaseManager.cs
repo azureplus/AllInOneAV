@@ -151,7 +151,7 @@ namespace DataBaseManager.JavDataBaseHelper
         {
             var sql = @"SELECT * FROM Publisher WHERE URL = @url";
 
-            return Query<Publisher>(ConnectionStrings.Jav, sql).Count > 0;
+            return Query<Publisher>(ConnectionStrings.Jav, sql, new { url }).Count > 0;
         }
 
         public static int InsertPublisher(Publisher entity)
@@ -199,7 +199,7 @@ namespace DataBaseManager.JavDataBaseHelper
         {
             var sql = @"SELECT JavBusCategory, JavLibCategory FROM JavBusCategoryMapping";
 
-            return SqlHelper.ExecuteDataset(ConnectionStrings.Jav, sql).Tables[0].ToDictionary<string, string>("JavBusCategory", "JavLibCategory");
+            return SqlHelper.ExecuteDataset(ConnectionStrings.Jav, CommandType.Text, sql).Tables[0].ToDictionary<string, string>("JavBusCategory", "JavLibCategory");
         }
 
         public static bool HasActressByName(string name)

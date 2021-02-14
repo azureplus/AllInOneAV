@@ -85,13 +85,11 @@ namespace ScanAllAndMatch
                 {
                     try
                     {
-                        //Console.WriteLine("保存 " + match.AvID);
                         ScanDataBaseManager.SaveMatch(match);
                     }
                     catch (Exception ee)
                     {
-                        //MessageBox.Show(match.Location + match.Name);
-                        //MessageBox.Show(ee.ToString());
+
                     }
                 }
             }

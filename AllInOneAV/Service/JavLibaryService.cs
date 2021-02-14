@@ -22,7 +22,6 @@ namespace Service
 {
     public class JavLibraryHelper
     {
-        private static LockModel lockModel = new LockModel();
         private static CookieContainer cc = null;
         private static readonly string ImgFolder = JavINIClass.IniReadValue("Jav", "imgFolder");
         private static readonly string Mode = JavINIClass.IniReadValue("Jav", "cookieMode");
@@ -679,7 +678,7 @@ namespace Service
         {
             AV av = new AV();
 
-            HtmlAgilityPack.HtmlDocument htmlDocument = new HtmlAgilityPack.HtmlDocument();
+            HtmlDocument htmlDocument = new HtmlDocument();
             htmlDocument.LoadHtml(html);
 
             var titlePath = "//h3[@class='post-title text']";
@@ -1075,6 +1074,22 @@ namespace Service
         public async static Task<List<MissingCheckModel>> GetAllRelatedJav(string table, string content)
         {
             return await Task.Run(() => DoAllRelatedJav(table, content));
+        }
+
+        public static AV GetAvFromUrl(string url)
+        {
+            AV ret = new AV();
+
+            GetJavCookie(false);
+
+            var htmlRes = JavCookieContanierHelper(url);
+
+            if (htmlRes.Success)
+            {
+                ret = GenerateAVModel(htmlRes.Content, url);
+            }
+
+            return ret;
         }
     }
 

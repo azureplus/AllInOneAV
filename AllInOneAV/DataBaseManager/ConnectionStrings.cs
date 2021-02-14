@@ -1,4 +1,6 @@
 ﻿
+using Utils;
+
 namespace DataBaseManager
 {
     public class ConnectionStrings
@@ -7,7 +9,7 @@ namespace DataBaseManager
         {
             get 
             {
-                return "Server=DESKTOP-G319371\\SQLEXPRESS;Database=AvManager;User=sa;password=19880118Qs123!";
+                return JavINIClass.IniReadValue("AvManager", "db");
             }
         }
 
@@ -15,7 +17,7 @@ namespace DataBaseManager
         {
             get
             {
-                return "Server=DESKTOP-G319371\\SQLEXPRESS;Database=ScanAllAv;User=sa;password=19880118Qs123!";
+                return JavINIClass.IniReadValue("Scan", "db");
             }
         }
 
@@ -23,7 +25,7 @@ namespace DataBaseManager
         {
             get
             {
-                return "Server=DESKTOP-G319371\\SQLEXPRESS;Database=JavLibraryDownload;User=sa;password=19880118Qs123!";
+                return JavINIClass.IniReadValue("Jav", "db");
             }
         }
 
@@ -31,15 +33,7 @@ namespace DataBaseManager
         {
             get
             {
-                return "Server=DESKTOP-G319371\\SQLEXPRESS;Database=Manga;User=sa;password=19880118Qs123!";
-            }
-        }
-
-        public static string Sis
-        {
-            get
-            {
-                return "Server=DESKTOP-G319371\\SQLEXPRESS;Database=AvManager;User=sa;password=19880118Qs123!";
+                return JavINIClass.IniReadValue("Manga", "db");
             }
         }
     }

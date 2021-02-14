@@ -9,8 +9,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>DataBaseManager</RootNamespace>
     <AssemblyName>DataBaseManager</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -31,6 +32,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Dapper, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Dapper.2.0.78\lib\net461\Dapper.dll</HintPath>
+    </Reference>
     <Reference Include="HtmlAgilityPack, Version=1.11.23.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
       <HintPath>..\packages\HtmlAgilityPack.1.11.23\lib\Net45\HtmlAgilityPack.dll</HintPath>
     </Reference>
@@ -48,18 +52,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AvManagerDataBaseManager\AvManagerDataBaseManager.cs" />
     <Compile Include="Common\AvModelHelper.cs" />
-    <Compile Include="FindDataBaseHelper\FindDataBaseManager.cs" />
+    <Compile Include="ConnectionStrings.cs" />
+    <Compile Include="DapperHelper.cs" />
     <Compile Include="JavDataBaseHelper\JavDataBaseManager.cs" />
     <Compile Include="Common\ModelConvertHelper.cs" />
     <Compile Include="Common\SQLHelper.cs" />
-    <Compile Include="LogHelper\JavLibraryLog.cs" />
-    <Compile Include="LogHelper\JavLoggerManager.cs" />
     <Compile Include="MangaDataBaseHelper\MangaDatabaseHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ScanDataBaseHelper\ScanDataBaseManager.cs" />
-    <Compile Include="SisDataBaseHelper\SisDataBaseManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Model\Model.csproj">

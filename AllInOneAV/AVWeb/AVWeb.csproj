@@ -149,7 +149,6 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\SwaggerConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="Controllers\AVApiController.cs" />
     <Compile Include="Controllers\ComicController.cs" />
     <Compile Include="Controllers\WebAvController.cs" />
     <Compile Include="Filter\Base.cs" />
@@ -196,9 +195,6 @@
     <Content Include="Views\WebAv\ShowChart.cshtml" />
     <Content Include="Views\WebAv\Setting.cshtml" />
     <Content Include="Views\WebAv\Catelog.cshtml" />
-    <Content Include="Views\WebAv\TestProcess.cshtml" />
-    <Content Include="Views\WebAv\TestSocket.cshtml" />
-    <Content Include="Views\WebAv\RunJob.cshtml" />
     <Content Include="Views\WebAv\RemoveSubFolder.cshtml" />
     <Content Include="Views\WebAv\RemoveSubFolderList.cshtml" />
     <Content Include="Views\WebAv\BatchRename.cshtml" />

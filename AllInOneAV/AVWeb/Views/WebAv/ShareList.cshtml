@@ -27,8 +27,8 @@
         <li class="list-group-item d-flex justify-content-between align-items-center">
             @dir.Name
             <span class="badge badge-primary badge-pill">共@(dir.GetFiles("*.*", SearchOption.AllDirectories).Length)个文件 总大小@(FileSize.GetAutoSizeString(dir.GetFiles("*.*", SearchOption.AllDirectories).Sum(x=>x.Length), 1))</span>
-            <span data-id="@dir.Name" data-url="@("http://www.cainqs.com:8087/webav/sharefile?name=" + dir.Name)" class="badge badge-info badge-pill qrBtn">二维码</span>
-            <a class="badge badge-success badge-pill qr" href="@("http://www.cainqs.com:8087/webav/sharefile?name=" + dir.Name)" data-id="@dir.Name" data-url="@("http://www.cainqs.com:8087/webav/sharefile?name=" + dir.Name)">详情</a>
+            <span data-id="@dir.Name" data-url="@("/webav/sharefile?name=" + dir.Name)" class="badge badge-info badge-pill qrBtn">二维码</span>
+            <a class="badge badge-success badge-pill qr" href="@("/webav/sharefile?name=" + dir.Name)" data-id="@dir.Name" data-url="@("/webav/sharefile?name=" + dir.Name)">详情</a>
             <div id="@dir.Name" style="display:none;position:absolute"></div>
         </li>
         }

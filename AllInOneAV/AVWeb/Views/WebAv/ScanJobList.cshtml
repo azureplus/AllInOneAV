@@ -19,7 +19,7 @@
             @s.ScanJobName
             <span class="badge badge-info badge-pill">@(s.IsFinish == 1 ? "已完成" : "进行中" + " " + s.CurrentItemCount + " / " + s.TotalItem)</span>
             <span class="badge badge-primary badge-pill">@s.EndTime.ToString("yyyy-MM-dd HH:mm:ss")</span>
-            <a href="@("http://www.cainqs.com:8087/webav/ShowMag?type=0&jobid=" + s.ScanJobId)" target="_blank" class="btn btn-info">详情</a>
+            <a href="@("/webav/ShowMag?type=0&jobid=" + s.ScanJobId)" target="_blank" class="btn btn-info">详情</a>
             <button type="button" class="btn btn-danger" data-jobid="@s.ScanJobId">删除</button>
         </li>
         }

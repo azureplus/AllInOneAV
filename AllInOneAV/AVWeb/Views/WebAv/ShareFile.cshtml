@@ -43,7 +43,7 @@
 
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="http://www.cainqs.com:8087/webav/sharelist">分享列表</a></li>
+            <li class="breadcrumb-item"><a href="/webav/sharelist">分享列表</a></li>
             @if (trace.Length > 1)
             {
                 for (int i = 0; i < trace.Length - 1; i++)
@@ -55,7 +55,7 @@
                         name += trace[j] + "\\";
                     }
 
-                    <li class="breadcrumb-item"><a href="@("http://www.cainqs.com:8087/webav/sharefile?name=" + name.Substring(0, name.Length - 1))">@trace[i]</a></li>
+                    <li class="breadcrumb-item"><a href="@("/webav/sharefile?name=" + name.Substring(0, name.Length - 1))">@trace[i]</a></li>
                 }
 
                 <li class="breadcrumb-item active" aria-current="page">@trace[trace.Length - 1]</li>
@@ -84,7 +84,7 @@
         {
             <li class="list-group-item d-flex justify-content-between align-items-center">
                 @m.Name
-                <a class="badge badge-primary badge-pill" download="@(m.Name)" href="@("http://www.cainqs.com:8087/share/" + current.Replace("\\","/") + "/" + m.Name)">下载 大小@(FileSize.GetAutoSizeString(m.Length, 1))</a>
+                <a class="badge badge-primary badge-pill" download="@(m.Name)" href="@("/share/" + current.Replace("\\","/") + "/" + m.Name)">下载 大小@(FileSize.GetAutoSizeString(m.Length, 1))</a>
             </li>
         }
     </ul>
@@ -106,7 +106,7 @@
         {
             <li class="list-group-item d-flex justify-content-between align-items-center">
                 @d.Name
-                <a class="badge badge-primary badge-pill" href="@("http://www.cainqs.com:8087/webav/sharefile?name=" + current + "\\" + HttpUtility.UrlEncode(d.Name))">进入</a>
+                <a class="badge badge-primary badge-pill" href="@("/webav/sharefile?name=" + current + "\\" + HttpUtility.UrlEncode(d.Name))">进入</a>
             </li>
         }
     </ul>

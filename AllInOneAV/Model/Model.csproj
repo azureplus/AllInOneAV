@@ -121,6 +121,7 @@
     <Compile Include="WebModel\MangaSourceVM.cs" />
     <Compile Include="WebModel\RemoveSubModel.cs" />
     <Compile Include="WebModel\ShowMagType.cs" />
+    <Compile Include="WebModel\SystemTreeVM.cs" />
     <Compile Include="WebModel\VMResult.cs" />
     <Compile Include="WebModel\WebViewLog.cs" />
   </ItemGroup>

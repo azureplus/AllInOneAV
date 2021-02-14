@@ -4,6 +4,7 @@ using HtmlAgilityPack;
 using Microsoft.Win32.TaskScheduler;
 using Model.JavModels;
 using Model.ScanModels;
+using Model.WebModel;
 using Newtonsoft.Json;
 using Service;
 using System;
@@ -20,7 +21,7 @@ namespace NewUnitTest
     {
         static void Main(string[] args)
         {
-            CheckAvatorMatch();
+            var ret = GetSystemTreeVM();
 
             Console.ReadKey();
         }
@@ -554,6 +555,77 @@ namespace NewUnitTest
                 {
                     contiune = false;
                 }
+            }
+        }
+
+        public static SystemTreeVM GetSystemTreeVM(bool excludeFiles = false, bool exculdeCDrive = true)
+        {
+            SystemTreeVM ret = new SystemTreeVM
+            {
+                text = "System",
+                selectable = true,
+                icon = "fa fa-terminal"
+            };
+
+            List<SystemTreeVM> subs = new List<SystemTreeVM>();
+            ret.nodes = subs;
+
+            var drives = Environment.GetLogicalDrives();
+
+            if (exculdeCDrive)
+            {
+                drives = drives.Skip(1).ToArray();
+            }
+
+            foreach (var d in drives)
+            {
+                SystemTreeVM sub = new SystemTreeVM();
+                ret.nodes.Add(sub);
+ 
+                GetSystemTreeRecursively(sub, d);
+            }
+
+            return ret;
+        }
+
+        public static void GetSystemTreeRecursively(SystemTreeVM sub, string root)
+        {
+            if (string.IsNullOrEmpty(root))
+            {
+                return;
+            }
+
+            List<SystemTreeVM> subs = new List<SystemTreeVM>();
+            sub.nodes = subs;
+
+            var folders = new DirectoryInfo(root).GetDirectories().Where(x => (x.Attributes & FileAttributes.System) == 0);
+            var files = Directory.GetFiles(root);
+
+            foreach (var fo in folders)
+            {
+                var tempNode = new SystemTreeVM()
+                {
+                    text = fo.Name,
+                    selectable = true,
+                    icon = "fa fa-folder",
+                    selectedIcon = "fa fa-folder-open"
+                };
+
+                sub.nodes.Add(tempNode);
+
+                GetSystemTreeRecursively(tempNode, fo.FullName);
+            }
+
+            foreach (var fi in files)
+            {
+                SystemTreeVM treeNode = new SystemTreeVM
+                {
+                    text = fi,
+                    selectable = true,
+                    icon = "fa fa-file",
+                };
+
+                sub.nodes.Add(treeNode);
             }
         }
     }

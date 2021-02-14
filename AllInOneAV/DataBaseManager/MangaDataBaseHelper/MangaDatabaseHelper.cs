@@ -12,29 +12,20 @@ using Utils;
 
 namespace DataBaseManager.MangaDataBaseHelper
 {
-    public class MangaDatabaseHelper 
+    public class MangaDatabaseHelper : DapperHelper
     {
-        private static string con;
-        private static SqlConnection mycon;
-
-        static MangaDatabaseHelper()
-        {
-            con = string.Format("Server={0};Database={1};User=sa;password=19880118Qs123!", JavINIClass.IniReadValue("Manga", "server"), JavINIClass.IniReadValue("Manga", "db"));
-            mycon = new SqlConnection(con);
-        }
-
         public static int InsertMangaCategory(MangaCategory entity)
         {
-            var sql = string.Format("INSERT INTO MangaCategory (SourceType, RootCategory, Category, Url) VALUES ({0}, '{1}', '{2}', '{3}' )", (int)entity.SourceType, entity.RootCategory, entity.Category, entity.Url );
+            var sql = "INSERT INTO MangaCategory (SourceType, RootCategory, Category, Url) VALUES (@SourceType, @RootCategory, @Category, @Url )";
 
-            return SqlHelper.ExecuteNonQuery(con, CommandType.Text, sql);
+            return Execute(ConnectionStrings.Manga, sql, entity);
         }
 
         public static List<MangaCategory> GetMangaCategoryByType(MangaCategorySourceType type)
         {
-            var sql = string.Format("SELECT RootCategory, Category, Url FROM MangaCategory WHERE SourceType = {0}", (int)type);
+            var sql = "SELECT RootCategory, Category, Url FROM MangaCategory WHERE SourceType = @type";
 
-            return SqlHelper.ExecuteDataTable(con, CommandType.Text, sql).ToList<MangaCategory>();
+            return Query<MangaCategory>(ConnectionStrings.Manga, sql, new { type });
         }
     }
 }

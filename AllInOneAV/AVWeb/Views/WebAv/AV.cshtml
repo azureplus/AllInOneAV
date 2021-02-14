@@ -40,14 +40,14 @@
                             演员
                             @foreach (var ac in av.Actress.Split(','))
                             {
-                                <a class="badge badge-primary badge-pill" href="@("http://www.cainqs.com:8087/webav/getav?searchType=actress&search=" + ac)">@ac</a>
+                                <a class="badge badge-primary badge-pill" href="@("/webav/getav?searchType=actress&search=" + ac)">@ac</a>
                             }
                         </li>
                         <li class="list-group-item d-flex justify-content-between align-items-center" style="font-size:12px">
                             类型
                             @foreach (var ca in av.Category.Split(','))
                             {
-                                <a class="badge badge-primary badge-pill" href="@("http://www.cainqs.com:8087/webav/getav?searchType=category&search=" + ca)">@ca</a>
+                                <a class="badge badge-primary badge-pill" href="@("/webav/getav?searchType=category&search=" + ca)">@ca</a>
                             }
                         </li>
                         <li class="list-group-item d-flex justify-content-between align-items-center" style="font-size:12px">
@@ -78,7 +78,7 @@
 
     @if (!string.IsNullOrEmpty(matchMap.AvFilePath) && matchMap.FileSize > 0)
     {
-        <button type="button" class="btn btn-success" data-url="http://www.cainqs.com:8087/webav/playav?filePath=@(matchMap.AvFilePath) ">播放 @FileSize.GetAutoSizeString(matchMap.FileSize, 1)</button>
+        <button type="button" class="btn btn-success" data-url="/webav/playav?filePath=@(matchMap.AvFilePath) ">播放 @FileSize.GetAutoSizeString(matchMap.FileSize, 1)</button>
     }
     else
     {

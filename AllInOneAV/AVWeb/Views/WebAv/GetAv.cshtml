@@ -52,7 +52,7 @@
                             <img src="@av.PicUrl" class="card-img-top" alt="">
                             <div class="card-body">
                                 <h6 class="card-title">@av.AvId</h6>
-                                <a class="card-text" style="font-size:12px" href="@("http://www.cainqs.com:8087/webav/av?avid=" + av.MatchAvId)">@av.AvName</a>
+                                <a class="card-text" style="font-size:12px" href="@("/webav/av?avid=" + av.MatchAvId)">@av.AvName</a>
                                 @if (av.FileSize > 0)
                                 {
                                     <p class="card-text" style="font-size:12px">@(FileSize.GetAutoSizeString(av.FileSize, 1))</p>
@@ -63,13 +63,13 @@
                                 <li class="list-group-item" style="font-size:12px">
                                     @foreach (var ac in av.ActressList)
                                     {
-                                        <a class="badge badge-success badge-pill" href="@("http://www.cainqs.com:8087/webav/getav?search=" + ac)">@ac</a>
+                                        <a class="badge badge-success badge-pill" href="@("/webav/getav?search=" + ac)">@ac</a>
                                     }
                                 </li>
                                 <li class="list-group-item" style="font-size:12px">
                                     @foreach (var ca in av.CategoryList.Take(5))
                                     {
-                                        <a class="badge badge-info badge-pill" href="@("http://www.cainqs.com:8087/webav/getav?search=" + ca)">@ca</a>
+                                        <a class="badge badge-info badge-pill" href="@("/webav/getav?search=" + ca)">@ca</a>
                                     }
                                 </li>
                             </ul>
@@ -86,7 +86,7 @@
             {
                 if (i != current)
                 {
-                    <li class="page-item"><a class="page-link" href="@("http://www.cainqs.com:8087/webav/getav?search=" + search + "&page=" + i + "&pagesize=" + size)">@i</a></li>
+                    <li class="page-item"><a class="page-link" href="@("/webav/getav?search=" + search + "&page=" + i + "&pagesize=" + size)">@i</a></li>
                 }
                 else
                 { 
@@ -126,7 +126,7 @@
             if (value != "") {
                 var param = "search=" + value;
 
-                window.location.href = "http://www.cainqs.com:8087/webav/getav?" + param;
+                window.location.href = "/webav/getav?" + param;
             }
 
             return "";

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -24,6 +25,13 @@ namespace Model.ScanModels
         public int ChineseCount { get; set; }
         public string Extension { get; set; }
         public Dictionary<string, int> ExtensionModel { get; set; }
+        public string ExtensionJson
+        {
+            get 
+            {
+                return JsonConvert.SerializeObject(this.Extension);
+            }
+        }
     }
 
     public class ReportItem

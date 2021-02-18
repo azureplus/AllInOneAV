@@ -246,7 +246,6 @@
             this.cbPlayCategory = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
             this.cbPlayActress = new System.Windows.Forms.ComboBox();
-            this.tabPage17 = new System.Windows.Forms.TabPage();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -348,9 +347,8 @@
             this.panel1.Controls.Add(this.panel3);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(2064, 1060);
+            this.panel1.Size = new System.Drawing.Size(1049, 606);
             this.panel1.TabIndex = 0;
             // 
             // panel3
@@ -358,9 +356,8 @@
             this.panel3.Controls.Add(this.panel5);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel3.Location = new System.Drawing.Point(0, 0);
-            this.panel3.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(2064, 1060);
+            this.panel3.Size = new System.Drawing.Size(1049, 606);
             this.panel3.TabIndex = 1;
             // 
             // panel5
@@ -368,9 +365,8 @@
             this.panel5.Controls.Add(this.tabControl1);
             this.panel5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel5.Location = new System.Drawing.Point(0, 0);
-            this.panel5.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(2064, 1060);
+            this.panel5.Size = new System.Drawing.Size(1049, 606);
             this.panel5.TabIndex = 2;
             // 
             // tabControl1
@@ -391,13 +387,12 @@
             this.tabControl1.Controls.Add(this.tabPage15);
             this.tabControl1.Controls.Add(this.tabPage12);
             this.tabControl1.Controls.Add(this.tabPage16);
-            this.tabControl1.Controls.Add(this.tabPage17);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
-            this.tabControl1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabControl1.Margin = new System.Windows.Forms.Padding(2);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(2064, 1060);
+            this.tabControl1.Size = new System.Drawing.Size(1049, 606);
             this.tabControl1.TabIndex = 6;
             this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
             // 
@@ -406,11 +401,11 @@
             this.tabPage2.Controls.Add(this.panel9);
             this.tabPage2.Controls.Add(this.panel8);
             this.tabPage2.Controls.Add(this.panel7);
-            this.tabPage2.Location = new System.Drawing.Point(4, 31);
-            this.tabPage2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Margin = new System.Windows.Forms.Padding(2);
             this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.tabPage2.Size = new System.Drawing.Size(2056, 1025);
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(2);
+            this.tabPage2.Size = new System.Drawing.Size(1041, 580);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "生成合并任务";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -419,19 +414,20 @@
             // 
             this.panel9.Controls.Add(this.treeView1);
             this.panel9.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel9.Location = new System.Drawing.Point(4, 76);
-            this.panel9.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel9.Location = new System.Drawing.Point(2, 43);
+            this.panel9.Margin = new System.Windows.Forms.Padding(2);
             this.panel9.Name = "panel9";
-            this.panel9.Size = new System.Drawing.Size(2048, 857);
+            this.panel9.Size = new System.Drawing.Size(1037, 485);
             this.panel9.TabIndex = 2;
             // 
             // treeView1
             // 
             this.treeView1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.treeView1.FullRowSelect = true;
             this.treeView1.Location = new System.Drawing.Point(0, 0);
-            this.treeView1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.treeView1.Margin = new System.Windows.Forms.Padding(2);
             this.treeView1.Name = "treeView1";
-            this.treeView1.Size = new System.Drawing.Size(2048, 857);
+            this.treeView1.Size = new System.Drawing.Size(1037, 485);
             this.treeView1.TabIndex = 0;
             this.treeView1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.treeView1_MouseClick);
             // 
@@ -441,19 +437,19 @@
             this.panel8.Controls.Add(this.pb2);
             this.panel8.Controls.Add(this.btnGenerate);
             this.panel8.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel8.Location = new System.Drawing.Point(4, 933);
-            this.panel8.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel8.Location = new System.Drawing.Point(2, 528);
+            this.panel8.Margin = new System.Windows.Forms.Padding(2);
             this.panel8.Name = "panel8";
-            this.panel8.Size = new System.Drawing.Size(2048, 88);
+            this.panel8.Size = new System.Drawing.Size(1037, 50);
             this.panel8.TabIndex = 1;
             // 
             // btnDelete
             // 
             this.btnDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnDelete.Location = new System.Drawing.Point(1751, 23);
-            this.btnDelete.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnDelete.Location = new System.Drawing.Point(875, 13);
+            this.btnDelete.Margin = new System.Windows.Forms.Padding(2);
             this.btnDelete.Name = "btnDelete";
-            this.btnDelete.Size = new System.Drawing.Size(130, 46);
+            this.btnDelete.Size = new System.Drawing.Size(71, 26);
             this.btnDelete.TabIndex = 3;
             this.btnDelete.Text = "删除";
             this.btnDelete.UseVisualStyleBackColor = true;
@@ -463,19 +459,19 @@
             // 
             this.pb2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.pb2.Location = new System.Drawing.Point(17, 23);
-            this.pb2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pb2.Location = new System.Drawing.Point(9, 13);
+            this.pb2.Margin = new System.Windows.Forms.Padding(2);
             this.pb2.Name = "pb2";
-            this.pb2.Size = new System.Drawing.Size(1718, 46);
+            this.pb2.Size = new System.Drawing.Size(857, 26);
             this.pb2.TabIndex = 3;
             // 
             // btnGenerate
             // 
             this.btnGenerate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnGenerate.Location = new System.Drawing.Point(1894, 23);
-            this.btnGenerate.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnGenerate.Location = new System.Drawing.Point(953, 13);
+            this.btnGenerate.Margin = new System.Windows.Forms.Padding(2);
             this.btnGenerate.Name = "btnGenerate";
-            this.btnGenerate.Size = new System.Drawing.Size(130, 46);
+            this.btnGenerate.Size = new System.Drawing.Size(71, 26);
             this.btnGenerate.TabIndex = 2;
             this.btnGenerate.Text = "生成";
             this.btnGenerate.UseVisualStyleBackColor = true;
@@ -487,20 +483,19 @@
             this.panel7.Controls.Add(this.btnLook);
             this.panel7.Controls.Add(this.txtLook);
             this.panel7.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel7.Location = new System.Drawing.Point(4, 4);
-            this.panel7.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel7.Location = new System.Drawing.Point(2, 2);
+            this.panel7.Margin = new System.Windows.Forms.Padding(2);
             this.panel7.Name = "panel7";
-            this.panel7.Size = new System.Drawing.Size(2048, 72);
+            this.panel7.Size = new System.Drawing.Size(1037, 41);
             this.panel7.TabIndex = 0;
             // 
             // cbThums
             // 
             this.cbThums.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cbThums.AutoSize = true;
-            this.cbThums.Location = new System.Drawing.Point(1804, 31);
-            this.cbThums.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
+            this.cbThums.Location = new System.Drawing.Point(898, 16);
             this.cbThums.Name = "cbThums";
-            this.cbThums.Size = new System.Drawing.Size(78, 25);
+            this.cbThums.Size = new System.Drawing.Size(48, 16);
             this.cbThums.TabIndex = 2;
             this.cbThums.Text = "截图";
             this.cbThums.UseVisualStyleBackColor = true;
@@ -508,10 +503,10 @@
             // btnLook
             // 
             this.btnLook.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnLook.Location = new System.Drawing.Point(1894, 9);
-            this.btnLook.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnLook.Location = new System.Drawing.Point(953, 5);
+            this.btnLook.Margin = new System.Windows.Forms.Padding(2);
             this.btnLook.Name = "btnLook";
-            this.btnLook.Size = new System.Drawing.Size(130, 46);
+            this.btnLook.Size = new System.Drawing.Size(71, 26);
             this.btnLook.TabIndex = 1;
             this.btnLook.Text = "浏览";
             this.btnLook.UseVisualStyleBackColor = true;
@@ -521,20 +516,20 @@
             // 
             this.txtLook.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtLook.Location = new System.Drawing.Point(17, 18);
-            this.txtLook.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtLook.Location = new System.Drawing.Point(9, 10);
+            this.txtLook.Margin = new System.Windows.Forms.Padding(2);
             this.txtLook.Name = "txtLook";
-            this.txtLook.Size = new System.Drawing.Size(1715, 31);
+            this.txtLook.Size = new System.Drawing.Size(857, 21);
             this.txtLook.TabIndex = 0;
             // 
             // tabPage3
             // 
             this.tabPage3.Controls.Add(this.panel11);
             this.tabPage3.Controls.Add(this.panel10);
-            this.tabPage3.Location = new System.Drawing.Point(4, 31);
-            this.tabPage3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPage3.Location = new System.Drawing.Point(4, 22);
+            this.tabPage3.Margin = new System.Windows.Forms.Padding(2);
             this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Size = new System.Drawing.Size(2056, 1025);
+            this.tabPage3.Size = new System.Drawing.Size(1041, 580);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "自动合并";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -543,19 +538,19 @@
             // 
             this.panel11.Controls.Add(this.treeView2);
             this.panel11.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel11.Location = new System.Drawing.Point(0, 126);
-            this.panel11.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel11.Location = new System.Drawing.Point(0, 72);
+            this.panel11.Margin = new System.Windows.Forms.Padding(2);
             this.panel11.Name = "panel11";
-            this.panel11.Size = new System.Drawing.Size(2056, 899);
+            this.panel11.Size = new System.Drawing.Size(1041, 508);
             this.panel11.TabIndex = 1;
             // 
             // treeView2
             // 
             this.treeView2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.treeView2.Location = new System.Drawing.Point(0, 0);
-            this.treeView2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.treeView2.Margin = new System.Windows.Forms.Padding(2);
             this.treeView2.Name = "treeView2";
-            this.treeView2.Size = new System.Drawing.Size(2056, 899);
+            this.treeView2.Size = new System.Drawing.Size(1041, 508);
             this.treeView2.TabIndex = 0;
             // 
             // panel10
@@ -568,18 +563,18 @@
             this.panel10.Controls.Add(this.btnPreview);
             this.panel10.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel10.Location = new System.Drawing.Point(0, 0);
-            this.panel10.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel10.Margin = new System.Windows.Forms.Padding(2);
             this.panel10.Name = "panel10";
-            this.panel10.Size = new System.Drawing.Size(2056, 126);
+            this.panel10.Size = new System.Drawing.Size(1041, 72);
             this.panel10.TabIndex = 0;
             // 
             // btnAutoSave
             // 
             this.btnAutoSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnAutoSave.Location = new System.Drawing.Point(1946, 75);
-            this.btnAutoSave.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnAutoSave.Location = new System.Drawing.Point(981, 43);
+            this.btnAutoSave.Margin = new System.Windows.Forms.Padding(2);
             this.btnAutoSave.Name = "btnAutoSave";
-            this.btnAutoSave.Size = new System.Drawing.Size(103, 38);
+            this.btnAutoSave.Size = new System.Drawing.Size(56, 22);
             this.btnAutoSave.TabIndex = 5;
             this.btnAutoSave.Text = "保存";
             this.btnAutoSave.UseVisualStyleBackColor = true;
@@ -589,39 +584,39 @@
             // 
             this.txtAutoSave.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtAutoSave.Location = new System.Drawing.Point(24, 80);
-            this.txtAutoSave.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtAutoSave.Location = new System.Drawing.Point(13, 46);
+            this.txtAutoSave.Margin = new System.Windows.Forms.Padding(2);
             this.txtAutoSave.Name = "txtAutoSave";
             this.txtAutoSave.ReadOnly = true;
-            this.txtAutoSave.Size = new System.Drawing.Size(1897, 31);
+            this.txtAutoSave.Size = new System.Drawing.Size(957, 21);
             this.txtAutoSave.TabIndex = 4;
             // 
             // pbTotal
             // 
             this.pbTotal.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.pbTotal.Location = new System.Drawing.Point(299, 44);
-            this.pbTotal.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pbTotal.Location = new System.Drawing.Point(163, 25);
+            this.pbTotal.Margin = new System.Windows.Forms.Padding(2);
             this.pbTotal.Name = "pbTotal";
-            this.pbTotal.Size = new System.Drawing.Size(1748, 23);
+            this.pbTotal.Size = new System.Drawing.Size(873, 13);
             this.pbTotal.TabIndex = 3;
             // 
             // pbCurrent
             // 
             this.pbCurrent.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.pbCurrent.Location = new System.Drawing.Point(299, 16);
-            this.pbCurrent.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pbCurrent.Location = new System.Drawing.Point(163, 9);
+            this.pbCurrent.Margin = new System.Windows.Forms.Padding(2);
             this.pbCurrent.Name = "pbCurrent";
-            this.pbCurrent.Size = new System.Drawing.Size(1748, 23);
+            this.pbCurrent.Size = new System.Drawing.Size(873, 13);
             this.pbCurrent.TabIndex = 2;
             // 
             // btnAuto
             // 
-            this.btnAuto.Location = new System.Drawing.Point(160, 16);
-            this.btnAuto.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnAuto.Location = new System.Drawing.Point(87, 9);
+            this.btnAuto.Margin = new System.Windows.Forms.Padding(2);
             this.btnAuto.Name = "btnAuto";
-            this.btnAuto.Size = new System.Drawing.Size(110, 51);
+            this.btnAuto.Size = new System.Drawing.Size(60, 29);
             this.btnAuto.TabIndex = 1;
             this.btnAuto.Text = "开始";
             this.btnAuto.UseVisualStyleBackColor = true;
@@ -629,10 +624,10 @@
             // 
             // btnPreview
             // 
-            this.btnPreview.Location = new System.Drawing.Point(24, 16);
-            this.btnPreview.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnPreview.Location = new System.Drawing.Point(13, 9);
+            this.btnPreview.Margin = new System.Windows.Forms.Padding(2);
             this.btnPreview.Name = "btnPreview";
-            this.btnPreview.Size = new System.Drawing.Size(110, 51);
+            this.btnPreview.Size = new System.Drawing.Size(60, 29);
             this.btnPreview.TabIndex = 0;
             this.btnPreview.Text = "预览";
             this.btnPreview.UseVisualStyleBackColor = true;
@@ -641,10 +636,10 @@
             // tabPage4
             // 
             this.tabPage4.Controls.Add(this.panel12);
-            this.tabPage4.Location = new System.Drawing.Point(4, 31);
-            this.tabPage4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPage4.Location = new System.Drawing.Point(4, 22);
+            this.tabPage4.Margin = new System.Windows.Forms.Padding(2);
             this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Size = new System.Drawing.Size(2056, 1025);
+            this.tabPage4.Size = new System.Drawing.Size(1041, 580);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "批量转码";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -656,19 +651,19 @@
             this.panel12.Controls.Add(this.panel13);
             this.panel12.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel12.Location = new System.Drawing.Point(0, 0);
-            this.panel12.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel12.Margin = new System.Windows.Forms.Padding(2);
             this.panel12.Name = "panel12";
-            this.panel12.Size = new System.Drawing.Size(2056, 1025);
+            this.panel12.Size = new System.Drawing.Size(1041, 580);
             this.panel12.TabIndex = 0;
             // 
             // panel15
             // 
             this.panel15.Controls.Add(this.listView2);
             this.panel15.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel15.Location = new System.Drawing.Point(0, 79);
-            this.panel15.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel15.Location = new System.Drawing.Point(0, 45);
+            this.panel15.Margin = new System.Windows.Forms.Padding(2);
             this.panel15.Name = "panel15";
-            this.panel15.Size = new System.Drawing.Size(2056, 815);
+            this.panel15.Size = new System.Drawing.Size(1041, 460);
             this.panel15.TabIndex = 3;
             // 
             // listView2
@@ -682,9 +677,8 @@
             this.listView2.FullRowSelect = true;
             this.listView2.HideSelection = false;
             this.listView2.Location = new System.Drawing.Point(0, 0);
-            this.listView2.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.listView2.Name = "listView2";
-            this.listView2.Size = new System.Drawing.Size(2056, 815);
+            this.listView2.Size = new System.Drawing.Size(1041, 460);
             this.listView2.TabIndex = 1;
             this.listView2.UseCompatibleStateImageBehavior = false;
             this.listView2.View = System.Windows.Forms.View.Details;
@@ -713,19 +707,19 @@
             this.panel14.Controls.Add(this.txtConvertSave);
             this.panel14.Controls.Add(this.cbDeleteConvert);
             this.panel14.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel14.Location = new System.Drawing.Point(0, 894);
-            this.panel14.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel14.Location = new System.Drawing.Point(0, 505);
+            this.panel14.Margin = new System.Windows.Forms.Padding(2);
             this.panel14.Name = "panel14";
-            this.panel14.Size = new System.Drawing.Size(2056, 131);
+            this.panel14.Size = new System.Drawing.Size(1041, 75);
             this.panel14.TabIndex = 2;
             // 
             // btStartConvert
             // 
             this.btStartConvert.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btStartConvert.Location = new System.Drawing.Point(1913, 77);
-            this.btStartConvert.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btStartConvert.Location = new System.Drawing.Point(963, 44);
+            this.btStartConvert.Margin = new System.Windows.Forms.Padding(2);
             this.btStartConvert.Name = "btStartConvert";
-            this.btStartConvert.Size = new System.Drawing.Size(119, 47);
+            this.btStartConvert.Size = new System.Drawing.Size(65, 27);
             this.btStartConvert.TabIndex = 5;
             this.btStartConvert.Text = "开始";
             this.btStartConvert.UseVisualStyleBackColor = true;
@@ -734,29 +728,29 @@
             // pbConvertCurrent
             // 
             this.pbConvertCurrent.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.pbConvertCurrent.Location = new System.Drawing.Point(1198, 80);
-            this.pbConvertCurrent.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pbConvertCurrent.Location = new System.Drawing.Point(573, 46);
+            this.pbConvertCurrent.Margin = new System.Windows.Forms.Padding(2);
             this.pbConvertCurrent.Name = "pbConvertCurrent";
-            this.pbConvertCurrent.Size = new System.Drawing.Size(697, 38);
+            this.pbConvertCurrent.Size = new System.Drawing.Size(380, 22);
             this.pbConvertCurrent.TabIndex = 4;
             // 
             // pbConvertTotal
             // 
             this.pbConvertTotal.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.pbConvertTotal.Location = new System.Drawing.Point(9, 80);
-            this.pbConvertTotal.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pbConvertTotal.Location = new System.Drawing.Point(5, 46);
+            this.pbConvertTotal.Margin = new System.Windows.Forms.Padding(2);
             this.pbConvertTotal.Name = "pbConvertTotal";
-            this.pbConvertTotal.Size = new System.Drawing.Size(1344, 38);
+            this.pbConvertTotal.Size = new System.Drawing.Size(653, 22);
             this.pbConvertTotal.TabIndex = 3;
             // 
             // btnConvertStart
             // 
             this.btnConvertStart.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnConvertStart.Location = new System.Drawing.Point(1913, 9);
-            this.btnConvertStart.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnConvertStart.Location = new System.Drawing.Point(963, 5);
+            this.btnConvertStart.Margin = new System.Windows.Forms.Padding(2);
             this.btnConvertStart.Name = "btnConvertStart";
-            this.btnConvertStart.Size = new System.Drawing.Size(119, 47);
+            this.btnConvertStart.Size = new System.Drawing.Size(65, 27);
             this.btnConvertStart.TabIndex = 2;
             this.btnConvertStart.Text = "保存";
             this.btnConvertStart.UseVisualStyleBackColor = true;
@@ -766,19 +760,19 @@
             // 
             this.txtConvertSave.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtConvertSave.Location = new System.Drawing.Point(7, 40);
-            this.txtConvertSave.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtConvertSave.Location = new System.Drawing.Point(4, 23);
+            this.txtConvertSave.Margin = new System.Windows.Forms.Padding(2);
             this.txtConvertSave.Name = "txtConvertSave";
-            this.txtConvertSave.Size = new System.Drawing.Size(1884, 31);
+            this.txtConvertSave.Size = new System.Drawing.Size(949, 21);
             this.txtConvertSave.TabIndex = 1;
             // 
             // cbDeleteConvert
             // 
             this.cbDeleteConvert.AutoSize = true;
-            this.cbDeleteConvert.Location = new System.Drawing.Point(9, 9);
-            this.cbDeleteConvert.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cbDeleteConvert.Location = new System.Drawing.Point(5, 5);
+            this.cbDeleteConvert.Margin = new System.Windows.Forms.Padding(2);
             this.cbDeleteConvert.Name = "cbDeleteConvert";
-            this.cbDeleteConvert.Size = new System.Drawing.Size(141, 25);
+            this.cbDeleteConvert.Size = new System.Drawing.Size(84, 16);
             this.cbDeleteConvert.TabIndex = 0;
             this.cbDeleteConvert.Text = "删除原文件";
             this.cbDeleteConvert.UseVisualStyleBackColor = true;
@@ -789,18 +783,18 @@
             this.panel13.Controls.Add(this.txtConvertImport);
             this.panel13.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel13.Location = new System.Drawing.Point(0, 0);
-            this.panel13.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel13.Margin = new System.Windows.Forms.Padding(2);
             this.panel13.Name = "panel13";
-            this.panel13.Size = new System.Drawing.Size(2056, 79);
+            this.panel13.Size = new System.Drawing.Size(1041, 45);
             this.panel13.TabIndex = 1;
             // 
             // btnConvertImport
             // 
             this.btnConvertImport.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnConvertImport.Location = new System.Drawing.Point(1913, 12);
-            this.btnConvertImport.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnConvertImport.Location = new System.Drawing.Point(963, 7);
+            this.btnConvertImport.Margin = new System.Windows.Forms.Padding(2);
             this.btnConvertImport.Name = "btnConvertImport";
-            this.btnConvertImport.Size = new System.Drawing.Size(119, 47);
+            this.btnConvertImport.Size = new System.Drawing.Size(65, 27);
             this.btnConvertImport.TabIndex = 1;
             this.btnConvertImport.Text = "导入";
             this.btnConvertImport.UseVisualStyleBackColor = true;
@@ -810,19 +804,18 @@
             // 
             this.txtConvertImport.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtConvertImport.Location = new System.Drawing.Point(7, 23);
-            this.txtConvertImport.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtConvertImport.Location = new System.Drawing.Point(4, 13);
+            this.txtConvertImport.Margin = new System.Windows.Forms.Padding(2);
             this.txtConvertImport.Name = "txtConvertImport";
-            this.txtConvertImport.Size = new System.Drawing.Size(1884, 31);
+            this.txtConvertImport.Size = new System.Drawing.Size(949, 21);
             this.txtConvertImport.TabIndex = 0;
             // 
             // tabPage6
             // 
             this.tabPage6.Controls.Add(this.panel19);
-            this.tabPage6.Location = new System.Drawing.Point(4, 31);
-            this.tabPage6.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
+            this.tabPage6.Location = new System.Drawing.Point(4, 22);
             this.tabPage6.Name = "tabPage6";
-            this.tabPage6.Size = new System.Drawing.Size(2056, 1025);
+            this.tabPage6.Size = new System.Drawing.Size(1041, 580);
             this.tabPage6.TabIndex = 5;
             this.tabPage6.Text = "去重";
             this.tabPage6.UseVisualStyleBackColor = true;
@@ -833,19 +826,17 @@
             this.panel19.Controls.Add(this.panel20);
             this.panel19.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel19.Location = new System.Drawing.Point(0, 0);
-            this.panel19.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.panel19.Name = "panel19";
-            this.panel19.Size = new System.Drawing.Size(2056, 1025);
+            this.panel19.Size = new System.Drawing.Size(1041, 580);
             this.panel19.TabIndex = 0;
             // 
             // panel21
             // 
             this.panel21.Controls.Add(this.treeView4);
             this.panel21.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel21.Location = new System.Drawing.Point(0, 79);
-            this.panel21.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
+            this.panel21.Location = new System.Drawing.Point(0, 45);
             this.panel21.Name = "panel21";
-            this.panel21.Size = new System.Drawing.Size(2056, 946);
+            this.panel21.Size = new System.Drawing.Size(1041, 535);
             this.panel21.TabIndex = 2;
             // 
             // treeView4
@@ -854,9 +845,8 @@
             this.treeView4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.treeView4.FullRowSelect = true;
             this.treeView4.Location = new System.Drawing.Point(0, 0);
-            this.treeView4.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.treeView4.Name = "treeView4";
-            this.treeView4.Size = new System.Drawing.Size(2056, 946);
+            this.treeView4.Size = new System.Drawing.Size(1041, 535);
             this.treeView4.TabIndex = 0;
             this.treeView4.AfterCheck += new System.Windows.Forms.TreeViewEventHandler(this.treeView4_AfterCheck);
             this.treeView4.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.treeView4_MouseDoubleClick);
@@ -868,17 +858,15 @@
             this.panel20.Controls.Add(this.btnScanRedundant);
             this.panel20.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel20.Location = new System.Drawing.Point(0, 0);
-            this.panel20.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.panel20.Name = "panel20";
-            this.panel20.Size = new System.Drawing.Size(2056, 79);
+            this.panel20.Size = new System.Drawing.Size(1041, 45);
             this.panel20.TabIndex = 1;
             // 
             // btnScanClear
             // 
-            this.btnScanClear.Location = new System.Drawing.Point(15, 5);
-            this.btnScanClear.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
+            this.btnScanClear.Location = new System.Drawing.Point(8, 3);
             this.btnScanClear.Name = "btnScanClear";
-            this.btnScanClear.Size = new System.Drawing.Size(138, 68);
+            this.btnScanClear.Size = new System.Drawing.Size(75, 39);
             this.btnScanClear.TabIndex = 2;
             this.btnScanClear.Text = "取消选择";
             this.btnScanClear.UseVisualStyleBackColor = true;
@@ -887,10 +875,9 @@
             // btnScanDelete
             // 
             this.btnScanDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnScanDelete.Location = new System.Drawing.Point(1748, 5);
-            this.btnScanDelete.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
+            this.btnScanDelete.Location = new System.Drawing.Point(873, 3);
             this.btnScanDelete.Name = "btnScanDelete";
-            this.btnScanDelete.Size = new System.Drawing.Size(138, 68);
+            this.btnScanDelete.Size = new System.Drawing.Size(75, 39);
             this.btnScanDelete.TabIndex = 1;
             this.btnScanDelete.Text = "删除";
             this.btnScanDelete.UseVisualStyleBackColor = true;
@@ -899,10 +886,9 @@
             // btnScanRedundant
             // 
             this.btnScanRedundant.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnScanRedundant.Location = new System.Drawing.Point(1902, 5);
-            this.btnScanRedundant.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
+            this.btnScanRedundant.Location = new System.Drawing.Point(957, 3);
             this.btnScanRedundant.Name = "btnScanRedundant";
-            this.btnScanRedundant.Size = new System.Drawing.Size(138, 68);
+            this.btnScanRedundant.Size = new System.Drawing.Size(75, 39);
             this.btnScanRedundant.TabIndex = 0;
             this.btnScanRedundant.Text = "扫描";
             this.btnScanRedundant.UseVisualStyleBackColor = true;
@@ -911,10 +897,9 @@
             // tabPage7
             // 
             this.tabPage7.Controls.Add(this.panel24);
-            this.tabPage7.Location = new System.Drawing.Point(4, 31);
-            this.tabPage7.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
+            this.tabPage7.Location = new System.Drawing.Point(4, 22);
             this.tabPage7.Name = "tabPage7";
-            this.tabPage7.Size = new System.Drawing.Size(2056, 1025);
+            this.tabPage7.Size = new System.Drawing.Size(1041, 580);
             this.tabPage7.TabIndex = 6;
             this.tabPage7.Text = "匹配视频磁链";
             this.tabPage7.UseVisualStyleBackColor = true;
@@ -925,19 +910,17 @@
             this.panel24.Controls.Add(this.panel23);
             this.panel24.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel24.Location = new System.Drawing.Point(0, 0);
-            this.panel24.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.panel24.Name = "panel24";
-            this.panel24.Size = new System.Drawing.Size(2056, 1025);
+            this.panel24.Size = new System.Drawing.Size(1041, 580);
             this.panel24.TabIndex = 2;
             // 
             // panel22
             // 
             this.panel22.Controls.Add(this.treeView5);
             this.panel22.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel22.Location = new System.Drawing.Point(0, 84);
-            this.panel22.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
+            this.panel22.Location = new System.Drawing.Point(0, 48);
             this.panel22.Name = "panel22";
-            this.panel22.Size = new System.Drawing.Size(2056, 941);
+            this.panel22.Size = new System.Drawing.Size(1041, 532);
             this.panel22.TabIndex = 2;
             // 
             // treeView5
@@ -945,9 +928,8 @@
             this.treeView5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.treeView5.FullRowSelect = true;
             this.treeView5.Location = new System.Drawing.Point(0, 0);
-            this.treeView5.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.treeView5.Name = "treeView5";
-            this.treeView5.Size = new System.Drawing.Size(2056, 941);
+            this.treeView5.Size = new System.Drawing.Size(1041, 532);
             this.treeView5.TabIndex = 0;
             this.treeView5.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeView5_NodeMouseClick);
             // 
@@ -958,18 +940,16 @@
             this.panel23.Controls.Add(this.txtUnmatched);
             this.panel23.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel23.Location = new System.Drawing.Point(0, 0);
-            this.panel23.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.panel23.Name = "panel23";
-            this.panel23.Size = new System.Drawing.Size(2056, 84);
+            this.panel23.Size = new System.Drawing.Size(1041, 48);
             this.panel23.TabIndex = 1;
             // 
             // btnScanUnmatchedSelect
             // 
             this.btnScanUnmatchedSelect.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnScanUnmatchedSelect.Location = new System.Drawing.Point(1748, 9);
-            this.btnScanUnmatchedSelect.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
+            this.btnScanUnmatchedSelect.Location = new System.Drawing.Point(873, 5);
             this.btnScanUnmatchedSelect.Name = "btnScanUnmatchedSelect";
-            this.btnScanUnmatchedSelect.Size = new System.Drawing.Size(138, 60);
+            this.btnScanUnmatchedSelect.Size = new System.Drawing.Size(75, 34);
             this.btnScanUnmatchedSelect.TabIndex = 2;
             this.btnScanUnmatchedSelect.Text = "全选";
             this.btnScanUnmatchedSelect.UseVisualStyleBackColor = true;
@@ -978,10 +958,9 @@
             // btnScanUnmathced
             // 
             this.btnScanUnmathced.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnScanUnmathced.Location = new System.Drawing.Point(1902, 9);
-            this.btnScanUnmathced.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
+            this.btnScanUnmathced.Location = new System.Drawing.Point(957, 5);
             this.btnScanUnmathced.Name = "btnScanUnmathced";
-            this.btnScanUnmathced.Size = new System.Drawing.Size(138, 60);
+            this.btnScanUnmathced.Size = new System.Drawing.Size(75, 34);
             this.btnScanUnmathced.TabIndex = 1;
             this.btnScanUnmathced.Text = "扫描";
             this.btnScanUnmathced.UseVisualStyleBackColor = true;
@@ -991,19 +970,17 @@
             // 
             this.txtUnmatched.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtUnmatched.Location = new System.Drawing.Point(15, 23);
-            this.txtUnmatched.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
+            this.txtUnmatched.Location = new System.Drawing.Point(8, 13);
             this.txtUnmatched.Name = "txtUnmatched";
-            this.txtUnmatched.Size = new System.Drawing.Size(1708, 31);
+            this.txtUnmatched.Size = new System.Drawing.Size(853, 21);
             this.txtUnmatched.TabIndex = 0;
             // 
             // tabPage5
             // 
             this.tabPage5.Controls.Add(this.panel18);
-            this.tabPage5.Location = new System.Drawing.Point(4, 31);
-            this.tabPage5.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
+            this.tabPage5.Location = new System.Drawing.Point(4, 22);
             this.tabPage5.Name = "tabPage5";
-            this.tabPage5.Size = new System.Drawing.Size(2056, 1025);
+            this.tabPage5.Size = new System.Drawing.Size(1041, 580);
             this.tabPage5.TabIndex = 7;
             this.tabPage5.Text = "去子文件夹";
             this.tabPage5.UseVisualStyleBackColor = true;
@@ -1014,28 +991,25 @@
             this.panel18.Controls.Add(this.panel16);
             this.panel18.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel18.Location = new System.Drawing.Point(0, 0);
-            this.panel18.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.panel18.Name = "panel18";
-            this.panel18.Size = new System.Drawing.Size(2056, 1025);
+            this.panel18.Size = new System.Drawing.Size(1041, 580);
             this.panel18.TabIndex = 2;
             // 
             // panel17
             // 
             this.panel17.Controls.Add(this.richTextBox1);
             this.panel17.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel17.Location = new System.Drawing.Point(0, 84);
-            this.panel17.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
+            this.panel17.Location = new System.Drawing.Point(0, 48);
             this.panel17.Name = "panel17";
-            this.panel17.Size = new System.Drawing.Size(2056, 941);
+            this.panel17.Size = new System.Drawing.Size(1041, 532);
             this.panel17.TabIndex = 1;
             // 
             // richTextBox1
             // 
             this.richTextBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.richTextBox1.Location = new System.Drawing.Point(0, 0);
-            this.richTextBox1.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(2056, 941);
+            this.richTextBox1.Size = new System.Drawing.Size(1041, 532);
             this.richTextBox1.TabIndex = 0;
             this.richTextBox1.Text = "";
             this.richTextBox1.ContentsResized += new System.Windows.Forms.ContentsResizedEventHandler(this.richTextBox1_ContentsResized);
@@ -1048,18 +1022,16 @@
             this.panel16.Controls.Add(this.btnRemoveFolderScan);
             this.panel16.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel16.Location = new System.Drawing.Point(0, 0);
-            this.panel16.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.panel16.Name = "panel16";
-            this.panel16.Size = new System.Drawing.Size(2056, 84);
+            this.panel16.Size = new System.Drawing.Size(1041, 48);
             this.panel16.TabIndex = 0;
             // 
             // btnRemoveOpen
             // 
             this.btnRemoveOpen.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnRemoveOpen.Location = new System.Drawing.Point(1610, 9);
-            this.btnRemoveOpen.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
+            this.btnRemoveOpen.Location = new System.Drawing.Point(798, 5);
             this.btnRemoveOpen.Name = "btnRemoveOpen";
-            this.btnRemoveOpen.Size = new System.Drawing.Size(138, 68);
+            this.btnRemoveOpen.Size = new System.Drawing.Size(75, 39);
             this.btnRemoveOpen.TabIndex = 3;
             this.btnRemoveOpen.Text = "打开文件夹";
             this.btnRemoveOpen.UseVisualStyleBackColor = true;
@@ -1069,20 +1041,18 @@
             // 
             this.txtRemoveFolderTxt.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtRemoveFolderTxt.Location = new System.Drawing.Point(15, 26);
-            this.txtRemoveFolderTxt.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
+            this.txtRemoveFolderTxt.Location = new System.Drawing.Point(8, 15);
             this.txtRemoveFolderTxt.Name = "txtRemoveFolderTxt";
             this.txtRemoveFolderTxt.ReadOnly = true;
-            this.txtRemoveFolderTxt.Size = new System.Drawing.Size(1556, 31);
+            this.txtRemoveFolderTxt.Size = new System.Drawing.Size(771, 21);
             this.txtRemoveFolderTxt.TabIndex = 2;
             // 
             // btnRemoveFolderStart
             // 
             this.btnRemoveFolderStart.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnRemoveFolderStart.Location = new System.Drawing.Point(1759, 9);
-            this.btnRemoveFolderStart.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
+            this.btnRemoveFolderStart.Location = new System.Drawing.Point(879, 5);
             this.btnRemoveFolderStart.Name = "btnRemoveFolderStart";
-            this.btnRemoveFolderStart.Size = new System.Drawing.Size(138, 68);
+            this.btnRemoveFolderStart.Size = new System.Drawing.Size(75, 39);
             this.btnRemoveFolderStart.TabIndex = 1;
             this.btnRemoveFolderStart.Text = "开始";
             this.btnRemoveFolderStart.UseVisualStyleBackColor = true;
@@ -1091,10 +1061,9 @@
             // btnRemoveFolderScan
             // 
             this.btnRemoveFolderScan.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnRemoveFolderScan.Location = new System.Drawing.Point(1913, 9);
-            this.btnRemoveFolderScan.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
+            this.btnRemoveFolderScan.Location = new System.Drawing.Point(963, 5);
             this.btnRemoveFolderScan.Name = "btnRemoveFolderScan";
-            this.btnRemoveFolderScan.Size = new System.Drawing.Size(138, 68);
+            this.btnRemoveFolderScan.Size = new System.Drawing.Size(75, 39);
             this.btnRemoveFolderScan.TabIndex = 0;
             this.btnRemoveFolderScan.Text = "浏览";
             this.btnRemoveFolderScan.UseVisualStyleBackColor = true;
@@ -1103,10 +1072,9 @@
             // tabPage8
             // 
             this.tabPage8.Controls.Add(this.panel27);
-            this.tabPage8.Location = new System.Drawing.Point(4, 31);
-            this.tabPage8.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
+            this.tabPage8.Location = new System.Drawing.Point(4, 22);
             this.tabPage8.Name = "tabPage8";
-            this.tabPage8.Size = new System.Drawing.Size(2056, 1025);
+            this.tabPage8.Size = new System.Drawing.Size(1041, 580);
             this.tabPage8.TabIndex = 8;
             this.tabPage8.Text = "批量重命名";
             this.tabPage8.UseVisualStyleBackColor = true;
@@ -1117,28 +1085,25 @@
             this.panel27.Controls.Add(this.panel26);
             this.panel27.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel27.Location = new System.Drawing.Point(0, 0);
-            this.panel27.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.panel27.Name = "panel27";
-            this.panel27.Size = new System.Drawing.Size(2056, 1025);
+            this.panel27.Size = new System.Drawing.Size(1041, 580);
             this.panel27.TabIndex = 2;
             // 
             // panel25
             // 
             this.panel25.Controls.Add(this.richTextBox2);
             this.panel25.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel25.Location = new System.Drawing.Point(0, 89);
-            this.panel25.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
+            this.panel25.Location = new System.Drawing.Point(0, 51);
             this.panel25.Name = "panel25";
-            this.panel25.Size = new System.Drawing.Size(2056, 936);
+            this.panel25.Size = new System.Drawing.Size(1041, 529);
             this.panel25.TabIndex = 2;
             // 
             // richTextBox2
             // 
             this.richTextBox2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.richTextBox2.Location = new System.Drawing.Point(0, 0);
-            this.richTextBox2.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.richTextBox2.Name = "richTextBox2";
-            this.richTextBox2.Size = new System.Drawing.Size(2056, 936);
+            this.richTextBox2.Size = new System.Drawing.Size(1041, 529);
             this.richTextBox2.TabIndex = 0;
             this.richTextBox2.Text = "";
             this.richTextBox2.ContentsResized += new System.Windows.Forms.ContentsResizedEventHandler(this.richTextBox2_ContentsResized);
@@ -1151,18 +1116,16 @@
             this.panel26.Controls.Add(this.btnRenameScan);
             this.panel26.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel26.Location = new System.Drawing.Point(0, 0);
-            this.panel26.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.panel26.Name = "panel26";
-            this.panel26.Size = new System.Drawing.Size(2056, 89);
+            this.panel26.Size = new System.Drawing.Size(1041, 51);
             this.panel26.TabIndex = 1;
             // 
             // btnManualRename
             // 
             this.btnManualRename.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnManualRename.Location = new System.Drawing.Point(1605, 12);
-            this.btnManualRename.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
+            this.btnManualRename.Location = new System.Drawing.Point(795, 7);
             this.btnManualRename.Name = "btnManualRename";
-            this.btnManualRename.Size = new System.Drawing.Size(138, 68);
+            this.btnManualRename.Size = new System.Drawing.Size(75, 39);
             this.btnManualRename.TabIndex = 6;
             this.btnManualRename.Text = "手动重命名";
             this.btnManualRename.UseVisualStyleBackColor = true;
@@ -1172,20 +1135,18 @@
             // 
             this.txtRenameTxt.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtRenameTxt.Location = new System.Drawing.Point(9, 30);
-            this.txtRenameTxt.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
+            this.txtRenameTxt.Location = new System.Drawing.Point(5, 17);
             this.txtRenameTxt.Name = "txtRenameTxt";
             this.txtRenameTxt.ReadOnly = true;
-            this.txtRenameTxt.Size = new System.Drawing.Size(1554, 31);
+            this.txtRenameTxt.Size = new System.Drawing.Size(769, 21);
             this.txtRenameTxt.TabIndex = 5;
             // 
             // btnRenameStart
             // 
             this.btnRenameStart.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnRenameStart.Location = new System.Drawing.Point(1759, 12);
-            this.btnRenameStart.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
+            this.btnRenameStart.Location = new System.Drawing.Point(879, 7);
             this.btnRenameStart.Name = "btnRenameStart";
-            this.btnRenameStart.Size = new System.Drawing.Size(138, 68);
+            this.btnRenameStart.Size = new System.Drawing.Size(75, 39);
             this.btnRenameStart.TabIndex = 4;
             this.btnRenameStart.Text = "开始";
             this.btnRenameStart.UseVisualStyleBackColor = true;
@@ -1194,10 +1155,9 @@
             // btnRenameScan
             // 
             this.btnRenameScan.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnRenameScan.Location = new System.Drawing.Point(1902, 12);
-            this.btnRenameScan.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
+            this.btnRenameScan.Location = new System.Drawing.Point(957, 7);
             this.btnRenameScan.Name = "btnRenameScan";
-            this.btnRenameScan.Size = new System.Drawing.Size(138, 68);
+            this.btnRenameScan.Size = new System.Drawing.Size(75, 39);
             this.btnRenameScan.TabIndex = 3;
             this.btnRenameScan.Text = "浏览";
             this.btnRenameScan.UseVisualStyleBackColor = true;
@@ -1206,10 +1166,10 @@
             // tabPage9
             // 
             this.tabPage9.Controls.Add(this.panel28);
-            this.tabPage9.Location = new System.Drawing.Point(4, 31);
-            this.tabPage9.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPage9.Location = new System.Drawing.Point(4, 22);
+            this.tabPage9.Margin = new System.Windows.Forms.Padding(2);
             this.tabPage9.Name = "tabPage9";
-            this.tabPage9.Size = new System.Drawing.Size(2056, 1025);
+            this.tabPage9.Size = new System.Drawing.Size(1041, 580);
             this.tabPage9.TabIndex = 9;
             this.tabPage9.Text = "搜磁链";
             this.tabPage9.UseVisualStyleBackColor = true;
@@ -1220,19 +1180,19 @@
             this.panel28.Controls.Add(this.panel29);
             this.panel28.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel28.Location = new System.Drawing.Point(0, 0);
-            this.panel28.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel28.Margin = new System.Windows.Forms.Padding(2);
             this.panel28.Name = "panel28";
-            this.panel28.Size = new System.Drawing.Size(2056, 1025);
+            this.panel28.Size = new System.Drawing.Size(1041, 580);
             this.panel28.TabIndex = 0;
             // 
             // panel30
             // 
             this.panel30.Controls.Add(this.listView3);
             this.panel30.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel30.Location = new System.Drawing.Point(0, 86);
-            this.panel30.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel30.Location = new System.Drawing.Point(0, 49);
+            this.panel30.Margin = new System.Windows.Forms.Padding(2);
             this.panel30.Name = "panel30";
-            this.panel30.Size = new System.Drawing.Size(2056, 939);
+            this.panel30.Size = new System.Drawing.Size(1041, 531);
             this.panel30.TabIndex = 1;
             // 
             // listView3
@@ -1247,9 +1207,9 @@
             this.listView3.FullRowSelect = true;
             this.listView3.HideSelection = false;
             this.listView3.Location = new System.Drawing.Point(0, 0);
-            this.listView3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.listView3.Margin = new System.Windows.Forms.Padding(2);
             this.listView3.Name = "listView3";
-            this.listView3.Size = new System.Drawing.Size(2056, 939);
+            this.listView3.Size = new System.Drawing.Size(1041, 531);
             this.listView3.TabIndex = 0;
             this.listView3.UseCompatibleStateImageBehavior = false;
             this.listView3.View = System.Windows.Forms.View.Details;
@@ -1288,9 +1248,9 @@
             this.panel29.Controls.Add(this.txtSeedSearchContent);
             this.panel29.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel29.Location = new System.Drawing.Point(0, 0);
-            this.panel29.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel29.Margin = new System.Windows.Forms.Padding(2);
             this.panel29.Name = "panel29";
-            this.panel29.Size = new System.Drawing.Size(2056, 86);
+            this.panel29.Size = new System.Drawing.Size(1041, 49);
             this.panel29.TabIndex = 0;
             // 
             // cbSukebei
@@ -1298,10 +1258,10 @@
             this.cbSukebei.AutoSize = true;
             this.cbSukebei.Checked = true;
             this.cbSukebei.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cbSukebei.Location = new System.Drawing.Point(150, 54);
-            this.cbSukebei.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cbSukebei.Location = new System.Drawing.Point(82, 31);
+            this.cbSukebei.Margin = new System.Windows.Forms.Padding(2);
             this.cbSukebei.Name = "cbSukebei";
-            this.cbSukebei.Size = new System.Drawing.Size(113, 25);
+            this.cbSukebei.Size = new System.Drawing.Size(66, 16);
             this.cbSukebei.TabIndex = 3;
             this.cbSukebei.Text = "Sukebei";
             this.cbSukebei.UseVisualStyleBackColor = true;
@@ -1309,10 +1269,10 @@
             // cbBtsow
             // 
             this.cbBtsow.AutoSize = true;
-            this.cbBtsow.Location = new System.Drawing.Point(9, 54);
-            this.cbBtsow.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cbBtsow.Location = new System.Drawing.Point(5, 31);
+            this.cbBtsow.Margin = new System.Windows.Forms.Padding(2);
             this.cbBtsow.Name = "cbBtsow";
-            this.cbBtsow.Size = new System.Drawing.Size(91, 25);
+            this.cbBtsow.Size = new System.Drawing.Size(54, 16);
             this.cbBtsow.TabIndex = 2;
             this.cbBtsow.Text = "Btsow";
             this.cbBtsow.UseVisualStyleBackColor = true;
@@ -1320,10 +1280,10 @@
             // btnSearchSeed
             // 
             this.btnSearchSeed.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSearchSeed.Location = new System.Drawing.Point(1882, 12);
-            this.btnSearchSeed.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnSearchSeed.Location = new System.Drawing.Point(947, 7);
+            this.btnSearchSeed.Margin = new System.Windows.Forms.Padding(2);
             this.btnSearchSeed.Name = "btnSearchSeed";
-            this.btnSearchSeed.Size = new System.Drawing.Size(147, 58);
+            this.btnSearchSeed.Size = new System.Drawing.Size(80, 33);
             this.btnSearchSeed.TabIndex = 1;
             this.btnSearchSeed.Text = "搜索";
             this.btnSearchSeed.UseVisualStyleBackColor = true;
@@ -1333,19 +1293,19 @@
             // 
             this.txtSeedSearchContent.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtSeedSearchContent.Location = new System.Drawing.Point(7, 12);
-            this.txtSeedSearchContent.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtSeedSearchContent.Location = new System.Drawing.Point(4, 7);
+            this.txtSeedSearchContent.Margin = new System.Windows.Forms.Padding(2);
             this.txtSeedSearchContent.Name = "txtSeedSearchContent";
-            this.txtSeedSearchContent.Size = new System.Drawing.Size(1840, 31);
+            this.txtSeedSearchContent.Size = new System.Drawing.Size(925, 21);
             this.txtSeedSearchContent.TabIndex = 0;
             // 
             // tabPage10
             // 
             this.tabPage10.Controls.Add(this.panel31);
-            this.tabPage10.Location = new System.Drawing.Point(4, 31);
-            this.tabPage10.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPage10.Location = new System.Drawing.Point(4, 22);
+            this.tabPage10.Margin = new System.Windows.Forms.Padding(2);
             this.tabPage10.Name = "tabPage10";
-            this.tabPage10.Size = new System.Drawing.Size(2056, 1025);
+            this.tabPage10.Size = new System.Drawing.Size(1041, 580);
             this.tabPage10.TabIndex = 10;
             this.tabPage10.Text = "扫描Jav";
             this.tabPage10.UseVisualStyleBackColor = true;
@@ -1356,9 +1316,9 @@
             this.panel31.Controls.Add(this.panel32);
             this.panel31.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel31.Location = new System.Drawing.Point(0, 0);
-            this.panel31.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel31.Margin = new System.Windows.Forms.Padding(2);
             this.panel31.Name = "panel31";
-            this.panel31.Size = new System.Drawing.Size(2056, 1025);
+            this.panel31.Size = new System.Drawing.Size(1041, 580);
             this.panel31.TabIndex = 0;
             // 
             // panel33
@@ -1366,19 +1326,19 @@
             this.panel33.Controls.Add(this.richTextBox3);
             this.panel33.Controls.Add(this.listView4);
             this.panel33.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel33.Location = new System.Drawing.Point(0, 130);
-            this.panel33.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel33.Location = new System.Drawing.Point(0, 74);
+            this.panel33.Margin = new System.Windows.Forms.Padding(2);
             this.panel33.Name = "panel33";
-            this.panel33.Size = new System.Drawing.Size(2056, 895);
+            this.panel33.Size = new System.Drawing.Size(1041, 506);
             this.panel33.TabIndex = 1;
             // 
             // richTextBox3
             // 
             this.richTextBox3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.richTextBox3.Location = new System.Drawing.Point(816, 0);
-            this.richTextBox3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.richTextBox3.Location = new System.Drawing.Point(447, 0);
+            this.richTextBox3.Margin = new System.Windows.Forms.Padding(2);
             this.richTextBox3.Name = "richTextBox3";
-            this.richTextBox3.Size = new System.Drawing.Size(1240, 895);
+            this.richTextBox3.Size = new System.Drawing.Size(594, 506);
             this.richTextBox3.TabIndex = 1;
             this.richTextBox3.Text = "";
             this.richTextBox3.ContentsResized += new System.Windows.Forms.ContentsResizedEventHandler(this.richTextBox3_ContentsResized);
@@ -1392,9 +1352,9 @@
             this.listView4.FullRowSelect = true;
             this.listView4.HideSelection = false;
             this.listView4.Location = new System.Drawing.Point(0, 0);
-            this.listView4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.listView4.Margin = new System.Windows.Forms.Padding(2);
             this.listView4.Name = "listView4";
-            this.listView4.Size = new System.Drawing.Size(816, 895);
+            this.listView4.Size = new System.Drawing.Size(447, 506);
             this.listView4.TabIndex = 0;
             this.listView4.UseCompatibleStateImageBehavior = false;
             this.listView4.View = System.Windows.Forms.View.Details;
@@ -1426,18 +1386,18 @@
             this.panel32.Controls.Add(this.txtJavScanTitle);
             this.panel32.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel32.Location = new System.Drawing.Point(0, 0);
-            this.panel32.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel32.Margin = new System.Windows.Forms.Padding(2);
             this.panel32.Name = "panel32";
-            this.panel32.Size = new System.Drawing.Size(2056, 130);
+            this.panel32.Size = new System.Drawing.Size(1041, 74);
             this.panel32.TabIndex = 0;
             // 
             // btnScanBatch
             // 
             this.btnScanBatch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnScanBatch.Location = new System.Drawing.Point(1715, 19);
-            this.btnScanBatch.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnScanBatch.Location = new System.Drawing.Point(855, 11);
+            this.btnScanBatch.Margin = new System.Windows.Forms.Padding(2);
             this.btnScanBatch.Name = "btnScanBatch";
-            this.btnScanBatch.Size = new System.Drawing.Size(103, 93);
+            this.btnScanBatch.Size = new System.Drawing.Size(56, 53);
             this.btnScanBatch.TabIndex = 12;
             this.btnScanBatch.Text = "批量";
             this.btnScanBatch.UseVisualStyleBackColor = true;
@@ -1445,19 +1405,19 @@
             // 
             // txtPrefix
             // 
-            this.txtPrefix.Location = new System.Drawing.Point(534, 86);
-            this.txtPrefix.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtPrefix.Location = new System.Drawing.Point(291, 49);
+            this.txtPrefix.Margin = new System.Windows.Forms.Padding(2);
             this.txtPrefix.Name = "txtPrefix";
-            this.txtPrefix.Size = new System.Drawing.Size(143, 31);
+            this.txtPrefix.Size = new System.Drawing.Size(80, 21);
             this.txtPrefix.TabIndex = 11;
             // 
             // rbPrefix
             // 
             this.rbPrefix.AutoSize = true;
-            this.rbPrefix.Location = new System.Drawing.Point(427, 88);
-            this.rbPrefix.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.rbPrefix.Location = new System.Drawing.Point(233, 50);
+            this.rbPrefix.Margin = new System.Windows.Forms.Padding(2);
             this.rbPrefix.Name = "rbPrefix";
-            this.rbPrefix.Size = new System.Drawing.Size(98, 25);
+            this.rbPrefix.Size = new System.Drawing.Size(59, 16);
             this.rbPrefix.TabIndex = 10;
             this.rbPrefix.Text = "按前缀";
             this.rbPrefix.UseVisualStyleBackColor = true;
@@ -1465,10 +1425,10 @@
             // btnJavScanDaily
             // 
             this.btnJavScanDaily.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnJavScanDaily.Location = new System.Drawing.Point(1825, 19);
-            this.btnJavScanDaily.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnJavScanDaily.Location = new System.Drawing.Point(915, 11);
+            this.btnJavScanDaily.Margin = new System.Windows.Forms.Padding(2);
             this.btnJavScanDaily.Name = "btnJavScanDaily";
-            this.btnJavScanDaily.Size = new System.Drawing.Size(103, 93);
+            this.btnJavScanDaily.Size = new System.Drawing.Size(56, 53);
             this.btnJavScanDaily.TabIndex = 9;
             this.btnJavScanDaily.Text = "日常";
             this.btnJavScanDaily.UseVisualStyleBackColor = true;
@@ -1477,30 +1437,30 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(611, 54);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Location = new System.Drawing.Point(333, 31);
+            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(43, 21);
+            this.label2.Size = new System.Drawing.Size(23, 12);
             this.label2.TabIndex = 8;
             this.label2.Text = "url";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(611, 21);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Location = new System.Drawing.Point(333, 12);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(52, 21);
+            this.label1.Size = new System.Drawing.Size(29, 12);
             this.label1.TabIndex = 7;
             this.label1.Text = "标题";
             // 
             // btnJavScan
             // 
             this.btnJavScan.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnJavScan.Location = new System.Drawing.Point(1935, 19);
-            this.btnJavScan.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnJavScan.Location = new System.Drawing.Point(975, 11);
+            this.btnJavScan.Margin = new System.Windows.Forms.Padding(2);
             this.btnJavScan.Name = "btnJavScan";
-            this.btnJavScan.Size = new System.Drawing.Size(103, 93);
+            this.btnJavScan.Size = new System.Drawing.Size(56, 53);
             this.btnJavScan.TabIndex = 6;
             this.btnJavScan.Text = "开始";
             this.btnJavScan.UseVisualStyleBackColor = true;
@@ -1509,10 +1469,10 @@
             // rbDir
             // 
             this.rbDir.AutoSize = true;
-            this.rbDir.Location = new System.Drawing.Point(321, 88);
-            this.rbDir.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.rbDir.Location = new System.Drawing.Point(175, 50);
+            this.rbDir.Margin = new System.Windows.Forms.Padding(2);
             this.rbDir.Name = "rbDir";
-            this.rbDir.Size = new System.Drawing.Size(98, 25);
+            this.rbDir.Size = new System.Drawing.Size(59, 16);
             this.rbDir.TabIndex = 5;
             this.rbDir.Text = "按导演";
             this.rbDir.UseVisualStyleBackColor = true;
@@ -1521,10 +1481,10 @@
             // rbCom
             // 
             this.rbCom.AutoSize = true;
-            this.rbCom.Location = new System.Drawing.Point(216, 86);
-            this.rbCom.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.rbCom.Location = new System.Drawing.Point(118, 49);
+            this.rbCom.Margin = new System.Windows.Forms.Padding(2);
             this.rbCom.Name = "rbCom";
-            this.rbCom.Size = new System.Drawing.Size(98, 25);
+            this.rbCom.Size = new System.Drawing.Size(59, 16);
             this.rbCom.TabIndex = 4;
             this.rbCom.Text = "按公司";
             this.rbCom.UseVisualStyleBackColor = true;
@@ -1533,10 +1493,10 @@
             // rbActress
             // 
             this.rbActress.AutoSize = true;
-            this.rbActress.Location = new System.Drawing.Point(114, 86);
-            this.rbActress.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.rbActress.Location = new System.Drawing.Point(62, 49);
+            this.rbActress.Margin = new System.Windows.Forms.Padding(2);
             this.rbActress.Name = "rbActress";
-            this.rbActress.Size = new System.Drawing.Size(98, 25);
+            this.rbActress.Size = new System.Drawing.Size(59, 16);
             this.rbActress.TabIndex = 3;
             this.rbActress.Text = "按演员";
             this.rbActress.UseVisualStyleBackColor = true;
@@ -1546,10 +1506,10 @@
             // 
             this.rbCate.AutoSize = true;
             this.rbCate.Checked = true;
-            this.rbCate.Location = new System.Drawing.Point(9, 88);
-            this.rbCate.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.rbCate.Location = new System.Drawing.Point(5, 50);
+            this.rbCate.Margin = new System.Windows.Forms.Padding(2);
             this.rbCate.Name = "rbCate";
-            this.rbCate.Size = new System.Drawing.Size(98, 25);
+            this.rbCate.Size = new System.Drawing.Size(59, 16);
             this.rbCate.TabIndex = 2;
             this.rbCate.TabStop = true;
             this.rbCate.Text = "按类型";
@@ -1558,27 +1518,26 @@
             // 
             // txtJavScanUrl
             // 
-            this.txtJavScanUrl.Location = new System.Drawing.Point(7, 49);
-            this.txtJavScanUrl.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtJavScanUrl.Location = new System.Drawing.Point(4, 28);
+            this.txtJavScanUrl.Margin = new System.Windows.Forms.Padding(2);
             this.txtJavScanUrl.Name = "txtJavScanUrl";
-            this.txtJavScanUrl.Size = new System.Drawing.Size(585, 31);
+            this.txtJavScanUrl.Size = new System.Drawing.Size(321, 21);
             this.txtJavScanUrl.TabIndex = 1;
             // 
             // txtJavScanTitle
             // 
-            this.txtJavScanTitle.Location = new System.Drawing.Point(7, 12);
-            this.txtJavScanTitle.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtJavScanTitle.Location = new System.Drawing.Point(4, 7);
+            this.txtJavScanTitle.Margin = new System.Windows.Forms.Padding(2);
             this.txtJavScanTitle.Name = "txtJavScanTitle";
-            this.txtJavScanTitle.Size = new System.Drawing.Size(585, 31);
+            this.txtJavScanTitle.Size = new System.Drawing.Size(321, 21);
             this.txtJavScanTitle.TabIndex = 0;
             // 
             // tabPage11
             // 
             this.tabPage11.Controls.Add(this.panel34);
-            this.tabPage11.Location = new System.Drawing.Point(4, 31);
-            this.tabPage11.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
+            this.tabPage11.Location = new System.Drawing.Point(4, 22);
             this.tabPage11.Name = "tabPage11";
-            this.tabPage11.Size = new System.Drawing.Size(2056, 1025);
+            this.tabPage11.Size = new System.Drawing.Size(1041, 580);
             this.tabPage11.TabIndex = 11;
             this.tabPage11.Text = "刷新匹配";
             this.tabPage11.UseVisualStyleBackColor = true;
@@ -1589,28 +1548,25 @@
             this.panel34.Controls.Add(this.panel35);
             this.panel34.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel34.Location = new System.Drawing.Point(0, 0);
-            this.panel34.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.panel34.Name = "panel34";
-            this.panel34.Size = new System.Drawing.Size(2056, 1025);
+            this.panel34.Size = new System.Drawing.Size(1041, 580);
             this.panel34.TabIndex = 0;
             // 
             // panel36
             // 
             this.panel36.Controls.Add(this.rtbMatch);
             this.panel36.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel36.Location = new System.Drawing.Point(0, 79);
-            this.panel36.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
+            this.panel36.Location = new System.Drawing.Point(0, 45);
             this.panel36.Name = "panel36";
-            this.panel36.Size = new System.Drawing.Size(2056, 946);
+            this.panel36.Size = new System.Drawing.Size(1041, 535);
             this.panel36.TabIndex = 2;
             // 
             // rtbMatch
             // 
             this.rtbMatch.Dock = System.Windows.Forms.DockStyle.Fill;
             this.rtbMatch.Location = new System.Drawing.Point(0, 0);
-            this.rtbMatch.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.rtbMatch.Name = "rtbMatch";
-            this.rtbMatch.Size = new System.Drawing.Size(2056, 946);
+            this.rtbMatch.Size = new System.Drawing.Size(1041, 535);
             this.rtbMatch.TabIndex = 0;
             this.rtbMatch.Text = "";
             this.rtbMatch.ContentsResized += new System.Windows.Forms.ContentsResizedEventHandler(this.rtbMatch_ContentsResized);
@@ -1620,17 +1576,15 @@
             this.panel35.Controls.Add(this.btnMatch);
             this.panel35.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel35.Location = new System.Drawing.Point(0, 0);
-            this.panel35.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.panel35.Name = "panel35";
-            this.panel35.Size = new System.Drawing.Size(2056, 79);
+            this.panel35.Size = new System.Drawing.Size(1041, 45);
             this.panel35.TabIndex = 1;
             // 
             // btnMatch
             // 
-            this.btnMatch.Location = new System.Drawing.Point(15, 14);
-            this.btnMatch.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
+            this.btnMatch.Location = new System.Drawing.Point(8, 8);
             this.btnMatch.Name = "btnMatch";
-            this.btnMatch.Size = new System.Drawing.Size(138, 54);
+            this.btnMatch.Size = new System.Drawing.Size(75, 31);
             this.btnMatch.TabIndex = 0;
             this.btnMatch.Text = "开始";
             this.btnMatch.UseVisualStyleBackColor = true;
@@ -1639,10 +1593,9 @@
             // tabPage14
             // 
             this.tabPage14.Controls.Add(this.splitContainer1);
-            this.tabPage14.Location = new System.Drawing.Point(4, 31);
-            this.tabPage14.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
+            this.tabPage14.Location = new System.Drawing.Point(4, 22);
             this.tabPage14.Name = "tabPage14";
-            this.tabPage14.Size = new System.Drawing.Size(2056, 1025);
+            this.tabPage14.Size = new System.Drawing.Size(1041, 580);
             this.tabPage14.TabIndex = 14;
             this.tabPage14.Text = "找视频";
             this.tabPage14.UseVisualStyleBackColor = true;
@@ -1651,7 +1604,6 @@
             // 
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer1.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer1.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.splitContainer1.Name = "splitContainer1";
             // 
             // splitContainer1.Panel1
@@ -1661,9 +1613,8 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.panel40);
-            this.splitContainer1.Size = new System.Drawing.Size(2056, 1025);
-            this.splitContainer1.SplitterDistance = 967;
-            this.splitContainer1.SplitterWidth = 7;
+            this.splitContainer1.Size = new System.Drawing.Size(1041, 580);
+            this.splitContainer1.SplitterDistance = 491;
             this.splitContainer1.TabIndex = 0;
             // 
             // panel37
@@ -1672,19 +1623,17 @@
             this.panel37.Controls.Add(this.panel38);
             this.panel37.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel37.Location = new System.Drawing.Point(0, 0);
-            this.panel37.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.panel37.Name = "panel37";
-            this.panel37.Size = new System.Drawing.Size(967, 1025);
+            this.panel37.Size = new System.Drawing.Size(491, 580);
             this.panel37.TabIndex = 0;
             // 
             // panel39
             // 
             this.panel39.Controls.Add(this.lvwFind);
             this.panel39.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel39.Location = new System.Drawing.Point(0, 82);
-            this.panel39.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
+            this.panel39.Location = new System.Drawing.Point(0, 48);
             this.panel39.Name = "panel39";
-            this.panel39.Size = new System.Drawing.Size(967, 943);
+            this.panel39.Size = new System.Drawing.Size(491, 532);
             this.panel39.TabIndex = 2;
             // 
             // lvwFind
@@ -1697,9 +1646,8 @@
             this.lvwFind.FullRowSelect = true;
             this.lvwFind.HideSelection = false;
             this.lvwFind.Location = new System.Drawing.Point(0, 0);
-            this.lvwFind.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.lvwFind.Name = "lvwFind";
-            this.lvwFind.Size = new System.Drawing.Size(967, 943);
+            this.lvwFind.Size = new System.Drawing.Size(491, 532);
             this.lvwFind.TabIndex = 0;
             this.lvwFind.UseCompatibleStateImageBehavior = false;
             this.lvwFind.View = System.Windows.Forms.View.Details;
@@ -1730,9 +1678,8 @@
             this.panel38.Controls.Add(this.txtFind);
             this.panel38.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel38.Location = new System.Drawing.Point(0, 0);
-            this.panel38.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.panel38.Name = "panel38";
-            this.panel38.Size = new System.Drawing.Size(967, 82);
+            this.panel38.Size = new System.Drawing.Size(491, 48);
             this.panel38.TabIndex = 1;
             // 
             // cbFindOnly
@@ -1741,10 +1688,9 @@
             this.cbFindOnly.AutoSize = true;
             this.cbFindOnly.Checked = true;
             this.cbFindOnly.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cbFindOnly.Location = new System.Drawing.Point(693, 30);
-            this.cbFindOnly.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
+            this.cbFindOnly.Location = new System.Drawing.Point(334, 17);
             this.cbFindOnly.Name = "cbFindOnly";
-            this.cbFindOnly.Size = new System.Drawing.Size(120, 25);
+            this.cbFindOnly.Size = new System.Drawing.Size(72, 16);
             this.cbFindOnly.TabIndex = 2;
             this.cbFindOnly.Text = "只找匹配";
             this.cbFindOnly.UseVisualStyleBackColor = true;
@@ -1752,10 +1698,9 @@
             // btnFind
             // 
             this.btnFind.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnFind.Location = new System.Drawing.Point(825, 24);
-            this.btnFind.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
+            this.btnFind.Location = new System.Drawing.Point(412, 14);
             this.btnFind.Name = "btnFind";
-            this.btnFind.Size = new System.Drawing.Size(138, 40);
+            this.btnFind.Size = new System.Drawing.Size(75, 23);
             this.btnFind.TabIndex = 1;
             this.btnFind.Text = "查找";
             this.btnFind.UseVisualStyleBackColor = true;
@@ -1765,10 +1710,9 @@
             // 
             this.txtFind.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtFind.Location = new System.Drawing.Point(7, 24);
-            this.txtFind.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
+            this.txtFind.Location = new System.Drawing.Point(4, 14);
             this.txtFind.Name = "txtFind";
-            this.txtFind.Size = new System.Drawing.Size(659, 31);
+            this.txtFind.Size = new System.Drawing.Size(324, 21);
             this.txtFind.TabIndex = 0;
             this.txtFind.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtFind_KeyDown);
             // 
@@ -1778,19 +1722,17 @@
             this.panel40.Controls.Add(this.panel41);
             this.panel40.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel40.Location = new System.Drawing.Point(0, 0);
-            this.panel40.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.panel40.Name = "panel40";
-            this.panel40.Size = new System.Drawing.Size(1082, 1025);
+            this.panel40.Size = new System.Drawing.Size(546, 580);
             this.panel40.TabIndex = 1;
             // 
             // panel42
             // 
             this.panel42.Controls.Add(this.lvwRecnet);
             this.panel42.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel42.Location = new System.Drawing.Point(0, 82);
-            this.panel42.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
+            this.panel42.Location = new System.Drawing.Point(0, 48);
             this.panel42.Name = "panel42";
-            this.panel42.Size = new System.Drawing.Size(1082, 943);
+            this.panel42.Size = new System.Drawing.Size(546, 532);
             this.panel42.TabIndex = 2;
             // 
             // lvwRecnet
@@ -1803,9 +1745,8 @@
             this.lvwRecnet.FullRowSelect = true;
             this.lvwRecnet.HideSelection = false;
             this.lvwRecnet.Location = new System.Drawing.Point(0, 0);
-            this.lvwRecnet.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.lvwRecnet.Name = "lvwRecnet";
-            this.lvwRecnet.Size = new System.Drawing.Size(1082, 943);
+            this.lvwRecnet.Size = new System.Drawing.Size(546, 532);
             this.lvwRecnet.TabIndex = 1;
             this.lvwRecnet.UseCompatibleStateImageBehavior = false;
             this.lvwRecnet.View = System.Windows.Forms.View.Details;
@@ -1838,18 +1779,17 @@
             this.panel41.Controls.Add(this.txtRecent);
             this.panel41.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel41.Location = new System.Drawing.Point(0, 0);
-            this.panel41.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.panel41.Name = "panel41";
-            this.panel41.Size = new System.Drawing.Size(1082, 82);
+            this.panel41.Size = new System.Drawing.Size(546, 48);
             this.panel41.TabIndex = 1;
             // 
             // btnRecentFIndMove
             // 
             this.btnRecentFIndMove.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnRecentFIndMove.Location = new System.Drawing.Point(635, 19);
-            this.btnRecentFIndMove.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnRecentFIndMove.Location = new System.Drawing.Point(301, 11);
+            this.btnRecentFIndMove.Margin = new System.Windows.Forms.Padding(2);
             this.btnRecentFIndMove.Name = "btnRecentFIndMove";
-            this.btnRecentFIndMove.Size = new System.Drawing.Size(79, 44);
+            this.btnRecentFIndMove.Size = new System.Drawing.Size(43, 25);
             this.btnRecentFIndMove.TabIndex = 13;
             this.btnRecentFIndMove.Text = "移动";
             this.btnRecentFIndMove.UseVisualStyleBackColor = true;
@@ -1859,10 +1799,10 @@
             // 
             this.rbSizeA.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.rbSizeA.AutoSize = true;
-            this.rbSizeA.Location = new System.Drawing.Point(949, 9);
-            this.rbSizeA.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.rbSizeA.Location = new System.Drawing.Point(469, 5);
+            this.rbSizeA.Margin = new System.Windows.Forms.Padding(2);
             this.rbSizeA.Name = "rbSizeA";
-            this.rbSizeA.Size = new System.Drawing.Size(123, 25);
+            this.rbSizeA.Size = new System.Drawing.Size(71, 16);
             this.rbSizeA.TabIndex = 12;
             this.rbSizeA.Text = "Size Asc";
             this.rbSizeA.UseVisualStyleBackColor = true;
@@ -1872,10 +1812,10 @@
             // 
             this.rbSizeD.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.rbSizeD.AutoSize = true;
-            this.rbSizeD.Location = new System.Drawing.Point(947, 46);
-            this.rbSizeD.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.rbSizeD.Location = new System.Drawing.Point(467, 26);
+            this.rbSizeD.Margin = new System.Windows.Forms.Padding(2);
             this.rbSizeD.Name = "rbSizeD";
-            this.rbSizeD.Size = new System.Drawing.Size(134, 25);
+            this.rbSizeD.Size = new System.Drawing.Size(77, 16);
             this.rbSizeD.TabIndex = 11;
             this.rbSizeD.Text = "Size Desc";
             this.rbSizeD.UseVisualStyleBackColor = true;
@@ -1885,10 +1825,10 @@
             // 
             this.rbDateA.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.rbDateA.AutoSize = true;
-            this.rbDateA.Location = new System.Drawing.Point(813, 9);
-            this.rbDateA.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.rbDateA.Location = new System.Drawing.Point(394, 5);
+            this.rbDateA.Margin = new System.Windows.Forms.Padding(2);
             this.rbDateA.Name = "rbDateA";
-            this.rbDateA.Size = new System.Drawing.Size(123, 25);
+            this.rbDateA.Size = new System.Drawing.Size(71, 16);
             this.rbDateA.TabIndex = 10;
             this.rbDateA.Text = "Date Asc";
             this.rbDateA.UseVisualStyleBackColor = true;
@@ -1899,10 +1839,10 @@
             this.rbDateD.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.rbDateD.AutoSize = true;
             this.rbDateD.Checked = true;
-            this.rbDateD.Location = new System.Drawing.Point(809, 46);
-            this.rbDateD.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.rbDateD.Location = new System.Drawing.Point(392, 26);
+            this.rbDateD.Margin = new System.Windows.Forms.Padding(2);
             this.rbDateD.Name = "rbDateD";
-            this.rbDateD.Size = new System.Drawing.Size(134, 25);
+            this.rbDateD.Size = new System.Drawing.Size(77, 16);
             this.rbDateD.TabIndex = 9;
             this.rbDateD.TabStop = true;
             this.rbDateD.Text = "Date Desc";
@@ -1912,10 +1852,10 @@
             // btnRecent
             // 
             this.btnRecent.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnRecent.Location = new System.Drawing.Point(721, 19);
-            this.btnRecent.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnRecent.Location = new System.Drawing.Point(348, 11);
+            this.btnRecent.Margin = new System.Windows.Forms.Padding(2);
             this.btnRecent.Name = "btnRecent";
-            this.btnRecent.Size = new System.Drawing.Size(79, 44);
+            this.btnRecent.Size = new System.Drawing.Size(43, 25);
             this.btnRecent.TabIndex = 8;
             this.btnRecent.Text = "OK";
             this.btnRecent.UseVisualStyleBackColor = true;
@@ -1925,10 +1865,10 @@
             // 
             this.txtRecent.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtRecent.Location = new System.Drawing.Point(4, 24);
-            this.txtRecent.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtRecent.Location = new System.Drawing.Point(2, 14);
+            this.txtRecent.Margin = new System.Windows.Forms.Padding(2);
             this.txtRecent.Name = "txtRecent";
-            this.txtRecent.Size = new System.Drawing.Size(621, 31);
+            this.txtRecent.Size = new System.Drawing.Size(295, 21);
             this.txtRecent.TabIndex = 7;
             this.txtRecent.MouseClick += new System.Windows.Forms.MouseEventHandler(this.txtRecent_MouseClick);
             // 
@@ -1937,11 +1877,11 @@
             this.tabPage1.Controls.Add(this.panel6);
             this.tabPage1.Controls.Add(this.panel4);
             this.tabPage1.Controls.Add(this.panel2);
-            this.tabPage1.Location = new System.Drawing.Point(4, 31);
-            this.tabPage1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Margin = new System.Windows.Forms.Padding(2);
             this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.tabPage1.Size = new System.Drawing.Size(2056, 1025);
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(2);
+            this.tabPage1.Size = new System.Drawing.Size(1041, 580);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "手动合并视频";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -1950,10 +1890,10 @@
             // 
             this.panel6.Controls.Add(this.listView1);
             this.panel6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel6.Location = new System.Drawing.Point(4, 76);
-            this.panel6.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel6.Location = new System.Drawing.Point(2, 43);
+            this.panel6.Margin = new System.Windows.Forms.Padding(2);
             this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(2048, 775);
+            this.panel6.Size = new System.Drawing.Size(1037, 438);
             this.panel6.TabIndex = 8;
             // 
             // listView1
@@ -1967,9 +1907,8 @@
             this.listView1.FullRowSelect = true;
             this.listView1.HideSelection = false;
             this.listView1.Location = new System.Drawing.Point(0, 0);
-            this.listView1.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(2048, 775);
+            this.listView1.Size = new System.Drawing.Size(1037, 438);
             this.listView1.TabIndex = 0;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.Details;
@@ -1999,19 +1938,18 @@
             this.panel4.Controls.Add(this.txtSave);
             this.panel4.Controls.Add(this.pb);
             this.panel4.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel4.Location = new System.Drawing.Point(4, 851);
-            this.panel4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel4.Location = new System.Drawing.Point(2, 481);
+            this.panel4.Margin = new System.Windows.Forms.Padding(2);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(2048, 170);
+            this.panel4.Size = new System.Drawing.Size(1037, 97);
             this.panel4.TabIndex = 7;
             // 
             // cbMove
             // 
             this.cbMove.AutoSize = true;
-            this.cbMove.Location = new System.Drawing.Point(6, 60);
-            this.cbMove.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
+            this.cbMove.Location = new System.Drawing.Point(3, 34);
             this.cbMove.Name = "cbMove";
-            this.cbMove.Size = new System.Drawing.Size(204, 25);
+            this.cbMove.Size = new System.Drawing.Size(120, 16);
             this.cbMove.TabIndex = 1;
             this.cbMove.Text = "移动新文件到原位";
             this.cbMove.UseVisualStyleBackColor = true;
@@ -2019,10 +1957,9 @@
             // btnSave
             // 
             this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSave.Location = new System.Drawing.Point(1900, 51);
-            this.btnSave.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
+            this.btnSave.Location = new System.Drawing.Point(956, 29);
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(138, 40);
+            this.btnSave.Size = new System.Drawing.Size(75, 23);
             this.btnSave.TabIndex = 4;
             this.btnSave.Text = "保存到";
             this.btnSave.UseVisualStyleBackColor = true;
@@ -2031,20 +1968,18 @@
             // cbDelete
             // 
             this.cbDelete.AutoSize = true;
-            this.cbDelete.Location = new System.Drawing.Point(7, 19);
-            this.cbDelete.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
+            this.cbDelete.Location = new System.Drawing.Point(4, 11);
             this.cbDelete.Name = "cbDelete";
-            this.cbDelete.Size = new System.Drawing.Size(141, 25);
+            this.cbDelete.Size = new System.Drawing.Size(84, 16);
             this.cbDelete.TabIndex = 0;
             this.cbDelete.Text = "删除原文件";
             this.cbDelete.UseVisualStyleBackColor = true;
             // 
             // btnStart
             // 
-            this.btnStart.Location = new System.Drawing.Point(7, 102);
-            this.btnStart.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
+            this.btnStart.Location = new System.Drawing.Point(4, 58);
             this.btnStart.Name = "btnStart";
-            this.btnStart.Size = new System.Drawing.Size(138, 61);
+            this.btnStart.Size = new System.Drawing.Size(75, 35);
             this.btnStart.TabIndex = 2;
             this.btnStart.Text = "开始";
             this.btnStart.UseVisualStyleBackColor = true;
@@ -2054,21 +1989,19 @@
             // 
             this.txtSave.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtSave.Location = new System.Drawing.Point(251, 52);
-            this.txtSave.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
+            this.txtSave.Location = new System.Drawing.Point(137, 30);
             this.txtSave.Name = "txtSave";
             this.txtSave.ReadOnly = true;
-            this.txtSave.Size = new System.Drawing.Size(1634, 31);
+            this.txtSave.Size = new System.Drawing.Size(813, 21);
             this.txtSave.TabIndex = 3;
             // 
             // pb
             // 
             this.pb.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.pb.Location = new System.Drawing.Point(251, 122);
-            this.pb.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
+            this.pb.Location = new System.Drawing.Point(137, 70);
             this.pb.Name = "pb";
-            this.pb.Size = new System.Drawing.Size(1640, 40);
+            this.pb.Size = new System.Drawing.Size(815, 23);
             this.pb.TabIndex = 5;
             // 
             // panel2
@@ -2076,29 +2009,28 @@
             this.panel2.Controls.Add(this.txtHopeName);
             this.panel2.Controls.Add(this.btnImport);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel2.Location = new System.Drawing.Point(4, 4);
-            this.panel2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel2.Location = new System.Drawing.Point(2, 2);
+            this.panel2.Margin = new System.Windows.Forms.Padding(2);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(2048, 72);
+            this.panel2.Size = new System.Drawing.Size(1037, 41);
             this.panel2.TabIndex = 6;
             // 
             // txtHopeName
             // 
             this.txtHopeName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtHopeName.Location = new System.Drawing.Point(18, 19);
-            this.txtHopeName.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtHopeName.Location = new System.Drawing.Point(10, 11);
+            this.txtHopeName.Margin = new System.Windows.Forms.Padding(2);
             this.txtHopeName.Name = "txtHopeName";
-            this.txtHopeName.Size = new System.Drawing.Size(1860, 31);
+            this.txtHopeName.Size = new System.Drawing.Size(936, 21);
             this.txtHopeName.TabIndex = 9;
             // 
             // btnImport
             // 
             this.btnImport.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnImport.Location = new System.Drawing.Point(1900, 16);
-            this.btnImport.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
+            this.btnImport.Location = new System.Drawing.Point(956, 9);
             this.btnImport.Name = "btnImport";
-            this.btnImport.Size = new System.Drawing.Size(138, 40);
+            this.btnImport.Size = new System.Drawing.Size(75, 23);
             this.btnImport.TabIndex = 1;
             this.btnImport.Text = "导入";
             this.btnImport.UseVisualStyleBackColor = true;
@@ -2108,10 +2040,10 @@
             // 
             this.tabPage13.Controls.Add(this.panel46);
             this.tabPage13.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.tabPage13.Location = new System.Drawing.Point(4, 31);
-            this.tabPage13.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPage13.Location = new System.Drawing.Point(4, 22);
+            this.tabPage13.Margin = new System.Windows.Forms.Padding(2);
             this.tabPage13.Name = "tabPage13";
-            this.tabPage13.Size = new System.Drawing.Size(2056, 1025);
+            this.tabPage13.Size = new System.Drawing.Size(1041, 580);
             this.tabPage13.TabIndex = 16;
             this.tabPage13.Text = "补齐缺失";
             this.tabPage13.UseVisualStyleBackColor = true;
@@ -2122,19 +2054,19 @@
             this.panel46.Controls.Add(this.panel47);
             this.panel46.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel46.Location = new System.Drawing.Point(0, 0);
-            this.panel46.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel46.Margin = new System.Windows.Forms.Padding(2);
             this.panel46.Name = "panel46";
-            this.panel46.Size = new System.Drawing.Size(2056, 1025);
+            this.panel46.Size = new System.Drawing.Size(1041, 580);
             this.panel46.TabIndex = 0;
             // 
             // panel48
             // 
             this.panel48.Controls.Add(this.lvMissing);
             this.panel48.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel48.Location = new System.Drawing.Point(0, 180);
-            this.panel48.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel48.Location = new System.Drawing.Point(0, 103);
+            this.panel48.Margin = new System.Windows.Forms.Padding(2);
             this.panel48.Name = "panel48";
-            this.panel48.Size = new System.Drawing.Size(2056, 845);
+            this.panel48.Size = new System.Drawing.Size(1041, 477);
             this.panel48.TabIndex = 2;
             // 
             // lvMissing
@@ -2144,10 +2076,9 @@
             this.lvMissing.HideSelection = false;
             this.lvMissing.LargeImageList = this.ilDaily;
             this.lvMissing.Location = new System.Drawing.Point(0, 0);
-            this.lvMissing.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.lvMissing.MultiSelect = false;
             this.lvMissing.Name = "lvMissing";
-            this.lvMissing.Size = new System.Drawing.Size(2056, 845);
+            this.lvMissing.Size = new System.Drawing.Size(1041, 477);
             this.lvMissing.TabIndex = 1;
             this.lvMissing.UseCompatibleStateImageBehavior = false;
             this.lvMissing.MouseClick += new System.Windows.Forms.MouseEventHandler(this.lvwMissing_MouseClick);
@@ -2177,29 +2108,29 @@
             this.panel47.Controls.Add(this.txtMissing);
             this.panel47.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel47.Location = new System.Drawing.Point(0, 0);
-            this.panel47.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel47.Margin = new System.Windows.Forms.Padding(2);
             this.panel47.Name = "panel47";
-            this.panel47.Size = new System.Drawing.Size(2056, 180);
+            this.panel47.Size = new System.Drawing.Size(1041, 103);
             this.panel47.TabIndex = 1;
             // 
             // label7
             // 
             this.label7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(1513, 75);
-            this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label7.Location = new System.Drawing.Point(745, 43);
+            this.label7.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(96, 28);
+            this.label7.Size = new System.Drawing.Size(56, 17);
             this.label7.TabIndex = 14;
             this.label7.Text = "截取页数";
             // 
             // txtMissingPage
             // 
             this.txtMissingPage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtMissingPage.Location = new System.Drawing.Point(1623, 70);
-            this.txtMissingPage.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtMissingPage.Location = new System.Drawing.Point(805, 40);
+            this.txtMissingPage.Margin = new System.Windows.Forms.Padding(2);
             this.txtMissingPage.Name = "txtMissingPage";
-            this.txtMissingPage.Size = new System.Drawing.Size(127, 34);
+            this.txtMissingPage.Size = new System.Drawing.Size(71, 23);
             this.txtMissingPage.TabIndex = 13;
             this.txtMissingPage.Text = "0";
             this.txtMissingPage.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
@@ -2210,10 +2141,10 @@
             this.cbMissingAsc.AutoSize = true;
             this.cbMissingAsc.Checked = true;
             this.cbMissingAsc.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cbMissingAsc.Location = new System.Drawing.Point(1639, 9);
-            this.cbMissingAsc.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cbMissingAsc.Location = new System.Drawing.Point(807, 5);
+            this.cbMissingAsc.Margin = new System.Windows.Forms.Padding(2);
             this.cbMissingAsc.Name = "cbMissingAsc";
-            this.cbMissingAsc.Size = new System.Drawing.Size(80, 32);
+            this.cbMissingAsc.Size = new System.Drawing.Size(51, 21);
             this.cbMissingAsc.TabIndex = 12;
             this.cbMissingAsc.Text = "正序";
             this.cbMissingAsc.UseVisualStyleBackColor = true;
@@ -2221,10 +2152,10 @@
             // rbMissingFavi
             // 
             this.rbMissingFavi.AutoSize = true;
-            this.rbMissingFavi.Location = new System.Drawing.Point(7, 122);
-            this.rbMissingFavi.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.rbMissingFavi.Location = new System.Drawing.Point(4, 70);
+            this.rbMissingFavi.Margin = new System.Windows.Forms.Padding(2);
             this.rbMissingFavi.Name = "rbMissingFavi";
-            this.rbMissingFavi.Size = new System.Drawing.Size(79, 32);
+            this.rbMissingFavi.Size = new System.Drawing.Size(50, 21);
             this.rbMissingFavi.TabIndex = 11;
             this.rbMissingFavi.Text = "书签";
             this.rbMissingFavi.UseVisualStyleBackColor = true;
@@ -2232,10 +2163,9 @@
             // btnDailyGenerateFav
             // 
             this.btnDailyGenerateFav.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnDailyGenerateFav.Location = new System.Drawing.Point(1777, 5);
-            this.btnDailyGenerateFav.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
+            this.btnDailyGenerateFav.Location = new System.Drawing.Point(889, 3);
             this.btnDailyGenerateFav.Name = "btnDailyGenerateFav";
-            this.btnDailyGenerateFav.Size = new System.Drawing.Size(125, 40);
+            this.btnDailyGenerateFav.Size = new System.Drawing.Size(68, 23);
             this.btnDailyGenerateFav.TabIndex = 10;
             this.btnDailyGenerateFav.Text = "生成书签";
             this.btnDailyGenerateFav.UseVisualStyleBackColor = true;
@@ -2244,10 +2174,9 @@
             // btnDailyFav
             // 
             this.btnDailyFav.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnDailyFav.Location = new System.Drawing.Point(1916, 5);
-            this.btnDailyFav.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
+            this.btnDailyFav.Location = new System.Drawing.Point(965, 3);
             this.btnDailyFav.Name = "btnDailyFav";
-            this.btnDailyFav.Size = new System.Drawing.Size(125, 40);
+            this.btnDailyFav.Size = new System.Drawing.Size(68, 23);
             this.btnDailyFav.TabIndex = 9;
             this.btnDailyFav.Text = "搜索书签";
             this.btnDailyFav.UseVisualStyleBackColor = true;
@@ -2256,10 +2185,10 @@
             // btnMissing115
             // 
             this.btnMissing115.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnMissing115.Location = new System.Drawing.Point(1916, 70);
-            this.btnMissing115.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnMissing115.Location = new System.Drawing.Point(965, 40);
+            this.btnMissing115.Margin = new System.Windows.Forms.Padding(2);
             this.btnMissing115.Name = "btnMissing115";
-            this.btnMissing115.Size = new System.Drawing.Size(125, 40);
+            this.btnMissing115.Size = new System.Drawing.Size(68, 23);
             this.btnMissing115.TabIndex = 8;
             this.btnMissing115.Text = "搜115";
             this.btnMissing115.UseVisualStyleBackColor = true;
@@ -2269,28 +2198,28 @@
             // 
             this.pbMissing.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.pbMissing.Location = new System.Drawing.Point(112, 131);
-            this.pbMissing.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pbMissing.Location = new System.Drawing.Point(61, 75);
+            this.pbMissing.Margin = new System.Windows.Forms.Padding(2);
             this.pbMissing.Name = "pbMissing";
-            this.pbMissing.Size = new System.Drawing.Size(1929, 37);
+            this.pbMissing.Size = new System.Drawing.Size(972, 21);
             this.pbMissing.TabIndex = 7;
             // 
             // labelMissing
             // 
             this.labelMissing.AutoSize = true;
-            this.labelMissing.Location = new System.Drawing.Point(112, 94);
-            this.labelMissing.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.labelMissing.Location = new System.Drawing.Point(61, 54);
+            this.labelMissing.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelMissing.Name = "labelMissing";
-            this.labelMissing.Size = new System.Drawing.Size(0, 28);
+            this.labelMissing.Size = new System.Drawing.Size(0, 17);
             this.labelMissing.TabIndex = 5;
             // 
             // btMissing
             // 
             this.btMissing.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btMissing.Location = new System.Drawing.Point(1777, 70);
-            this.btMissing.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btMissing.Location = new System.Drawing.Point(889, 40);
+            this.btMissing.Margin = new System.Windows.Forms.Padding(2);
             this.btMissing.Name = "btMissing";
-            this.btMissing.Size = new System.Drawing.Size(125, 40);
+            this.btMissing.Size = new System.Drawing.Size(68, 23);
             this.btMissing.TabIndex = 4;
             this.btMissing.Text = "扫描";
             this.btMissing.UseVisualStyleBackColor = true;
@@ -2300,10 +2229,10 @@
             // 
             this.rbMissingPrefix.AutoSize = true;
             this.rbMissingPrefix.Checked = true;
-            this.rbMissingPrefix.Location = new System.Drawing.Point(7, 82);
-            this.rbMissingPrefix.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.rbMissingPrefix.Location = new System.Drawing.Point(4, 47);
+            this.rbMissingPrefix.Margin = new System.Windows.Forms.Padding(2);
             this.rbMissingPrefix.Name = "rbMissingPrefix";
-            this.rbMissingPrefix.Size = new System.Drawing.Size(79, 32);
+            this.rbMissingPrefix.Size = new System.Drawing.Size(50, 21);
             this.rbMissingPrefix.TabIndex = 3;
             this.rbMissingPrefix.TabStop = true;
             this.rbMissingPrefix.Text = "前缀";
@@ -2312,10 +2241,10 @@
             // rbMissingActress
             // 
             this.rbMissingActress.AutoSize = true;
-            this.rbMissingActress.Location = new System.Drawing.Point(7, 44);
-            this.rbMissingActress.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.rbMissingActress.Location = new System.Drawing.Point(4, 25);
+            this.rbMissingActress.Margin = new System.Windows.Forms.Padding(2);
             this.rbMissingActress.Name = "rbMissingActress";
-            this.rbMissingActress.Size = new System.Drawing.Size(79, 32);
+            this.rbMissingActress.Size = new System.Drawing.Size(50, 21);
             this.rbMissingActress.TabIndex = 2;
             this.rbMissingActress.Text = "演员";
             this.rbMissingActress.UseVisualStyleBackColor = true;
@@ -2323,10 +2252,10 @@
             // rbMissingCate
             // 
             this.rbMissingCate.AutoSize = true;
-            this.rbMissingCate.Location = new System.Drawing.Point(7, 5);
-            this.rbMissingCate.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.rbMissingCate.Location = new System.Drawing.Point(4, 3);
+            this.rbMissingCate.Margin = new System.Windows.Forms.Padding(2);
             this.rbMissingCate.Name = "rbMissingCate";
-            this.rbMissingCate.Size = new System.Drawing.Size(79, 32);
+            this.rbMissingCate.Size = new System.Drawing.Size(50, 21);
             this.rbMissingCate.TabIndex = 1;
             this.rbMissingCate.Text = "类型";
             this.rbMissingCate.UseVisualStyleBackColor = true;
@@ -2335,19 +2264,18 @@
             // 
             this.txtMissing.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtMissing.Location = new System.Drawing.Point(117, 44);
-            this.txtMissing.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtMissing.Location = new System.Drawing.Point(64, 25);
+            this.txtMissing.Margin = new System.Windows.Forms.Padding(2);
             this.txtMissing.Name = "txtMissing";
-            this.txtMissing.Size = new System.Drawing.Size(1369, 34);
+            this.txtMissing.Size = new System.Drawing.Size(669, 23);
             this.txtMissing.TabIndex = 0;
             // 
             // tabPage15
             // 
             this.tabPage15.Controls.Add(this.panel49);
-            this.tabPage15.Location = new System.Drawing.Point(4, 31);
-            this.tabPage15.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
+            this.tabPage15.Location = new System.Drawing.Point(4, 22);
             this.tabPage15.Name = "tabPage15";
-            this.tabPage15.Size = new System.Drawing.Size(2056, 1025);
+            this.tabPage15.Size = new System.Drawing.Size(1041, 580);
             this.tabPage15.TabIndex = 17;
             this.tabPage15.Text = "日常更新";
             this.tabPage15.UseVisualStyleBackColor = true;
@@ -2358,19 +2286,17 @@
             this.panel49.Controls.Add(this.panel50);
             this.panel49.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel49.Location = new System.Drawing.Point(0, 0);
-            this.panel49.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.panel49.Name = "panel49";
-            this.panel49.Size = new System.Drawing.Size(2056, 1025);
+            this.panel49.Size = new System.Drawing.Size(1041, 580);
             this.panel49.TabIndex = 0;
             // 
             // panel51
             // 
             this.panel51.Controls.Add(this.lwDaily);
             this.panel51.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel51.Location = new System.Drawing.Point(0, 89);
-            this.panel51.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
+            this.panel51.Location = new System.Drawing.Point(0, 51);
             this.panel51.Name = "panel51";
-            this.panel51.Size = new System.Drawing.Size(2056, 936);
+            this.panel51.Size = new System.Drawing.Size(1041, 529);
             this.panel51.TabIndex = 2;
             // 
             // lwDaily
@@ -2380,10 +2306,9 @@
             this.lwDaily.HideSelection = false;
             this.lwDaily.LargeImageList = this.ilDaily;
             this.lwDaily.Location = new System.Drawing.Point(0, 0);
-            this.lwDaily.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.lwDaily.MultiSelect = false;
             this.lwDaily.Name = "lwDaily";
-            this.lwDaily.Size = new System.Drawing.Size(2056, 936);
+            this.lwDaily.Size = new System.Drawing.Size(1041, 529);
             this.lwDaily.TabIndex = 0;
             this.lwDaily.UseCompatibleStateImageBehavior = false;
             this.lwDaily.MouseClick += new System.Windows.Forms.MouseEventHandler(this.lwDaily_MouseClick);
@@ -2398,28 +2323,25 @@
             this.panel50.Controls.Add(this.label3);
             this.panel50.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel50.Location = new System.Drawing.Point(0, 0);
-            this.panel50.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.panel50.Name = "panel50";
-            this.panel50.Size = new System.Drawing.Size(2056, 89);
+            this.panel50.Size = new System.Drawing.Size(1041, 51);
             this.panel50.TabIndex = 1;
             // 
             // pbDaily
             // 
             this.pbDaily.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.pbDaily.Location = new System.Drawing.Point(392, 24);
-            this.pbDaily.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
+            this.pbDaily.Location = new System.Drawing.Point(214, 14);
             this.pbDaily.Name = "pbDaily";
-            this.pbDaily.Size = new System.Drawing.Size(1497, 40);
+            this.pbDaily.Size = new System.Drawing.Size(737, 23);
             this.pbDaily.TabIndex = 4;
             // 
             // btnDaily
             // 
             this.btnDaily.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnDaily.Location = new System.Drawing.Point(1902, 10);
-            this.btnDaily.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
+            this.btnDaily.Location = new System.Drawing.Point(957, 6);
             this.btnDaily.Name = "btnDaily";
-            this.btnDaily.Size = new System.Drawing.Size(138, 66);
+            this.btnDaily.Size = new System.Drawing.Size(75, 38);
             this.btnDaily.TabIndex = 3;
             this.btnDaily.Text = "搜索";
             this.btnDaily.UseVisualStyleBackColor = true;
@@ -2431,30 +2353,27 @@
             this.cbDailyOnly.Checked = true;
             this.cbDailyOnly.CheckState = System.Windows.Forms.CheckState.Checked;
             this.cbDailyOnly.Enabled = false;
-            this.cbDailyOnly.Location = new System.Drawing.Point(262, 30);
-            this.cbDailyOnly.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
+            this.cbDailyOnly.Location = new System.Drawing.Point(143, 17);
             this.cbDailyOnly.Name = "cbDailyOnly";
-            this.cbDailyOnly.Size = new System.Drawing.Size(120, 25);
+            this.cbDailyOnly.Size = new System.Drawing.Size(72, 16);
             this.cbDailyOnly.TabIndex = 2;
             this.cbDailyOnly.Text = "包含匹配";
             this.cbDailyOnly.UseVisualStyleBackColor = true;
             // 
             // txtDailyPage
             // 
-            this.txtDailyPage.Location = new System.Drawing.Point(70, 28);
-            this.txtDailyPage.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
+            this.txtDailyPage.Location = new System.Drawing.Point(38, 16);
             this.txtDailyPage.Name = "txtDailyPage";
-            this.txtDailyPage.Size = new System.Drawing.Size(180, 31);
+            this.txtDailyPage.Size = new System.Drawing.Size(100, 21);
             this.txtDailyPage.TabIndex = 1;
             this.txtDailyPage.Text = "20";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(17, 33);
-            this.label3.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.label3.Location = new System.Drawing.Point(9, 19);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(52, 21);
+            this.label3.Size = new System.Drawing.Size(29, 12);
             this.label3.TabIndex = 0;
             this.label3.Text = "页数";
             // 
@@ -2462,10 +2381,9 @@
             // 
             this.tabPage12.Controls.Add(this.panel43);
             this.tabPage12.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.tabPage12.Location = new System.Drawing.Point(4, 31);
-            this.tabPage12.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
+            this.tabPage12.Location = new System.Drawing.Point(4, 22);
             this.tabPage12.Name = "tabPage12";
-            this.tabPage12.Size = new System.Drawing.Size(2056, 1025);
+            this.tabPage12.Size = new System.Drawing.Size(1041, 580);
             this.tabPage12.TabIndex = 15;
             this.tabPage12.Text = "生成报表";
             this.tabPage12.UseVisualStyleBackColor = true;
@@ -2476,28 +2394,25 @@
             this.panel43.Controls.Add(this.panel44);
             this.panel43.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel43.Location = new System.Drawing.Point(0, 0);
-            this.panel43.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.panel43.Name = "panel43";
-            this.panel43.Size = new System.Drawing.Size(2056, 1025);
+            this.panel43.Size = new System.Drawing.Size(1041, 580);
             this.panel43.TabIndex = 0;
             // 
             // panel45
             // 
             this.panel45.Controls.Add(this.rtbReport);
             this.panel45.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel45.Location = new System.Drawing.Point(0, 80);
-            this.panel45.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
+            this.panel45.Location = new System.Drawing.Point(0, 46);
             this.panel45.Name = "panel45";
-            this.panel45.Size = new System.Drawing.Size(2056, 945);
+            this.panel45.Size = new System.Drawing.Size(1041, 534);
             this.panel45.TabIndex = 2;
             // 
             // rtbReport
             // 
             this.rtbReport.Dock = System.Windows.Forms.DockStyle.Fill;
             this.rtbReport.Location = new System.Drawing.Point(0, 0);
-            this.rtbReport.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.rtbReport.Name = "rtbReport";
-            this.rtbReport.Size = new System.Drawing.Size(2056, 945);
+            this.rtbReport.Size = new System.Drawing.Size(1041, 534);
             this.rtbReport.TabIndex = 0;
             this.rtbReport.Text = "";
             // 
@@ -2506,17 +2421,15 @@
             this.panel44.Controls.Add(this.btnReport);
             this.panel44.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel44.Location = new System.Drawing.Point(0, 0);
-            this.panel44.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.panel44.Name = "panel44";
-            this.panel44.Size = new System.Drawing.Size(2056, 80);
+            this.panel44.Size = new System.Drawing.Size(1041, 46);
             this.panel44.TabIndex = 1;
             // 
             // btnReport
             // 
-            this.btnReport.Location = new System.Drawing.Point(15, 18);
-            this.btnReport.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
+            this.btnReport.Location = new System.Drawing.Point(8, 10);
             this.btnReport.Name = "btnReport";
-            this.btnReport.Size = new System.Drawing.Size(138, 52);
+            this.btnReport.Size = new System.Drawing.Size(75, 30);
             this.btnReport.TabIndex = 0;
             this.btnReport.Text = "生成报告";
             this.btnReport.UseVisualStyleBackColor = true;
@@ -2525,10 +2438,9 @@
             // tabPage16
             // 
             this.tabPage16.Controls.Add(this.panel52);
-            this.tabPage16.Location = new System.Drawing.Point(4, 31);
-            this.tabPage16.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
+            this.tabPage16.Location = new System.Drawing.Point(4, 22);
             this.tabPage16.Name = "tabPage16";
-            this.tabPage16.Size = new System.Drawing.Size(2056, 1025);
+            this.tabPage16.Size = new System.Drawing.Size(1041, 580);
             this.tabPage16.TabIndex = 18;
             this.tabPage16.Text = "视频播放器";
             this.tabPage16.UseVisualStyleBackColor = true;
@@ -2539,19 +2451,17 @@
             this.panel52.Controls.Add(this.panel53);
             this.panel52.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel52.Location = new System.Drawing.Point(0, 0);
-            this.panel52.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.panel52.Name = "panel52";
-            this.panel52.Size = new System.Drawing.Size(2056, 1025);
+            this.panel52.Size = new System.Drawing.Size(1041, 580);
             this.panel52.TabIndex = 0;
             // 
             // panel54
             // 
             this.panel54.Controls.Add(this.lvPlay);
             this.panel54.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel54.Location = new System.Drawing.Point(444, 0);
-            this.panel54.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
+            this.panel54.Location = new System.Drawing.Point(242, 0);
             this.panel54.Name = "panel54";
-            this.panel54.Size = new System.Drawing.Size(1612, 1025);
+            this.panel54.Size = new System.Drawing.Size(799, 580);
             this.panel54.TabIndex = 2;
             // 
             // lvPlay
@@ -2560,9 +2470,8 @@
             this.lvPlay.HideSelection = false;
             this.lvPlay.LargeImageList = this.ilPlay;
             this.lvPlay.Location = new System.Drawing.Point(0, 0);
-            this.lvPlay.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.lvPlay.Name = "lvPlay";
-            this.lvPlay.Size = new System.Drawing.Size(1612, 1025);
+            this.lvPlay.Size = new System.Drawing.Size(799, 580);
             this.lvPlay.TabIndex = 0;
             this.lvPlay.UseCompatibleStateImageBehavior = false;
             this.lvPlay.SelectedIndexChanged += new System.EventHandler(this.lvPlay_SelectedIndexChanged);
@@ -2594,18 +2503,16 @@
             this.panel53.Controls.Add(this.cbPlayActress);
             this.panel53.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel53.Location = new System.Drawing.Point(0, 0);
-            this.panel53.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.panel53.Name = "panel53";
-            this.panel53.Size = new System.Drawing.Size(444, 1025);
+            this.panel53.Size = new System.Drawing.Size(242, 580);
             this.panel53.TabIndex = 1;
             // 
             // playBack
             // 
             this.playBack.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.playBack.Location = new System.Drawing.Point(295, 764);
-            this.playBack.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
+            this.playBack.Location = new System.Drawing.Point(161, 431);
             this.playBack.Name = "playBack";
-            this.playBack.Size = new System.Drawing.Size(138, 70);
+            this.playBack.Size = new System.Drawing.Size(75, 40);
             this.playBack.TabIndex = 1;
             this.playBack.Text = "返回跳转前";
             this.playBack.UseVisualStyleBackColor = true;
@@ -2614,20 +2521,19 @@
             // txtPlaySkip
             // 
             this.txtPlaySkip.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtPlaySkip.Location = new System.Drawing.Point(301, 934);
-            this.txtPlaySkip.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
+            this.txtPlaySkip.Location = new System.Drawing.Point(164, 528);
             this.txtPlaySkip.Name = "txtPlaySkip";
-            this.txtPlaySkip.Size = new System.Drawing.Size(76, 31);
+            this.txtPlaySkip.Size = new System.Drawing.Size(43, 21);
             this.txtPlaySkip.TabIndex = 13;
             this.txtPlaySkip.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox1_KeyPress);
             // 
             // btnPlayNext
             // 
             this.btnPlayNext.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnPlayNext.Location = new System.Drawing.Point(391, 934);
-            this.btnPlayNext.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnPlayNext.Location = new System.Drawing.Point(213, 528);
+            this.btnPlayNext.Margin = new System.Windows.Forms.Padding(2);
             this.btnPlayNext.Name = "btnPlayNext";
-            this.btnPlayNext.Size = new System.Drawing.Size(50, 37);
+            this.btnPlayNext.Size = new System.Drawing.Size(27, 21);
             this.btnPlayNext.TabIndex = 12;
             this.btnPlayNext.Text = ">";
             this.btnPlayNext.UseVisualStyleBackColor = true;
@@ -2636,10 +2542,10 @@
             // btnPlayPre
             // 
             this.btnPlayPre.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnPlayPre.Location = new System.Drawing.Point(237, 934);
-            this.btnPlayPre.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnPlayPre.Location = new System.Drawing.Point(129, 528);
+            this.btnPlayPre.Margin = new System.Windows.Forms.Padding(2);
             this.btnPlayPre.Name = "btnPlayPre";
-            this.btnPlayPre.Size = new System.Drawing.Size(50, 37);
+            this.btnPlayPre.Size = new System.Drawing.Size(27, 21);
             this.btnPlayPre.TabIndex = 11;
             this.btnPlayPre.Text = "<";
             this.btnPlayPre.UseVisualStyleBackColor = true;
@@ -2649,10 +2555,10 @@
             // 
             this.lbPlayPage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.lbPlayPage.AutoSize = true;
-            this.lbPlayPage.Location = new System.Drawing.Point(314, 859);
-            this.lbPlayPage.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lbPlayPage.Location = new System.Drawing.Point(171, 485);
+            this.lbPlayPage.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lbPlayPage.Name = "lbPlayPage";
-            this.lbPlayPage.Size = new System.Drawing.Size(65, 21);
+            this.lbPlayPage.Size = new System.Drawing.Size(35, 12);
             this.lbPlayPage.TabIndex = 10;
             this.lbPlayPage.Text = "0 / 0";
             this.lbPlayPage.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -2661,21 +2567,20 @@
             // 
             this.txtPlayPageSize.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtPlayPageSize.Location = new System.Drawing.Point(304, 883);
-            this.txtPlayPageSize.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtPlayPageSize.Location = new System.Drawing.Point(166, 499);
+            this.txtPlayPageSize.Margin = new System.Windows.Forms.Padding(2);
             this.txtPlayPageSize.Name = "txtPlayPageSize";
             this.txtPlayPageSize.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.txtPlayPageSize.Size = new System.Drawing.Size(127, 31);
+            this.txtPlayPageSize.Size = new System.Drawing.Size(71, 21);
             this.txtPlayPageSize.TabIndex = 9;
             this.txtPlayPageSize.Text = "200";
             // 
             // btnPlayRefresh
             // 
             this.btnPlayRefresh.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnPlayRefresh.Location = new System.Drawing.Point(15, 859);
-            this.btnPlayRefresh.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
+            this.btnPlayRefresh.Location = new System.Drawing.Point(8, 485);
             this.btnPlayRefresh.Name = "btnPlayRefresh";
-            this.btnPlayRefresh.Size = new System.Drawing.Size(138, 70);
+            this.btnPlayRefresh.Size = new System.Drawing.Size(75, 40);
             this.btnPlayRefresh.TabIndex = 8;
             this.btnPlayRefresh.Text = "刷新";
             this.btnPlayRefresh.UseVisualStyleBackColor = true;
@@ -2685,10 +2590,9 @@
             // 
             this.lbPlayStatus.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.lbPlayStatus.AutoSize = true;
-            this.lbPlayStatus.Location = new System.Drawing.Point(233, 990);
-            this.lbPlayStatus.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.lbPlayStatus.Location = new System.Drawing.Point(127, 560);
             this.lbPlayStatus.Name = "lbPlayStatus";
-            this.lbPlayStatus.Size = new System.Drawing.Size(53, 21);
+            this.lbPlayStatus.Size = new System.Drawing.Size(29, 12);
             this.lbPlayStatus.TabIndex = 7;
             this.lbPlayStatus.Text = "0 条";
             this.lbPlayStatus.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -2696,10 +2600,9 @@
             // btnPlay
             // 
             this.btnPlay.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnPlay.Location = new System.Drawing.Point(15, 941);
-            this.btnPlay.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
+            this.btnPlay.Location = new System.Drawing.Point(8, 532);
             this.btnPlay.Name = "btnPlay";
-            this.btnPlay.Size = new System.Drawing.Size(138, 70);
+            this.btnPlay.Size = new System.Drawing.Size(75, 40);
             this.btnPlay.TabIndex = 6;
             this.btnPlay.Text = "搜索";
             this.btnPlay.UseVisualStyleBackColor = true;
@@ -2708,10 +2611,9 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(17, 135);
-            this.label6.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.label6.Location = new System.Drawing.Point(9, 77);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(52, 21);
+            this.label6.Size = new System.Drawing.Size(29, 12);
             this.label6.TabIndex = 5;
             this.label6.Text = "前缀";
             // 
@@ -2720,19 +2622,17 @@
             this.cbPlayPrefix.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cbPlayPrefix.FormattingEnabled = true;
-            this.cbPlayPrefix.Location = new System.Drawing.Point(81, 130);
-            this.cbPlayPrefix.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
+            this.cbPlayPrefix.Location = new System.Drawing.Point(44, 74);
             this.cbPlayPrefix.Name = "cbPlayPrefix";
-            this.cbPlayPrefix.Size = new System.Drawing.Size(323, 29);
+            this.cbPlayPrefix.Size = new System.Drawing.Size(178, 20);
             this.cbPlayPrefix.TabIndex = 4;
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(17, 89);
-            this.label5.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.label5.Location = new System.Drawing.Point(9, 51);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(52, 21);
+            this.label5.Size = new System.Drawing.Size(29, 12);
             this.label5.TabIndex = 3;
             this.label5.Text = "类别";
             // 
@@ -2741,19 +2641,17 @@
             this.cbPlayCategory.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cbPlayCategory.FormattingEnabled = true;
-            this.cbPlayCategory.Location = new System.Drawing.Point(81, 84);
-            this.cbPlayCategory.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
+            this.cbPlayCategory.Location = new System.Drawing.Point(44, 48);
             this.cbPlayCategory.Name = "cbPlayCategory";
-            this.cbPlayCategory.Size = new System.Drawing.Size(323, 29);
+            this.cbPlayCategory.Size = new System.Drawing.Size(178, 20);
             this.cbPlayCategory.TabIndex = 2;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(17, 44);
-            this.label4.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.label4.Location = new System.Drawing.Point(9, 25);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(52, 21);
+            this.label4.Size = new System.Drawing.Size(29, 12);
             this.label4.TabIndex = 1;
             this.label4.Text = "演员";
             // 
@@ -2764,21 +2662,10 @@
             this.cbPlayActress.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
             this.cbPlayActress.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cbPlayActress.FormattingEnabled = true;
-            this.cbPlayActress.Location = new System.Drawing.Point(81, 38);
-            this.cbPlayActress.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
+            this.cbPlayActress.Location = new System.Drawing.Point(44, 22);
             this.cbPlayActress.Name = "cbPlayActress";
-            this.cbPlayActress.Size = new System.Drawing.Size(323, 29);
+            this.cbPlayActress.Size = new System.Drawing.Size(178, 20);
             this.cbPlayActress.TabIndex = 0;
-            // 
-            // tabPage17
-            // 
-            this.tabPage17.Location = new System.Drawing.Point(4, 31);
-            this.tabPage17.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
-            this.tabPage17.Name = "tabPage17";
-            this.tabPage17.Size = new System.Drawing.Size(2056, 1025);
-            this.tabPage17.TabIndex = 19;
-            this.tabPage17.Text = "等待下载";
-            this.tabPage17.UseVisualStyleBackColor = true;
             // 
             // openFileDialog1
             // 
@@ -2836,12 +2723,12 @@
             this.contextMenuStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItem1});
             this.contextMenuStrip2.Name = "contextMenuStrip2";
-            this.contextMenuStrip2.Size = new System.Drawing.Size(131, 40);
+            this.contextMenuStrip2.Size = new System.Drawing.Size(101, 26);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(130, 36);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(100, 22);
             this.toolStripMenuItem1.Text = "退出";
             this.toolStripMenuItem1.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
             // 
@@ -2853,27 +2740,27 @@
             this.重命名ToolStripMenuItem,
             this.看截图ToolStripMenuItem});
             this.contextMenuStrip3.Name = "contextMenuStrip3";
-            this.contextMenuStrip3.Size = new System.Drawing.Size(153, 112);
+            this.contextMenuStrip3.Size = new System.Drawing.Size(114, 70);
             this.contextMenuStrip3.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip3_Opening);
             // 
             // 删除ToolStripMenuItem
             // 
             this.删除ToolStripMenuItem.Name = "删除ToolStripMenuItem";
-            this.删除ToolStripMenuItem.Size = new System.Drawing.Size(152, 36);
+            this.删除ToolStripMenuItem.Size = new System.Drawing.Size(113, 22);
             this.删除ToolStripMenuItem.Text = "删除";
             this.删除ToolStripMenuItem.Click += new System.EventHandler(this.删除ToolStripMenuItem_Click);
             // 
             // 重命名ToolStripMenuItem
             // 
             this.重命名ToolStripMenuItem.Name = "重命名ToolStripMenuItem";
-            this.重命名ToolStripMenuItem.Size = new System.Drawing.Size(152, 36);
+            this.重命名ToolStripMenuItem.Size = new System.Drawing.Size(113, 22);
             this.重命名ToolStripMenuItem.Text = "重命名";
             this.重命名ToolStripMenuItem.Click += new System.EventHandler(this.重命名ToolStripMenuItem_Click);
             // 
             // 看截图ToolStripMenuItem
             // 
             this.看截图ToolStripMenuItem.Name = "看截图ToolStripMenuItem";
-            this.看截图ToolStripMenuItem.Size = new System.Drawing.Size(152, 36);
+            this.看截图ToolStripMenuItem.Size = new System.Drawing.Size(113, 22);
             this.看截图ToolStripMenuItem.Text = "看截图";
             this.看截图ToolStripMenuItem.Click += new System.EventHandler(this.看截图ToolStripMenuItem_Click);
             // 
@@ -2884,29 +2771,29 @@
             this.toolStripMenuItem2,
             this.toolStripMenuItem3});
             this.contextMenuStrip4.Name = "contextMenuStrip3";
-            this.contextMenuStrip4.Size = new System.Drawing.Size(131, 76);
+            this.contextMenuStrip4.Size = new System.Drawing.Size(101, 48);
             // 
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(130, 36);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(180, 22);
             this.toolStripMenuItem2.Text = "查询";
             // 
             // toolStripMenuItem3
             // 
             this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(130, 36);
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(180, 22);
             this.toolStripMenuItem3.Text = "播放";
+            this.toolStripMenuItem3.Click += new System.EventHandler(this.toolStripMenuItem3_Click);
             // 
             // Main
             // 
             this.AllowDrop = true;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 21F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(2064, 1060);
+            this.ClientSize = new System.Drawing.Size(1049, 606);
             this.Controls.Add(this.panel1);
             this.KeyPreview = true;
-            this.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.Name = "Main";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "视频管理";
@@ -3021,8 +2908,168 @@
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
         private System.Windows.Forms.Panel panel5;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        private System.Windows.Forms.Button btnCheckISO;
+        private System.Windows.Forms.TreeView treeView3;
+        private System.Windows.Forms.ImageList ilDaily;
+        private System.Windows.Forms.ImageList ilPlay;
+        private System.Windows.Forms.ImageList ilMissing;
+        private System.Windows.Forms.NotifyIcon notifyIcon1;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip2;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip3;
+        private System.Windows.Forms.ToolStripMenuItem 删除ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 重命名ToolStripMenuItem;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip4;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem3;
+        private System.Windows.Forms.ToolStripMenuItem 看截图ToolStripMenuItem;
         private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.Panel panel9;
+        private System.Windows.Forms.TreeView treeView1;
+        private System.Windows.Forms.Panel panel8;
+        private System.Windows.Forms.Button btnDelete;
+        private System.Windows.Forms.ProgressBar pb2;
+        private System.Windows.Forms.Button btnGenerate;
+        private System.Windows.Forms.Panel panel7;
+        private System.Windows.Forms.CheckBox cbThums;
+        private System.Windows.Forms.Button btnLook;
+        private System.Windows.Forms.TextBox txtLook;
+        private System.Windows.Forms.TabPage tabPage3;
+        private System.Windows.Forms.Panel panel11;
+        private System.Windows.Forms.TreeView treeView2;
+        private System.Windows.Forms.Panel panel10;
+        private System.Windows.Forms.Button btnAutoSave;
+        private System.Windows.Forms.TextBox txtAutoSave;
+        private System.Windows.Forms.ProgressBar pbTotal;
+        private System.Windows.Forms.ProgressBar pbCurrent;
+        private System.Windows.Forms.Button btnAuto;
+        private System.Windows.Forms.Button btnPreview;
+        private System.Windows.Forms.TabPage tabPage4;
+        private System.Windows.Forms.Panel panel12;
+        private System.Windows.Forms.Panel panel15;
+        private System.Windows.Forms.ListView listView2;
+        private System.Windows.Forms.ColumnHeader columnHeader2;
+        private System.Windows.Forms.ColumnHeader columnHeader5;
+        private System.Windows.Forms.ColumnHeader columnHeader6;
+        private System.Windows.Forms.Panel panel14;
+        private System.Windows.Forms.Button btStartConvert;
+        private System.Windows.Forms.ProgressBar pbConvertCurrent;
+        private System.Windows.Forms.ProgressBar pbConvertTotal;
+        private System.Windows.Forms.Button btnConvertStart;
+        private System.Windows.Forms.TextBox txtConvertSave;
+        private System.Windows.Forms.CheckBox cbDeleteConvert;
+        private System.Windows.Forms.Panel panel13;
+        private System.Windows.Forms.Button btnConvertImport;
+        private System.Windows.Forms.TextBox txtConvertImport;
+        private System.Windows.Forms.TabPage tabPage6;
+        private System.Windows.Forms.Panel panel19;
+        private System.Windows.Forms.Panel panel21;
+        private System.Windows.Forms.TreeView treeView4;
+        private System.Windows.Forms.Panel panel20;
+        private System.Windows.Forms.Button btnScanClear;
+        private System.Windows.Forms.Button btnScanDelete;
+        private System.Windows.Forms.Button btnScanRedundant;
+        private System.Windows.Forms.TabPage tabPage7;
+        private System.Windows.Forms.Panel panel24;
+        private System.Windows.Forms.Panel panel22;
+        private System.Windows.Forms.TreeView treeView5;
+        private System.Windows.Forms.Panel panel23;
+        private System.Windows.Forms.Button btnScanUnmatchedSelect;
+        private System.Windows.Forms.Button btnScanUnmathced;
+        private System.Windows.Forms.TextBox txtUnmatched;
+        private System.Windows.Forms.TabPage tabPage5;
+        private System.Windows.Forms.Panel panel18;
+        private System.Windows.Forms.Panel panel17;
+        private System.Windows.Forms.RichTextBox richTextBox1;
+        private System.Windows.Forms.Panel panel16;
+        private System.Windows.Forms.Button btnRemoveOpen;
+        private System.Windows.Forms.TextBox txtRemoveFolderTxt;
+        private System.Windows.Forms.Button btnRemoveFolderStart;
+        private System.Windows.Forms.Button btnRemoveFolderScan;
+        private System.Windows.Forms.TabPage tabPage8;
+        private System.Windows.Forms.Panel panel27;
+        private System.Windows.Forms.Panel panel25;
+        private System.Windows.Forms.RichTextBox richTextBox2;
+        private System.Windows.Forms.Panel panel26;
+        private System.Windows.Forms.Button btnManualRename;
+        private System.Windows.Forms.TextBox txtRenameTxt;
+        private System.Windows.Forms.Button btnRenameStart;
+        private System.Windows.Forms.Button btnRenameScan;
+        private System.Windows.Forms.TabPage tabPage9;
+        private System.Windows.Forms.Panel panel28;
+        private System.Windows.Forms.Panel panel30;
+        private System.Windows.Forms.ListView listView3;
+        private System.Windows.Forms.ColumnHeader columnHeader7;
+        private System.Windows.Forms.ColumnHeader columnHeader8;
+        private System.Windows.Forms.ColumnHeader columnHeader9;
+        private System.Windows.Forms.ColumnHeader columnHeader10;
+        private System.Windows.Forms.ColumnHeader columnHeader11;
+        private System.Windows.Forms.Panel panel29;
+        private System.Windows.Forms.CheckBox cbSukebei;
+        private System.Windows.Forms.CheckBox cbBtsow;
+        private System.Windows.Forms.Button btnSearchSeed;
+        private System.Windows.Forms.TextBox txtSeedSearchContent;
+        private System.Windows.Forms.TabPage tabPage10;
+        private System.Windows.Forms.Panel panel31;
+        private System.Windows.Forms.Panel panel33;
+        private System.Windows.Forms.RichTextBox richTextBox3;
+        private System.Windows.Forms.ListView listView4;
+        private System.Windows.Forms.ColumnHeader columnHeader12;
+        private System.Windows.Forms.ColumnHeader columnHeader13;
+        private System.Windows.Forms.Panel panel32;
+        private System.Windows.Forms.Button btnScanBatch;
+        private System.Windows.Forms.TextBox txtPrefix;
+        private System.Windows.Forms.RadioButton rbPrefix;
+        private System.Windows.Forms.Button btnJavScanDaily;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button btnJavScan;
+        private System.Windows.Forms.RadioButton rbDir;
+        private System.Windows.Forms.RadioButton rbCom;
+        private System.Windows.Forms.RadioButton rbActress;
+        private System.Windows.Forms.RadioButton rbCate;
+        private System.Windows.Forms.TextBox txtJavScanUrl;
+        private System.Windows.Forms.TextBox txtJavScanTitle;
+        private System.Windows.Forms.TabPage tabPage11;
+        private System.Windows.Forms.Panel panel34;
+        private System.Windows.Forms.Panel panel36;
+        private System.Windows.Forms.RichTextBox rtbMatch;
+        private System.Windows.Forms.Panel panel35;
+        private System.Windows.Forms.Button btnMatch;
+        private System.Windows.Forms.TabPage tabPage14;
+        private System.Windows.Forms.SplitContainer splitContainer1;
+        private System.Windows.Forms.Panel panel37;
+        private System.Windows.Forms.Panel panel39;
+        private System.Windows.Forms.ListView lvwFind;
+        private System.Windows.Forms.ColumnHeader columnHeader14;
+        private System.Windows.Forms.ColumnHeader columnHeader15;
+        private System.Windows.Forms.ColumnHeader columnHeader18;
+        private System.Windows.Forms.Panel panel38;
+        private System.Windows.Forms.CheckBox cbFindOnly;
+        private System.Windows.Forms.Button btnFind;
+        private System.Windows.Forms.TextBox txtFind;
+        private System.Windows.Forms.Panel panel40;
+        private System.Windows.Forms.Panel panel42;
+        private System.Windows.Forms.ListView lvwRecnet;
+        private System.Windows.Forms.ColumnHeader columnHeader16;
+        private System.Windows.Forms.ColumnHeader columnHeader19;
+        private System.Windows.Forms.ColumnHeader columnHeader17;
+        private System.Windows.Forms.Panel panel41;
+        private System.Windows.Forms.Button btnRecentFIndMove;
+        private System.Windows.Forms.RadioButton rbSizeA;
+        private System.Windows.Forms.RadioButton rbSizeD;
+        private System.Windows.Forms.RadioButton rbDateA;
+        private System.Windows.Forms.RadioButton rbDateD;
+        private System.Windows.Forms.Button btnRecent;
+        private System.Windows.Forms.TextBox txtRecent;
         private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.Panel panel6;
+        private System.Windows.Forms.ListView listView1;
+        private System.Windows.Forms.ColumnHeader columnHeader1;
+        private System.Windows.Forms.ColumnHeader columnHeader3;
+        private System.Windows.Forms.ColumnHeader columnHeader4;
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.CheckBox cbMove;
         private System.Windows.Forms.Button btnSave;
@@ -3031,224 +3078,63 @@
         private System.Windows.Forms.TextBox txtSave;
         private System.Windows.Forms.ProgressBar pb;
         private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.Button btnImport;
-        private System.Windows.Forms.ListView listView1;
-        private System.Windows.Forms.ColumnHeader columnHeader1;
-        private System.Windows.Forms.ColumnHeader columnHeader3;
-        private System.Windows.Forms.ColumnHeader columnHeader4;
-        private System.Windows.Forms.TabPage tabPage2;
-        private System.Windows.Forms.Panel panel6;
-        private System.Windows.Forms.Panel panel7;
-        private System.Windows.Forms.Panel panel8;
-        private System.Windows.Forms.Button btnLook;
-        private System.Windows.Forms.TextBox txtLook;
-        private System.Windows.Forms.Panel panel9;
-        private System.Windows.Forms.Button btnGenerate;
-        private System.Windows.Forms.TreeView treeView1;
-        private System.Windows.Forms.ProgressBar pb2;
-        private System.Windows.Forms.TabPage tabPage3;
-        private System.Windows.Forms.Panel panel11;
-        private System.Windows.Forms.Panel panel10;
-        private System.Windows.Forms.Button btnPreview;
-        private System.Windows.Forms.Button btnAuto;
-        private System.Windows.Forms.ProgressBar pbTotal;
-        private System.Windows.Forms.ProgressBar pbCurrent;
-        private System.Windows.Forms.TreeView treeView2;
-        private System.Windows.Forms.TextBox txtAutoSave;
-        private System.Windows.Forms.Button btnAutoSave;
-        private System.Windows.Forms.TabPage tabPage4;
-        private System.Windows.Forms.Panel panel12;
-        private System.Windows.Forms.Panel panel15;
-        private System.Windows.Forms.Panel panel14;
-        private System.Windows.Forms.Panel panel13;
-        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
-        private System.Windows.Forms.Button btnConvertImport;
-        private System.Windows.Forms.TextBox txtConvertImport;
-        private System.Windows.Forms.ListView listView2;
-        private System.Windows.Forms.ColumnHeader columnHeader2;
-        private System.Windows.Forms.ColumnHeader columnHeader5;
-        private System.Windows.Forms.ColumnHeader columnHeader6;
-        private System.Windows.Forms.CheckBox cbDeleteConvert;
-        private System.Windows.Forms.Button btnConvertStart;
-        private System.Windows.Forms.TextBox txtConvertSave;
-        private System.Windows.Forms.ProgressBar pbConvertTotal;
-        private System.Windows.Forms.ProgressBar pbConvertCurrent;
-        private System.Windows.Forms.Button btStartConvert;
         private System.Windows.Forms.TextBox txtHopeName;
-        private System.Windows.Forms.Button btnDelete;
-        private System.Windows.Forms.TabPage tabPage6;
-        private System.Windows.Forms.TabPage tabPage7;
-        private System.Windows.Forms.Panel panel20;
-        private System.Windows.Forms.Panel panel19;
-        private System.Windows.Forms.TreeView treeView4;
-        private System.Windows.Forms.Button btnScanRedundant;
-        private System.Windows.Forms.Panel panel21;
-        private System.Windows.Forms.Button btnScanDelete;
-        private System.Windows.Forms.Button btnScanClear;
-        private System.Windows.Forms.Panel panel24;
-        private System.Windows.Forms.Panel panel23;
-        private System.Windows.Forms.Button btnScanUnmathced;
-        private System.Windows.Forms.TextBox txtUnmatched;
-        private System.Windows.Forms.Panel panel22;
-        private System.Windows.Forms.TreeView treeView5;
-        private System.Windows.Forms.Button btnCheckISO;
-        private System.Windows.Forms.TreeView treeView3;
-        private System.Windows.Forms.TabPage tabPage5;
-        private System.Windows.Forms.Panel panel18;
-        private System.Windows.Forms.Panel panel17;
-        private System.Windows.Forms.Panel panel16;
-        private System.Windows.Forms.Button btnRemoveFolderStart;
-        private System.Windows.Forms.Button btnRemoveFolderScan;
-        private System.Windows.Forms.TextBox txtRemoveFolderTxt;
-        private System.Windows.Forms.RichTextBox richTextBox1;
-        private System.Windows.Forms.TabPage tabPage8;
-        private System.Windows.Forms.Panel panel27;
-        private System.Windows.Forms.Panel panel26;
-        private System.Windows.Forms.Panel panel25;
-        private System.Windows.Forms.TextBox txtRenameTxt;
-        private System.Windows.Forms.Button btnRenameStart;
-        private System.Windows.Forms.Button btnRenameScan;
-        private System.Windows.Forms.RichTextBox richTextBox2;
-        private System.Windows.Forms.TabPage tabPage9;
-        private System.Windows.Forms.Panel panel28;
-        private System.Windows.Forms.Panel panel30;
-        private System.Windows.Forms.Panel panel29;
-        private System.Windows.Forms.Button btnSearchSeed;
-        private System.Windows.Forms.TextBox txtSeedSearchContent;
-        private System.Windows.Forms.CheckBox cbSukebei;
-        private System.Windows.Forms.CheckBox cbBtsow;
-        private System.Windows.Forms.ListView listView3;
-        private System.Windows.Forms.ColumnHeader columnHeader7;
-        private System.Windows.Forms.ColumnHeader columnHeader8;
-        private System.Windows.Forms.ColumnHeader columnHeader9;
-        private System.Windows.Forms.ColumnHeader columnHeader10;
-        private System.Windows.Forms.ColumnHeader columnHeader11;
-        private System.Windows.Forms.TabPage tabPage10;
-        private System.Windows.Forms.Panel panel31;
-        private System.Windows.Forms.Panel panel32;
-        private System.Windows.Forms.Panel panel33;
-        private System.Windows.Forms.RadioButton rbDir;
-        private System.Windows.Forms.RadioButton rbCom;
-        private System.Windows.Forms.RadioButton rbActress;
-        private System.Windows.Forms.RadioButton rbCate;
-        private System.Windows.Forms.TextBox txtJavScanUrl;
-        private System.Windows.Forms.TextBox txtJavScanTitle;
-        private System.Windows.Forms.Button btnJavScan;
-        private System.Windows.Forms.ListView listView4;
-        private System.Windows.Forms.ColumnHeader columnHeader12;
-        private System.Windows.Forms.ColumnHeader columnHeader13;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button btnJavScanDaily;
-        private System.Windows.Forms.RichTextBox richTextBox3;
-        private System.Windows.Forms.Button btnManualRename;
-        private System.Windows.Forms.TabPage tabPage11;
-        private System.Windows.Forms.TabPage tabPage14;
-        private System.Windows.Forms.Panel panel34;
-        private System.Windows.Forms.Panel panel36;
-        private System.Windows.Forms.Panel panel35;
-        private System.Windows.Forms.RichTextBox rtbMatch;
-        private System.Windows.Forms.Button btnMatch;
-        private System.Windows.Forms.SplitContainer splitContainer1;
-        private System.Windows.Forms.Panel panel37;
-        private System.Windows.Forms.Panel panel39;
-        private System.Windows.Forms.Panel panel38;
-        private System.Windows.Forms.Panel panel40;
-        private System.Windows.Forms.Panel panel42;
-        private System.Windows.Forms.Panel panel41;
-        private System.Windows.Forms.ListView lvwFind;
-        private System.Windows.Forms.ColumnHeader columnHeader14;
-        private System.Windows.Forms.ColumnHeader columnHeader15;
-        private System.Windows.Forms.Button btnFind;
-        private System.Windows.Forms.TextBox txtFind;
-        private System.Windows.Forms.ColumnHeader columnHeader18;
-        private System.Windows.Forms.ListView lvwRecnet;
-        private System.Windows.Forms.ColumnHeader columnHeader16;
-        private System.Windows.Forms.ColumnHeader columnHeader17;
-        private System.Windows.Forms.ColumnHeader columnHeader19;
-        private System.Windows.Forms.RadioButton rbSizeA;
-        private System.Windows.Forms.RadioButton rbSizeD;
-        private System.Windows.Forms.RadioButton rbDateA;
-        private System.Windows.Forms.RadioButton rbDateD;
-        private System.Windows.Forms.Button btnRecent;
-        private System.Windows.Forms.TextBox txtRecent;
-        private System.Windows.Forms.TabPage tabPage12;
-        private System.Windows.Forms.Panel panel43;
-        private System.Windows.Forms.Panel panel45;
-        private System.Windows.Forms.Panel panel44;
-        private System.Windows.Forms.RichTextBox rtbReport;
-        private System.Windows.Forms.Button btnReport;
-        private System.Windows.Forms.Button btnScanUnmatchedSelect;
-        private System.Windows.Forms.RadioButton rbPrefix;
-        private System.Windows.Forms.TextBox txtPrefix;
+        private System.Windows.Forms.Button btnImport;
         private System.Windows.Forms.TabPage tabPage13;
         private System.Windows.Forms.Panel panel46;
         private System.Windows.Forms.Panel panel48;
+        private System.Windows.Forms.ListView lvMissing;
         private System.Windows.Forms.Panel panel47;
-        private System.Windows.Forms.TextBox txtMissing;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.TextBox txtMissingPage;
+        private System.Windows.Forms.CheckBox cbMissingAsc;
+        private System.Windows.Forms.RadioButton rbMissingFavi;
+        private System.Windows.Forms.Button btnDailyGenerateFav;
+        private System.Windows.Forms.Button btnDailyFav;
+        private System.Windows.Forms.Button btnMissing115;
+        private System.Windows.Forms.ProgressBar pbMissing;
+        private System.Windows.Forms.Label labelMissing;
+        private System.Windows.Forms.Button btMissing;
+        private System.Windows.Forms.RadioButton rbMissingPrefix;
         private System.Windows.Forms.RadioButton rbMissingActress;
         private System.Windows.Forms.RadioButton rbMissingCate;
-        private System.Windows.Forms.RadioButton rbMissingPrefix;
-        private System.Windows.Forms.Button btMissing;
-        private System.Windows.Forms.Label labelMissing;
-        private System.Windows.Forms.ProgressBar pbMissing;
-        private System.Windows.Forms.Button btnMissing115;
+        private System.Windows.Forms.TextBox txtMissing;
         private System.Windows.Forms.TabPage tabPage15;
         private System.Windows.Forms.Panel panel49;
         private System.Windows.Forms.Panel panel51;
-        private System.Windows.Forms.Panel panel50;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox txtDailyPage;
-        private System.Windows.Forms.CheckBox cbDailyOnly;
-        private System.Windows.Forms.Button btnDaily;
         private System.Windows.Forms.ListView lwDaily;
-        private System.Windows.Forms.ImageList ilDaily;
+        private System.Windows.Forms.Panel panel50;
         private System.Windows.Forms.ProgressBar pbDaily;
+        private System.Windows.Forms.Button btnDaily;
+        private System.Windows.Forms.CheckBox cbDailyOnly;
+        private System.Windows.Forms.TextBox txtDailyPage;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TabPage tabPage12;
+        private System.Windows.Forms.Panel panel43;
+        private System.Windows.Forms.Panel panel45;
+        private System.Windows.Forms.RichTextBox rtbReport;
+        private System.Windows.Forms.Panel panel44;
+        private System.Windows.Forms.Button btnReport;
         private System.Windows.Forms.TabPage tabPage16;
         private System.Windows.Forms.Panel panel52;
         private System.Windows.Forms.Panel panel54;
+        private System.Windows.Forms.ListView lvPlay;
         private System.Windows.Forms.Panel panel53;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.ComboBox cbPlayActress;
+        private System.Windows.Forms.Button playBack;
+        private System.Windows.Forms.TextBox txtPlaySkip;
+        private System.Windows.Forms.Button btnPlayNext;
+        private System.Windows.Forms.Button btnPlayPre;
+        private System.Windows.Forms.Label lbPlayPage;
+        private System.Windows.Forms.TextBox txtPlayPageSize;
+        private System.Windows.Forms.Button btnPlayRefresh;
+        private System.Windows.Forms.Label lbPlayStatus;
+        private System.Windows.Forms.Button btnPlay;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.ComboBox cbPlayPrefix;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.ComboBox cbPlayCategory;
-        private System.Windows.Forms.Button btnPlay;
-        private System.Windows.Forms.Label lbPlayStatus;
-        private System.Windows.Forms.ListView lvPlay;
-        private System.Windows.Forms.ImageList ilPlay;
-        private System.Windows.Forms.Button btnPlayRefresh;
-        private System.Windows.Forms.CheckBox cbFindOnly;
-        private System.Windows.Forms.Button btnDailyGenerateFav;
-        private System.Windows.Forms.Button btnDailyFav;
-        private System.Windows.Forms.RadioButton rbMissingFavi;
-        private System.Windows.Forms.ListView lvMissing;
-        private System.Windows.Forms.ImageList ilMissing;
-        private System.Windows.Forms.Button btnScanBatch;
-        private System.Windows.Forms.TextBox txtPlayPageSize;
-        private System.Windows.Forms.Label lbPlayPage;
-        private System.Windows.Forms.Button btnPlayPre;
-        private System.Windows.Forms.Button btnPlayNext;
-        private System.Windows.Forms.CheckBox cbMissingAsc;
-        private System.Windows.Forms.TextBox txtMissingPage;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.NotifyIcon notifyIcon1;
-        private System.Windows.Forms.ContextMenuStrip contextMenuStrip2;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
-        private System.Windows.Forms.Button btnRemoveOpen;
-        private System.Windows.Forms.ContextMenuStrip contextMenuStrip3;
-        private System.Windows.Forms.ToolStripMenuItem 删除ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 重命名ToolStripMenuItem;
-        private System.Windows.Forms.TextBox txtPlaySkip;
-        private System.Windows.Forms.ContextMenuStrip contextMenuStrip4;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem3;
-        private System.Windows.Forms.Button playBack;
-        private System.Windows.Forms.TabPage tabPage17;
-        private System.Windows.Forms.ToolStripMenuItem 看截图ToolStripMenuItem;
-        private System.Windows.Forms.CheckBox cbThums;
-        private System.Windows.Forms.Button btnRecentFIndMove;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.ComboBox cbPlayActress;
     }
 }
 

@@ -972,8 +972,24 @@ namespace CombineEpisode
                         foreach (var act in actress)
                         {
                             ToolStripItem temp = new ToolStripMenuItem(act);
-                            temp.Tag = "actress";
-                            temp.Click += new EventHandler(searchItemClick);
+
+                            ToolStripItem search = new ToolStripMenuItem("搜索");
+                            search.Tag = "actress-" + act;
+                            search.Click += new EventHandler(searchItemClick);
+                            ToolStripItem favi = new ToolStripMenuItem("添加收藏");
+                            favi.Tag = "actress-" + act;
+                            favi.Click += new EventHandler(searchItemClick);
+                            ToolStripItem top = new ToolStripMenuItem("扫描前3");
+                            top.Tag = "actress-" + act;
+                            top.Click += new EventHandler(searchItemClick);
+                            ToolStripItem all = new ToolStripMenuItem("扫描全部");
+                            all.Tag = "actress-" + act;
+                            all.Click += new EventHandler(searchItemClick);
+
+                            ((ToolStripDropDownItem)temp).DropDownItems.Add(search);
+                            ((ToolStripDropDownItem)temp).DropDownItems.Add(favi);
+                            ((ToolStripDropDownItem)temp).DropDownItems.Add(top);
+                            ((ToolStripDropDownItem)temp).DropDownItems.Add(all);
 
                             ((ToolStripDropDownItem)actItem).DropDownItems.Add(temp);
                         }
@@ -987,8 +1003,24 @@ namespace CombineEpisode
                         foreach (var cate in category)
                         {
                             ToolStripItem temp = new ToolStripMenuItem(cate);
-                            temp.Tag = "category";
-                            temp.Click += new EventHandler(searchItemClick);
+
+                            ToolStripItem search = new ToolStripMenuItem("搜索");
+                            search.Tag = "category-" + cate;
+                            search.Click += new EventHandler(searchItemClick);
+                            ToolStripItem favi = new ToolStripMenuItem("添加收藏");
+                            favi.Tag = "category-" + cate;
+                            favi.Click += new EventHandler(searchItemClick);
+                            ToolStripItem top = new ToolStripMenuItem("扫描前3");
+                            top.Tag = "category-" + cate;
+                            top.Click += new EventHandler(searchItemClick);
+                            ToolStripItem all = new ToolStripMenuItem("扫描全部");
+                            all.Tag = "category-" + cate;
+                            all.Click += new EventHandler(searchItemClick);
+
+                            ((ToolStripDropDownItem)temp).DropDownItems.Add(search);
+                            ((ToolStripDropDownItem)temp).DropDownItems.Add(favi);
+                            ((ToolStripDropDownItem)temp).DropDownItems.Add(top);
+                            ((ToolStripDropDownItem)temp).DropDownItems.Add(all);
 
                             ((ToolStripDropDownItem)cateItem).DropDownItems.Add(temp);
                         }
@@ -1000,8 +1032,24 @@ namespace CombineEpisode
                         ((ToolStripDropDownItem)(contextMenuStrip4.Items[0])).DropDownItems.Add(prefixItem);
 
                         ToolStripItem temp = new ToolStripMenuItem(prefix);
-                        temp.Tag = "prefix";
-                        temp.Click += new EventHandler(searchItemClick);
+
+                        ToolStripItem search = new ToolStripMenuItem("搜索");
+                        search.Tag = "prefix-" + prefix;
+                        search.Click += new EventHandler(searchItemClick);
+                        ToolStripItem favi = new ToolStripMenuItem("添加收藏");
+                        favi.Tag = "prefix-" + prefix;
+                        favi.Click += new EventHandler(searchItemClick);
+                        ToolStripItem top = new ToolStripMenuItem("扫描前3");
+                        top.Tag = "prefix-" + prefix;
+                        top.Click += new EventHandler(searchItemClick);
+                        ToolStripItem all = new ToolStripMenuItem("扫描全部");
+                        all.Tag = "prefix-" + prefix;
+                        all.Click += new EventHandler(searchItemClick);
+
+                        ((ToolStripDropDownItem)temp).DropDownItems.Add(search);
+                        ((ToolStripDropDownItem)temp).DropDownItems.Add(favi);
+                        ((ToolStripDropDownItem)temp).DropDownItems.Add(top);
+                        ((ToolStripDropDownItem)temp).DropDownItems.Add(all);
 
                         ((ToolStripDropDownItem)prefixItem).DropDownItems.Add(temp);
                     }
@@ -1045,31 +1093,135 @@ namespace CombineEpisode
         {
             var item = (ToolStripMenuItem)sender;
 
-            if (item.Tag.ToString() == "actress")
+            var type = item.Tag.ToString().Split('-')[0];
+            var content = item.Tag.ToString().Split('-')[1];
+
+            if (item.Text == "搜索")
             {
-                cbPlayActress.Text = item.Text;
-            }
+                if (type == "actress")
+                {
+                    cbPlayActress.Text = item.Text;
+                }
 
-            if (item.Tag.ToString() == "category")
+                if (type == "category")
+                {
+                    cbPlayCategory.Text = item.Text;
+                }
+
+                if (type == "prefix")
+                {
+                    cbPlayPrefix.Text = item.Text;
+                }
+
+                int pageSize = int.Parse(txtPlayPageSize.Text);
+
+                lastPlaySize = pageSize;
+
+                if (!string.IsNullOrEmpty(lbPlayPage.Text))
+                {
+                    lastPlayPage = int.Parse(lbPlayPage.Text.Split('/')[0].Trim());
+                }
+
+                BtnPlayClick(1, pageSize);
+            }
+            else
             {
-                cbPlayCategory.Text = item.Text;
+                var url = "";
+
+                if (type == "actress")
+                {
+                    url = JavDataBaseManager.GetActress().FirstOrDefault(x => x.Name == content).URL;
+
+                    if (!string.IsNullOrEmpty(url))
+                    {
+                        if (item.Text == "扫描前3")
+                        {
+
+                            ScanDataBaseManager.InsertScanJob($"APP扫描{content}前3页", JsonConvert.SerializeObject(new ScanParameter()
+                            {
+                                IsAsc = true,
+                                PageSize = 3,
+                                StartingPage = new List<string> { url },
+                            }));
+                        }
+
+                        if (item.Text == "扫描全部")
+                        {
+                            ScanDataBaseManager.InsertScanJob($"APP扫描{content}全部", JsonConvert.SerializeObject(new ScanParameter()
+                            {
+                                IsAsc = true,
+                                PageSize = -1,
+                                StartingPage = new List<string> { url },
+                            }));
+                        }
+                    }
+                }
+                else if (type == "category")
+                {
+                    url = JavDataBaseManager.GetCategories().FirstOrDefault(x => x.Name == content).Url;
+
+                    if (!string.IsNullOrEmpty(url))
+                    { 
+                        if (item.Text == "扫描前3")
+                        {
+                            ScanDataBaseManager.InsertScanJob($"APP扫描{content}前3页", JsonConvert.SerializeObject(new ScanParameter()
+                            {
+                                IsAsc = true,
+                                PageSize = 3,
+                                StartingPage = new List<string> { url },
+                            }));
+                        }
+
+                        if (item.Text == "扫描全部")
+                        {
+                            ScanDataBaseManager.InsertScanJob($"APP扫描{content}全部", JsonConvert.SerializeObject(new ScanParameter()
+                            {
+                                IsAsc = true,
+                                PageSize = -1,
+                                StartingPage = new List<string> { url },
+                            }));
+                        }
+                    }
+                }
+                else if(type == "prefix")
+                {
+                    url = $"http://www.javlibrary.com/cn/vl_searchbyid.php?&keyword={content}";
+
+                    if (!string.IsNullOrEmpty(url))
+                    {
+                        if (item.Text == "扫描前3")
+                        {
+                            ScanDataBaseManager.InsertScanJob($"APP扫描{content}前3页", JsonConvert.SerializeObject(new ScanParameter()
+                            {
+                                IsAsc = false,
+                                PageSize = 3,
+                                StartingPage = new List<string> { url },
+                            }));
+                        }
+
+                        if (item.Text == "扫描全部")
+                        {
+                            ScanDataBaseManager.InsertScanJob($"APP扫描{content}全部", JsonConvert.SerializeObject(new ScanParameter()
+                            {
+                                IsAsc = false,
+                                PageSize = -1,
+                                StartingPage = new List<string> { url },
+                            }));
+                        }
+                    }
+                }
+
+                if (item.Text == "添加收藏")
+                {
+                    ScanDataBaseManager.InsertFaviScan(new FaviScan()
+                    {
+                        Category = type,
+                        Name = content,
+                        Url = url
+                    });
+                }
+
             }
-
-            if(item.Tag.ToString() == "prefix")
-            {
-                cbPlayPrefix.Text = item.Text;
-            }
-
-            int pageSize = int.Parse(txtPlayPageSize.Text);
-
-            lastPlaySize = pageSize;
-
-            if (!string.IsNullOrEmpty(lbPlayPage.Text))
-            {
-                lastPlayPage = int.Parse(lbPlayPage.Text.Split('/')[0].Trim());
-            }
-
-            BtnPlayClick(1, pageSize);
         }
 
         private void lvPlay_SelectedIndexChanged(object sender, EventArgs e)
@@ -1100,18 +1252,38 @@ namespace CombineEpisode
 
         }
 
+        //TODO
         private void 看截图ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FileInfo fi = (FileInfo)treeView1.SelectedNode.Tag;
-
-            if (Directory.Exists(thumsFolder + fi.Name))
+            var node = treeView1.SelectedNode;
+            if (node.Level == 0)
             {
-                var pics = Directory.GetFiles(thumsFolder + fi.Name);
+                List<List<string>> pics = new List<List<string>>();
 
-                if (pics != null && pics.Length > 0)
+                foreach (TreeNode tn in node.Nodes)
                 {
-                    Thums th = new Thums(pics.ToList());
-                    th.ShowDialog();
+                    pics.Add(Directory.GetFiles(thumsFolder + ((FileInfo)tn.Tag).Name).ToList());
+                }
+
+                Thums th = new Thums(pics);
+                th.ShowDialog();
+            }
+            else
+            {
+                FileInfo fi = (FileInfo)(node).Tag;
+
+                if (Directory.Exists(thumsFolder + fi.Name))
+                {
+                    var pics = Directory.GetFiles(thumsFolder + fi.Name);
+
+                    if (pics != null && pics.Length > 0)
+                    {
+                        var list = new List<List<string>>();
+                        list.Add(pics.ToList());
+
+                        Thums th = new Thums(list);
+                        th.ShowDialog();
+                    }
                 }
             }
         }
@@ -2051,6 +2223,7 @@ namespace CombineEpisode
                 var isos = res.Item1;
                 var multi = res.Item2;
 
+                //TODO
                 CookieContainer cc = null;
                 var c = HtmlManager.GetCookies("https://sukebei.nyaa.si/");
                 cc = new CookieContainer();
@@ -2914,7 +3087,7 @@ namespace CombineEpisode
         private async Task StartReportTask(DataReceivedEventHandler output)
         {
             var exe = "G:\\AllInOneAV\\GenerateReport\\bin\\Debug\\GenerateReport.exe";
-            var arg = "";
+            var arg = "report";
 
             using (var p = new Process())
             {
@@ -3504,6 +3677,11 @@ namespace CombineEpisode
             }
         }
         #endregion
+
+        private void toolStripMenuItem3_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 
     #region 扩展方法

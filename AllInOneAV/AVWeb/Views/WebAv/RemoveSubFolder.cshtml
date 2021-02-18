@@ -1,49 +1,30 @@
-﻿<!DOCTYPE html>
+﻿@{ 
+    var data = (string)ViewData["data"];
+}
+
+<!DOCTYPE html>
 <html>
-<head>
-    <meta charset="utf-8" />
-    <title>WebAV-去子文件夹</title>
+    <head>
+        <meta charset="utf-8" />
+        <title>WebAV-去子文件夹</title>
 
-    @Html.Partial("Header")
-</head>
+        @Html.Partial("Header")
+    </head>
 
-<body>
-    @Html.Partial("Share")
-
-    <div class="input-group mb-3 input-group-sm" style="width:40%">
-        <div class="input-group mb-3 input-group-sm">
-            原始
-            <input type="text" class="form-control" id="folder">
-            移动
-            <input type="text" class="form-control" id="toFolder">
-            <div class="input-group-append">
-                <button class="btn btn-outline-success" type="button" id="search">搜索</button>
+    <body>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-3 px-1 bg-dark position-fixed" id="sticky-sidebar">
+                    <div id="treeView"></div>
+                </div>
+                <div class="col offset-3" id="main">
+                    <h1>Main Area</h1>
+                </div>
             </div>
         </div>
 
-        <div class="input-group mb-3 input-group-sm">
-            <label for="formControlRange">文件大小下限</label>
-            <input type="range" class="form-control-range" id="fileSizeLimit" min="0" max="2000" step="100" value="200">
-            <input class="form-control form-control-sm" type="number" step="100" value="200" min="0" max="2000" id="limit">MB
-        </div>
-    </div>
-
-    <script>
-        $("#folder").change(function () {
-            $("#toFolder").val($(this).val() + "/movefile/");
-        });
-
-        $("#fileSizeLimit").change(function () {
-            $("#limit").val($(this).val());
-        });
-
-        $("#limit").change(function () {
-            $("#fileSizeLimit").val($(this).val());
-        });
-
-        $("#search").click(function () {
-            window.location.href = '/webav/RemoveSubFolderList?folder=' + $("#folder").val() + "&toFolder=" + $("#toFolder").val() + "&limit=" + $("#limit").val();
-        });
-    </script>
-</body>
+        <script>
+            $('#treeView').treeview({ data: [{ "text": "System", "icon": "fa fa-terminal", "selectable": true, "nodes": [{ "text": "D:\\", "icon": "fa fa-folder", "selectedIcon": "fa fa-folder-open", "selectable": true, "nodes": [{ "text": "Fin", "icon": "fa fa-folder", "selectedIcon": "fa fa-folder-open", "selectable": true }, { "text": "未找到", "icon": "fa fa-folder", "selectedIcon": "fa fa-folder-open", "selectable": true }] }, { "text": "E:\\", "icon": "fa fa-folder", "selectedIcon": "fa fa-folder-open", "selectable": true, "nodes": [{ "text": "Fin", "icon": "fa fa-folder", "selectedIcon": "fa fa-folder-open", "selectable": true }, { "text": "全彩中文无修韩漫", "icon": "fa fa-folder", "selectedIcon": "fa fa-folder-open", "selectable": true }, { "text": "日漫大合集", "icon": "fa fa-folder", "selectedIcon": "fa fa-folder-open", "selectable": true }] }, { "text": "F:\\", "icon": "fa fa-folder", "selectedIcon": "fa fa-folder-open", "selectable": true, "nodes": [{ "text": "Fin", "icon": "fa fa-folder", "selectedIcon": "fa fa-folder-open", "selectable": true }] }, { "text": "G:\\", "icon": "fa fa-folder", "selectedIcon": "fa fa-folder-open", "selectable": true, "nodes": [{ "text": "AllInOneAV", "icon": "fa fa-folder", "selectedIcon": "fa fa-folder-open", "selectable": true }, { "text": "AVWeb", "icon": "fa fa-folder", "selectedIcon": "fa fa-folder-open", "selectable": true }, { "text": "DB", "icon": "fa fa-folder", "selectedIcon": "fa fa-folder-open", "selectable": true }, { "text": "Github", "icon": "fa fa-folder", "selectedIcon": "fa fa-folder-open", "selectable": true }, { "text": "Info", "icon": "fa fa-folder", "selectedIcon": "fa fa-folder-open", "selectable": true }, { "text": "JavLibraryImgs", "icon": "fa fa-folder", "selectedIcon": "fa fa-folder-open", "selectable": true }, { "text": "log", "icon": "fa fa-folder", "selectedIcon": "fa fa-folder-open", "selectable": true }, { "text": "Manga", "icon": "fa fa-folder", "selectedIcon": "fa fa-folder-open", "selectable": true }, { "text": "OneDrive", "icon": "fa fa-folder", "selectedIcon": "fa fa-folder-open", "selectable": true }, { "text": "OneDriveTemp", "icon": "fa fa-folder", "selectedIcon": "fa fa-folder-open", "selectable": true }, { "text": "SteamLibrary", "icon": "fa fa-folder", "selectedIcon": "fa fa-folder-open", "selectable": true }] }, { "text": "H:\\", "icon": "fa fa-folder", "selectedIcon": "fa fa-folder-open", "selectable": true, "nodes": [{ "text": "BaiduNetdiskDownload", "icon": "fa fa-folder", "selectedIcon": "fa fa-folder-open", "selectable": true }, { "text": "Fin", "icon": "fa fa-folder", "selectedIcon": "fa fa-folder-open", "selectable": true }] }, { "text": "I:\\", "icon": "fa fa-folder", "selectedIcon": "fa fa-folder-open", "selectable": true, "nodes": [{ "text": "Fin", "icon": "fa fa-folder", "selectedIcon": "fa fa-folder-open", "selectable": true }] }, { "text": "J:\\", "icon": "fa fa-folder", "selectedIcon": "fa fa-folder-open", "selectable": true, "nodes": [{ "text": "Fin", "icon": "fa fa-folder", "selectedIcon": "fa fa-folder-open", "selectable": true }] }, { "text": "K:\\", "icon": "fa fa-folder", "selectedIcon": "fa fa-folder-open", "selectable": true, "nodes": [{ "text": "Fin", "icon": "fa fa-folder", "selectedIcon": "fa fa-folder-open", "selectable": true }] }, { "text": "L:\\", "icon": "fa fa-folder", "selectedIcon": "fa fa-folder-open", "selectable": true, "nodes": [{ "text": "Fin", "icon": "fa fa-folder", "selectedIcon": "fa fa-folder-open", "selectable": true }] }, { "text": "M:\\", "icon": "fa fa-folder", "selectedIcon": "fa fa-folder-open", "selectable": true, "nodes": [{ "text": "Fin", "icon": "fa fa-folder", "selectedIcon": "fa fa-folder-open", "selectable": true }] }, { "text": "N:\\", "icon": "fa fa-folder", "selectedIcon": "fa fa-folder-open", "selectable": true, "nodes": [{ "text": "Fin", "icon": "fa fa-folder", "selectedIcon": "fa fa-folder-open", "selectable": true }] }, { "text": "O:\\", "icon": "fa fa-folder", "selectedIcon": "fa fa-folder-open", "selectable": true, "nodes": [{ "text": "Fin", "icon": "fa fa-folder", "selectedIcon": "fa fa-folder-open", "selectable": true }] }, { "text": "P:\\", "icon": "fa fa-folder", "selectedIcon": "fa fa-folder-open", "selectable": true, "nodes": [{ "text": "Downloads", "icon": "fa fa-folder", "selectedIcon": "fa fa-folder-open", "selectable": true }, { "text": "pt", "icon": "fa fa-folder", "selectedIcon": "fa fa-folder-open", "selectable": true }] }, { "text": "Q:\\", "icon": "fa fa-folder", "selectedIcon": "fa fa-folder-open", "selectable": true, "nodes": [{ "text": "fin", "icon": "fa fa-folder", "selectedIcon": "fa fa-folder-open", "selectable": true }] }, { "text": "R:\\", "icon": "fa fa-folder", "selectedIcon": "fa fa-folder-open", "selectable": true, "nodes": [{ "text": "FIN", "icon": "fa fa-folder", "selectedIcon": "fa fa-folder-open", "selectable": true }] }, { "text": "S:\\", "icon": "fa fa-folder", "selectedIcon": "fa fa-folder-open", "selectable": true, "nodes": [{ "text": "movefiles", "icon": "fa fa-folder", "selectedIcon": "fa fa-folder-open", "selectable": true }] }] }] });
+        </script>
+    </body>
 </html>

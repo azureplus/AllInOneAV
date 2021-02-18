@@ -116,7 +116,7 @@ namespace DataBaseManager.ScanDataBaseHelper
 
         public static AV GetMatchedAv(int id)
         {
-            var sql = "SELECT TOP 1 av.* FROM JavLibraryDownload.dbo.AV av JOIN ScanAllAv.dbo.[Match] m ON av.AVID = m.MatchAVId WHERE m.MatchID = @id";
+            var sql = "SELECT TOP 1 av.* FROM JavLibraryDownload.dbo.AV av JOIN ScanAllAv.dbo.[Match] m ON av.AVID = m.MatchAVId WHERE m.MatchAVID = @id";
 
             return QuerySingle<AV>(ConnectionStrings.Scan, sql, new { id });
         }
@@ -124,9 +124,16 @@ namespace DataBaseManager.ScanDataBaseHelper
         public static int InsertRemoteScanMag(RemoteScanMag entity)
         {
             var sql = @"INSERT INTO RemoteScanMag (AvId, AvUrl, AvName, MagTitle, MagUrl, MagSize, SearchStatus, MatchFile, CreateTime, MagDate, ScanJobId)
-                            VALUES (@AvId, @AvUrl, @AvName, @MagTitle, @MagUrl, @MagSize, @SearchStatus, @MatchFile, GETDATE(), @MagDate, @ScanJobId)";
+                            VALUES (@AvId, @AvUrl, @AvName, @MagTitle, @MagUrl, @MagSize, @SearchStatus, @MatchFile, GETDATE(), @MagDate, @JobId)";
 
             return Execute(ConnectionStrings.Scan, sql, entity);
+        }
+
+        public static TokenModel GetToken()
+        {
+            var sql = "SELECT TOP 1 * FROM Token";
+
+            return QuerySingle<TokenModel>(ConnectionStrings.Scan, sql);
         }
 
         public static int InsertScanJob(string scanJobName, string scanParameter)
@@ -254,14 +261,14 @@ namespace DataBaseManager.ScanDataBaseHelper
         public static int InsertReport(Report entity)
         {
             var sql = @"INSERT INTO Report (ReportDate,TotalCount,TotalExist,TotalExistSize,LessThenOneGiga,OneGigaToTwo,TwoGigaToFour,FourGigaToSix,GreaterThenSixGiga,Extension,H265Count,ChineseCount,IsFinish,EndDate) 
-                            VALUES (GETDATE(), @TotalCount, @TotalExist, @TotalExistSize, @LessThenOneGiga, @OneGigaToTwo, TwoGigaToFour, FourGigaToSix, GreaterThenSixGiga, @Extension, @H265Count, ChineseCount, IsFinish, GETDATE()) SELECT @@IDENTITY";
+                            VALUES (GETDATE(), @TotalCount, @TotalExist, @TotalExistSize, @LessThenOneGiga, @OneGigaToTwo, @TwoGigaToFour, @FourGigaToSix, @GreaterThenSixGiga, @ExtensionJson, @H265Count, @ChineseCount, @IsFinish, GETDATE()) SELECT @@IDENTITY";
 
             return QuerySingle<int>(ConnectionStrings.Scan, sql, entity);
         }
 
         public static int UpdateReport(Report entity)
         {
-            var sql = "UPDATE Report SET TotalExist = @TotalExist, TotalExistSize = TotalExistSize, LessThenOneGiga = @LessThenOneGiga, OneGigaToTwo = @OneGigaToTwo, TwoGigaToFour = @TwoGigaToFour, FourGigaToSix = @FourGigaToSix, GreaterThenSixGiga = @GreaterThenSixGiga, Extension = @ExtensionJson, H265Count = @H265Count, ChineseCount = @ChineseCount WHERE ReportId = @ReportId";
+            var sql = "UPDATE Report SET TotalExist = @TotalExist, TotalExistSize = @TotalExistSize, LessThenOneGiga = @LessThenOneGiga, OneGigaToTwo = @OneGigaToTwo, TwoGigaToFour = @TwoGigaToFour, FourGigaToSix = @FourGigaToSix, GreaterThenSixGiga = @GreaterThenSixGiga, Extension = @ExtensionJson, H265Count = @H265Count, ChineseCount = @ChineseCount WHERE ReportId = @ReportId";
 
             return Execute(ConnectionStrings.Scan, sql, entity);
         }

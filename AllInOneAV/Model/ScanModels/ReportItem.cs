@@ -29,7 +29,7 @@ namespace Model.ScanModels
         {
             get 
             {
-                return JsonConvert.SerializeObject(this.Extension);
+                return JsonConvert.SerializeObject(this.ExtensionModel);
             }
         }
     }

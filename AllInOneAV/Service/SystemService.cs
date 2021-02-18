@@ -31,7 +31,14 @@ namespace Service
 
             foreach (var d in drives)
             {
-                SystemTreeVM sub = new SystemTreeVM();
+                SystemTreeVM sub = new SystemTreeVM
+                {
+                    text = d,
+                    icon = "fa fa-folder",
+                    selectable = true,
+                    selectedIcon = "fa fa-folder-open"
+                };
+
                 ret.nodes.Add(sub);
 
                 GetSystemTreeRecursively(sub, d);
@@ -40,7 +47,7 @@ namespace Service
             return ret;
         }
 
-        public static void GetSystemTreeRecursively(SystemTreeVM sub, string root)
+        private static void GetSystemTreeRecursively(SystemTreeVM sub, string root)
         {
             if (string.IsNullOrEmpty(root))
             {
@@ -50,8 +57,8 @@ namespace Service
             List<SystemTreeVM> subs = new List<SystemTreeVM>();
             sub.nodes = subs;
 
-            var folders = new DirectoryInfo(root).GetDirectories().Where(x => (x.Attributes & FileAttributes.System) == 0);
-            var files = Directory.GetFiles(root);
+            var folders = new DirectoryInfo(root).GetDirectories("*.*", SearchOption.TopDirectoryOnly).Where(x => (x.Attributes & FileAttributes.System) == 0);
+            //var files = Directory.GetFiles(root);
 
             foreach (var fo in folders)
             {
@@ -65,20 +72,20 @@ namespace Service
 
                 sub.nodes.Add(tempNode);
 
-                GetSystemTreeRecursively(tempNode, fo.FullName);
+                //GetSystemTreeRecursively(tempNode, fo.FullName);
             }
 
-            foreach (var fi in files)
-            {
-                SystemTreeVM treeNode = new SystemTreeVM
-                {
-                    text = fi,
-                    selectable = true,
-                    icon = "fa fa-file",
-                };
+            //foreach (var fi in files)
+            //{
+            //    SystemTreeVM treeNode = new SystemTreeVM
+            //    {
+            //        text = fi,
+            //        selectable = true,
+            //        icon = "fa fa-file",
+            //    };
 
-                sub.nodes.Add(treeNode);
-            }
+            //    sub.nodes.Add(treeNode);
+            //}
         }
     }
 }

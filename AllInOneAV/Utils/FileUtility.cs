@@ -703,7 +703,7 @@ namespace Utils
 
                 files = files.Where(x => !x.Contains("NoMerge")).ToArray();
 
-                tempRet = files.GroupBy(x => x.Split('-')[0] + "-" + x.Split('-')[1]).ToDictionary(x => x.Key, x => x.ToList());
+                tempRet = files.Where(x => x.Contains("-")).GroupBy(x => x.Split('-')[0] + "-" + x.Split('-')[1]).ToDictionary(x => x.Key, x => x.ToList());
 
                 foreach (var r in tempRet)
                 {
@@ -990,7 +990,7 @@ namespace Utils
                     }
                 }
 
-                var tempRet = files.GroupBy(x => x.Split('-')[0] + "-" + x.Split('-')[1]).ToDictionary(x => x.Key, x => x.ToList());
+                var tempRet = files.Where(x => x.Contains("-")).GroupBy(x => x.Split('-')[0] + "-" + x.Split('-')[1]).ToDictionary(x => x.Key, x => x.ToList());
 
                 foreach (var r in tempRet)
                 {

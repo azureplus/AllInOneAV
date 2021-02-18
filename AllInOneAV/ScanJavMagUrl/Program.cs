@@ -106,7 +106,6 @@ namespace ScanJavMagUrl
 
                 RefreshModel rm = JsonConvert.DeserializeObject<RefreshModel>(jsonStr);
 
-
                 Console.WriteLine("扫描 --> " + rm.Name);
 
                 models.Add(rm);
@@ -161,19 +160,6 @@ namespace ScanJavMagUrl
                         entity.MagSize = seed.Size;
                         entity.MagTitle = FileUtility.ReplaceInvalidChar(seed.Title);
                         entity.MagUrl = seed.MagUrl;
-                        //entity.SearchStatus = 1;
-
-                        //if (entity.MagSize <= 0)
-                        //{
-                        //    Console.WriteLine("找种子");
-
-                        //    var ret = MagService.GetTorrentInfo(entity.MagUrl, "http://itorrents.org/torrent/", "G:\\torrent", entity.MagTitle + ".torrent").Result;
-
-                        //    if (ret != null)
-                        //    {
-                        //        entity.MagSize = ret.Files.Max(x => x.Length);
-                        //    }
-                        //}
 
                         try
                         {
@@ -192,9 +178,11 @@ namespace ScanJavMagUrl
                 }
                 else
                 {
-                    Console.WriteLine(" 没搜到");
+                    Console.Write(" 没搜到");
                     entity.SearchStatus = 0;
                 }
+
+                Console.WriteLine();
             });
         }
     }

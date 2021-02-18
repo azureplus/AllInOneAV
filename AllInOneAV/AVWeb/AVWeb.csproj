@@ -149,6 +149,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\SwaggerConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\AvApiController.cs" />
     <Compile Include="Controllers\WebAvController.cs" />
     <Compile Include="Filter\Base.cs" />
     <Compile Include="Filter\Rights.cs" />

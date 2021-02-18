@@ -59,7 +59,7 @@ namespace DataBaseManager.JavDataBaseHelper
         {
             var sql = @"INSERT INTO ScanURL (Category, URL, ID, Title, IsDownload, CreateTime) VALUES (@Category, @URL, @ID, @Title, @IsDownload, GETDATE())";
 
-            return SqlHelper.ExecuteNonQuery(ConnectionStrings.Jav, sql, entity);
+            return Execute(ConnectionStrings.Jav, sql, entity);
         }
 
         public static bool HasScan(ScanURL entity)
@@ -79,7 +79,7 @@ namespace DataBaseManager.JavDataBaseHelper
         public static int InsertAV(AV av)
         {
             var sql = @"INSERT INTO AV (ID, Name, Company, Director, Publisher, Category, Actress, ReleaseDate, AvLength, CreateTime, PictureURL, URL) 
-                        VALUES (@ID, @Name, @Company, @Director, @Publisher, @Category, @Actress, @ReleaseDate, @AvLength, @CreateTime, @PictureURL, @URL)";
+                        VALUES (@ID, @Name, @Company, @Director, @Publisher, @Category, @Actress, @ReleaseDate, @AvLength, GETDATE(), @PictureURL, @URL)";
 
             return Execute(ConnectionStrings.Jav, sql, av);
         }

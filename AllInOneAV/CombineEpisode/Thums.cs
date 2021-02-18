@@ -13,14 +13,14 @@ namespace CombineEpisode
 {
     public partial class Thums : Form
     {
-        public List<string> pics = new List<string>();
+        public List<List<string>> pics = new List<List<string>>();
 
         public Thums()
         {
             InitializeComponent();
         }
 
-        public Thums(List<string> pics)
+        public Thums(List<List<string>> pics)
         {
             InitializeComponent();
             this.pics = pics;
@@ -28,23 +28,32 @@ namespace CombineEpisode
 
         private void Thums_Load(object sender, EventArgs e)
         {
-            foreach (var l in pics)
+            var row = pics.Count;
+            var col = pics.FirstOrDefault().Count;
+
+            TableLayoutPanel tlp = new TableLayoutPanel();
+            tlp.RowCount = row;
+            tlp.ColumnCount = col;
+            tlp.Dock = DockStyle.Fill;
+
+            for (int i = 0; i < pics.Count; i++)
             {
-                if (File.Exists(l))
+                for (int j = 0; j < pics.FirstOrDefault().Count; j++)
                 {
-                    imThums.Images.Add(l, Image.FromFile(l));
+                    PictureBox pb = new PictureBox();
+                    pb.Width = 200;
+                    pb.Height = 150;
+                    pb.SizeMode = PictureBoxSizeMode.Zoom;
+                    pb.Image = Image.FromFile(pics[i][j]);
+
+                    tlp.Controls.Add(pb, j, i);
                 }
             }
 
-            foreach (var l in pics)
-            {
-                ListViewItem lvi = new ListViewItem(l)
-                {
-                    ImageIndex = imThums.Images.IndexOfKey(l),
-                };
+            this.Height = row * 150 + 30;
+            this.Width = col * 200 + 20;
 
-                listView1.Items.Add(lvi);
-            }
+            this.panel1.Controls.Add(tlp);
         }
     }
 }

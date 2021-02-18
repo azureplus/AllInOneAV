@@ -946,8 +946,7 @@ namespace AVWeb.Controllers
             return Json(new { success = "fail" }, JsonRequestBehavior.AllowGet);
         }
 
-        [Base]
-        [HttpGet]
+        [Base, HttpGet]
         public string GetWebViewLog(string where)
         {
             StringBuilder sb = new StringBuilder();
@@ -987,8 +986,7 @@ namespace AVWeb.Controllers
             return string.Format(table, sb.ToString());
         }
 
-        [Base]
-        [HttpGet]
+        [Base, HttpGet]
         public JsonResult SaveWish(int id, string avId, string file)
         {
             int ret = 0;
@@ -1013,8 +1011,7 @@ namespace AVWeb.Controllers
             return Json(new { success = "fail" }, JsonRequestBehavior.AllowGet);
         }
 
-        [Base]
-        [HttpPost]
+        [Base, HttpPost]
         public ActionResult Login(string token = "")
         {
             string uName = Request.Form["userName"];
@@ -1049,8 +1046,7 @@ namespace AVWeb.Controllers
             return View("Login");
         }
 
-        [Rights]
-        [HttpPost]
+        [Rights, HttpPost]
         public JsonResult PostScanJob(string jobName, string scanParameter)
         {
             var jobId = ScanDataBaseManager.InsertScanJob(jobName, scanParameter);
@@ -1058,8 +1054,7 @@ namespace AVWeb.Controllers
             return Json(new { msg = "success", jobId = jobId });
         }
 
-        [Rights]
-        [HttpPost]
+        [Rights, HttpPost]
         public JsonResult Add115Task(string mag)
         {
             CookieContainer cc = new CookieContainer();
@@ -1145,9 +1140,20 @@ namespace AVWeb.Controllers
         }
 
         [Rights]
+        [ValidateInput(false)]
         public ActionResult RemoveSubFolder()
         {
-            return View();
+            var svm = SystemService.GetSystemTreeVM();
+
+            var json = JsonConvert.SerializeObject(svm, new JsonSerializerSettings()
+            {
+                NullValueHandling = NullValueHandling.Ignore,
+                DefaultValueHandling = DefaultValueHandling.Ignore
+            });
+
+            ViewData.Add("data", HttpUtility.UrlDecode(json));
+
+            return View(svm);
         }
 
         [Rights]

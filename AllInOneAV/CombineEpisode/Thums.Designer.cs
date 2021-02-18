@@ -29,20 +29,9 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.listView1 = new System.Windows.Forms.ListView();
             this.imThums = new System.Windows.Forms.ImageList(this.components);
+            this.panel1 = new System.Windows.Forms.Panel();
             this.SuspendLayout();
-            // 
-            // listView1
-            // 
-            this.listView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.listView1.HideSelection = false;
-            this.listView1.LargeImageList = this.imThums;
-            this.listView1.Location = new System.Drawing.Point(0, 0);
-            this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(1057, 450);
-            this.listView1.TabIndex = 0;
-            this.listView1.UseCompatibleStateImageBehavior = false;
             // 
             // imThums
             // 
@@ -50,12 +39,20 @@
             this.imThums.ImageSize = new System.Drawing.Size(250, 200);
             this.imThums.TransparentColor = System.Drawing.Color.Transparent;
             // 
+            // panel1
+            // 
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(1057, 450);
+            this.panel1.TabIndex = 0;
+            // 
             // Thums
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1057, 450);
-            this.Controls.Add(this.listView1);
+            this.Controls.Add(this.panel1);
             this.Name = "Thums";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "截图";
@@ -65,8 +62,7 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.ListView listView1;
         private System.Windows.Forms.ImageList imThums;
+        private System.Windows.Forms.Panel panel1;
     }
 }

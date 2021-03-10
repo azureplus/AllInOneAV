@@ -207,51 +207,54 @@ namespace Service
 
                     HtmlNodeCollection nodes = htmlDocument.DocumentNode.SelectNodes(magPattern);
 
-                    foreach (var node in nodes)
+                    if (nodes != null)
                     {
-
-                        var namePart = "";
-                        var sizePart = "";
-                        var datePart = "";
-                        var magUrl = "";
-                        var size = 0d;
-
-                        try
+                        foreach (var node in nodes)
                         {
-                            if (node != null)
+
+                            var namePart = "";
+                            var sizePart = "";
+                            var datePart = "";
+                            var magUrl = "";
+                            var size = 0d;
+
+                            try
                             {
-                                if (node.ChildNodes.Count >= 2)
+                                if (node != null)
                                 {
-                                    namePart = node.ChildNodes[1].InnerText.Trim();
-                                    magUrl = node.ChildNodes[1].ChildNodes[1].Attributes["href"].Value;
-                                }
+                                    if (node.ChildNodes.Count >= 2)
+                                    {
+                                        namePart = node.ChildNodes[1].InnerText.Trim();
+                                        magUrl = node.ChildNodes[1].ChildNodes[1].Attributes["href"].Value;
+                                    }
 
-                                if (node.ChildNodes.Count >= 4)
-                                {
-                                    sizePart = node.ChildNodes[3].InnerText.Trim();
-                                    size = FileSize.GetByteFromStr(sizePart);
-                                }
+                                    if (node.ChildNodes.Count >= 4)
+                                    {
+                                        sizePart = node.ChildNodes[3].InnerText.Trim();
+                                        size = FileSize.GetByteFromStr(sizePart);
+                                    }
 
-                                if (node.ChildNodes.Count >= 5)
-                                {
-                                    datePart = node.ChildNodes[5].InnerText.Trim();
-                                }
+                                    if (node.ChildNodes.Count >= 5)
+                                    {
+                                        datePart = node.ChildNodes[5].InnerText.Trim();
+                                    }
 
-                                ret.Add(new SeedMagnetSearchModel()
-                                {
-                                    CompleteCount = 0,
-                                    Date = DateTime.Parse(datePart),
-                                    Size = size,
-                                    MagUrl = magUrl,
-                                    Source = SearchSeedSiteEnum.JavBus,
-                                    Title = namePart,
-                                    Url = ""
-                                });
+                                    ret.Add(new SeedMagnetSearchModel()
+                                    {
+                                        CompleteCount = 0,
+                                        Date = DateTime.Parse(datePart),
+                                        Size = size,
+                                        MagUrl = magUrl,
+                                        Source = SearchSeedSiteEnum.JavBus,
+                                        Title = namePart,
+                                        Url = ""
+                                    });
+                                }
                             }
-                        }
-                        catch (Exception)
-                        {
+                            catch (Exception)
+                            {
 
+                            }
                         }
                     }
                 }

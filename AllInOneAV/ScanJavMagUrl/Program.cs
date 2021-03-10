@@ -63,6 +63,8 @@ namespace ScanJavMagUrl
             }
 
             ScanDataBaseManager.SetScanJobFinish(jobId, 1, models.Count);
+
+            new RestClient("https://api.day.app").Get("4z4uANLXpe8BXT3wAZVe9F/下载种子文件完成");
         }
 
         async static void DoJob(string arg, int jobId)

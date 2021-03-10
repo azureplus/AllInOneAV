@@ -129,7 +129,6 @@ namespace AVWeb.Controllers
             return ret;
         }
 
-
         [HttpGet]
         [Route("RunTask")]
         public TaskCommonModel RunTask(string token, string name = "ScanJavJob")

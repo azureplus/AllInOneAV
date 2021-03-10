@@ -100,6 +100,8 @@ namespace ScanAllAndMatch
             finally
             {
                 Console.WriteLine(string.Format("扫描结束 {0}", DateTime.Now.ToLongTimeString()));
+
+                new RestClient("https://api.day.app").Get("4z4uANLXpe8BXT3wAZVe9F/刷新匹配完成");
             }
         }
     }

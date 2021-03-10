@@ -2,6 +2,7 @@
 using DataBaseManager.ScanDataBaseHelper;
 using HtmlAgilityPack;
 using Microsoft.Win32.TaskScheduler;
+using Model.Common;
 using Model.JavModels;
 using Model.ScanModels;
 using Model.WebModel;
@@ -21,7 +22,11 @@ namespace NewUnitTest
     {
         static void Main(string[] args)
         {
-            var ret = GetSystemTreeVM();
+            //dolist http://www.javlibrary.com/cn/vl_update.php?mode= True 15
+
+            //var mag = TestSearchJavBus(@"d:\fin\");
+
+            new RestClient("https://api.day.app").Get("4z4uANLXpe8BXT3wAZVe9F/123");
 
             Console.ReadKey();
         }
@@ -114,9 +119,9 @@ namespace NewUnitTest
             return badFiles;
         }
 
-        public static void TestRemoveFolder(string sourceFolder, string descFolder, int fileSizeLimit)
+        public static void TestRemoveFolder(string sourceFolder, int fileSizeLimit)
         {
-            descFolder = (sourceFolder.EndsWith("\\") || sourceFolder.EndsWith("/")) ? sourceFolder + "movefiles\\" : sourceFolder + "\\movefiles\\";
+            var descFolder = (sourceFolder.EndsWith("\\") || sourceFolder.EndsWith("/")) ? sourceFolder + "movefiles\\" : sourceFolder + "\\movefiles\\";
 
             var ret = RenameService.RemoveSubFolder(sourceFolder: sourceFolder, descFolder: descFolder, fileSizeLimit: fileSizeLimit);
         }
@@ -627,6 +632,31 @@ namespace NewUnitTest
 
                 sub.nodes.Add(treeNode);
             }
+        }
+
+        public static Dictionary<string, List<SeedMagnetSearchModel>> TestSearchJavBus(string drive)
+        {
+            var files = Directory.GetFiles(drive);
+            Dictionary<string, List<SeedMagnetSearchModel>> result = new Dictionary<string, List<SeedMagnetSearchModel>>();
+
+            foreach (var f in files)
+            {
+                if (f.Contains("-"))
+                {
+                    var file = Path.GetFileNameWithoutExtension(f);
+
+                    var avid = file.Split('-')[0] + "-" + file.Split('-')[1];
+
+                    var mag = MagService.SearchJavBus(avid);
+
+                    if (mag != null && mag.Count > 0)
+                    {
+                        result.Add(f, mag);
+                    }
+                }
+            }
+
+            return result;
         }
     }
 }

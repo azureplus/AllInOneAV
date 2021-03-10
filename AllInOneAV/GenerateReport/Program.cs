@@ -23,6 +23,8 @@ namespace GenerateReport
             else
             {
                 Service.ReportService.GenerateReportDataOnly();
+
+                new RestClient("https://api.day.app").Get("4z4uANLXpe8BXT3wAZVe9F/生成报表完成");
             }
         }
 

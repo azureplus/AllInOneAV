@@ -1519,7 +1519,7 @@ namespace CombineEpisode
             }
         }
 
-        private void ShowTree(string path)
+        private async void ShowTree(string path)
         {
             var files = FileUtility.GetVideoHasMultipleEpisode(path);
 
@@ -1540,7 +1540,7 @@ namespace CombineEpisode
 
                     if (cbThums.Checked)
                     {
-                        FileUtility.GetThumbnails(fi.FullName, ffmpeg, thumsFolder, fi.Name, 6, false);
+                        await FileUtility.GetThumbnails(fi.FullName, ffmpeg, thumsFolder, fi.Name, 6, false);
                     }
                 }
 
@@ -2208,7 +2208,7 @@ namespace CombineEpisode
             }
         }
 
-        private void ScanUnmatchedClick()
+        private async void ScanUnmatchedClick()
         {
             Dictionary<string, List<SeedMagnetSearchModel>> ret = new Dictionary<string, List<SeedMagnetSearchModel>>();
             List<string> unmatchedList = new List<string>();
@@ -2223,40 +2223,40 @@ namespace CombineEpisode
                 var isos = res.Item1;
                 var multi = res.Item2;
 
-                //TODO
-                CookieContainer cc = null;
-                var c = HtmlManager.GetCookies("https://sukebei.nyaa.si/");
-                cc = new CookieContainer();
-                cc.Add(c);
-
                 treeView5.BeginUpdate();
 
-                Parallel.ForEach(isos, new ParallelOptions { MaxDegreeOfParallelism = 5 }, key =>
+                await Task.Run(() =>
                 {
-                    var result = MagService.SearchSukebei(key.Value, cc);
+                    Parallel.ForEach(isos, new ParallelOptions { MaxDegreeOfParallelism = 5 }, key =>
+                    {
+                        var result = MagService.SearchSukebei(key.Value);
 
-                    if (result != null && result.Count > 0)
-                    {
-                        ret.Add(key.Key, result);
-                    }
-                    else
-                    {
-                        ret.Add(key.Key, new List<SeedMagnetSearchModel>());
-                    }
+                        if (result != null && result.Count > 0)
+                        {
+                            ret.Add(key.Key, result);
+                        }
+                        else
+                        {
+                            ret.Add(key.Key, new List<SeedMagnetSearchModel>());
+                        }
+                    });
                 });
 
-                Parallel.ForEach(multi, new ParallelOptions { MaxDegreeOfParallelism = 5 }, file =>
+                await Task.Run(() =>
                 {
-                    var result = MagService.SearchSukebei(file.Key.Substring(file.Key.LastIndexOf("\\") + 1), cc);
+                    Parallel.ForEach(multi, new ParallelOptions { MaxDegreeOfParallelism = 5 }, file =>
+                    {
+                        var result = MagService.SearchSukebei(file.Key.Substring(file.Key.LastIndexOf("\\") + 1));
 
-                    if (result != null && result.Count > 0)
-                    {
-                        ret.Add(file.Value.FirstOrDefault(), result);
-                    }
-                    else
-                    {
-                        ret.Add(file.Value.FirstOrDefault(), new List<SeedMagnetSearchModel>());
-                    }
+                        if (result != null && result.Count > 0)
+                        {
+                            ret.Add(file.Value.FirstOrDefault(), result);
+                        }
+                        else
+                        {
+                            ret.Add(file.Value.FirstOrDefault(), new List<SeedMagnetSearchModel>());
+                        }
+                    });
                 });
 
                 foreach (var d in ret)
@@ -2451,7 +2451,7 @@ namespace CombineEpisode
             {
                 txtRenameTxt.Text = folderBrowserDialog1.SelectedPath;
 
-                richTextBox2.AppendText("设置需要去除子文件夹的目录为 -> " + txtRenameTxt.Text, Color.Green, font, true);
+                richTextBox2.AppendText("设置需要重命名文件夹的目录为 -> " + txtRenameTxt.Text, Color.Green, font, true);
             }
         }
 
@@ -2673,6 +2673,11 @@ namespace CombineEpisode
                     sources.Add(SearchSeedSiteEnum.Sukebei);
                 }
 
+                if (cbJavBus.Checked)
+                {
+                    sources.Add(SearchSeedSiteEnum.JavBus);
+                }
+
                 var resList = SearchSeed(txtSeedSearchContent.Text, sources);
                 ListSeedSearch(resList);
 
@@ -2694,6 +2699,9 @@ namespace CombineEpisode
                         break;
                     case SearchSeedSiteEnum.Sukebei:
                         ret = MagService.SearchSukebei(content);
+                        break;
+                    case SearchSeedSiteEnum.JavBus:
+                        ret = MagService.SearchJavBus(content);
                         break;
                 }
             }
@@ -3086,7 +3094,7 @@ namespace CombineEpisode
 
         private async Task StartReportTask(DataReceivedEventHandler output)
         {
-            var exe = "G:\\AllInOneAV\\GenerateReport\\bin\\Debug\\GenerateReport.exe";
+            var exe = @"G:\Github\AllInOneAV\AllInOneAV\GenerateReport\bin\Debug\GenerateReport.exe";
             var arg = "report";
 
             using (var p = new Process())
@@ -3470,6 +3478,9 @@ namespace CombineEpisode
             var actress = await Task.Run(() => JavDataBaseManager.GetSimilarContent("actress").Select(x => x.Name).ToArray());
             var category = await Task.Run(() =>JavDataBaseManager.GetSimilarContent("category").Select(x => x.Name).ToArray());
 
+            scanResult = await Task.Run(() => ScanDataBaseManager.GetMatchScanResult());
+            scanResult = scanResult.Where(x => !string.IsNullOrEmpty(x.Location)).ToList();
+
             cbPlayActress.DataSource = actress;
             cbPlayCategory.DataSource = category;
 
@@ -3488,9 +3499,9 @@ namespace CombineEpisode
                 scanResult = scanResult.Where(x => !string.IsNullOrEmpty(x.Location)).ToList();
 
                 reOrder = true;
-
-                toBePlay = scanResult;
             }
+
+            toBePlay = scanResult;
 
             List<ScanResult> actressPlay = new List<ScanResult>();
             List<ScanResult> categoryPlay = new List<ScanResult>();
@@ -3681,6 +3692,12 @@ namespace CombineEpisode
         private void toolStripMenuItem3_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void rtbReport_ContentsResized(object sender, ContentsResizedEventArgs e)
+        {
+            rtbReport.SelectionStart = rtbReport.Text.Length;
+            rtbReport.ScrollToCaret();
         }
     }
 

@@ -262,6 +262,7 @@
             this.contextMenuStrip4 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
+            this.cbJavBus = new System.Windows.Forms.CheckBox();
             this.panel1.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel5.SuspendLayout();
@@ -1242,6 +1243,7 @@
             // 
             // panel29
             // 
+            this.panel29.Controls.Add(this.cbJavBus);
             this.panel29.Controls.Add(this.cbSukebei);
             this.panel29.Controls.Add(this.cbBtsow);
             this.panel29.Controls.Add(this.btnSearchSeed);
@@ -2415,6 +2417,7 @@
             this.rtbReport.Size = new System.Drawing.Size(1041, 534);
             this.rtbReport.TabIndex = 0;
             this.rtbReport.Text = "";
+            this.rtbReport.ContentsResized += new System.Windows.Forms.ContentsResizedEventHandler(this.rtbReport_ContentsResized);
             // 
             // panel44
             // 
@@ -2776,15 +2779,26 @@
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(100, 22);
             this.toolStripMenuItem2.Text = "查询";
             // 
             // toolStripMenuItem3
             // 
             this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(100, 22);
             this.toolStripMenuItem3.Text = "播放";
             this.toolStripMenuItem3.Click += new System.EventHandler(this.toolStripMenuItem3_Click);
+            // 
+            // cbJavBus
+            // 
+            this.cbJavBus.AutoSize = true;
+            this.cbJavBus.Location = new System.Drawing.Point(161, 31);
+            this.cbJavBus.Margin = new System.Windows.Forms.Padding(2);
+            this.cbJavBus.Name = "cbJavBus";
+            this.cbJavBus.Size = new System.Drawing.Size(60, 16);
+            this.cbJavBus.TabIndex = 4;
+            this.cbJavBus.Text = "Javbus";
+            this.cbJavBus.UseVisualStyleBackColor = true;
             // 
             // Main
             // 
@@ -3135,6 +3149,7 @@
         private System.Windows.Forms.ComboBox cbPlayCategory;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ComboBox cbPlayActress;
+        private System.Windows.Forms.CheckBox cbJavBus;
     }
 }
 

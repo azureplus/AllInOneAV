@@ -413,7 +413,7 @@ namespace Utils
             return new ValueTuple<bool, string>(ret, msg);
         }
 
-        public static int GetThumbnails(string fName, string ffmpegLocation, string whereToSave, string subFolder, int howManyPictures, bool size, int width = 320, int height = 240)
+        public async static Task<int> GetThumbnails(string fName, string ffmpegLocation, string whereToSave, string subFolder, int howManyPictures, bool size, int width = 320, int height = 240)
         {
             int result = 0;
 
@@ -478,7 +478,7 @@ namespace Utils
                     result++;
                     currentIndex++;
 
-                    ExcuteProcess(ffmpegLocation, screenLine, (s, t) => duration = (t.Data));
+                    await Task.Run(() => ExcuteProcess(ffmpegLocation, screenLine, (s, t) => duration = (t.Data)));
                 }
             }
             catch (Exception)

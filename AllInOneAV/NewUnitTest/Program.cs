@@ -22,11 +22,12 @@ namespace NewUnitTest
     {
         static void Main(string[] args)
         {
-            //dolist http://www.javlibrary.com/cn/vl_update.php?mode= True 15
+            ScanParameter sp = new ScanParameter();
+            sp.IsAsc = false;
+            sp.PageSize = 5;
+            sp.StartingPage = new List<string>() { { "https://www.javbus.com/page" } };
 
-            //var mag = TestSearchJavBus(@"d:\fin\");
-
-            new RestClient("https://api.day.app").Get("4z4uANLXpe8BXT3wAZVe9F/123");
+            ScanDataBaseManager.InsertScanJob("test", JsonConvert.SerializeObject(sp), "bus");
 
             Console.ReadKey();
         }
@@ -657,6 +658,76 @@ namespace NewUnitTest
             }
 
             return result;
+        }
+
+        public static void TestDownload(string name, string folder)
+        {
+            Console.WriteLine($"正在处理{name}");
+
+            var prefix = "http://www.5ikanhm.top";
+            var html = HtmlManager.GetHtmlContentViaUrl("http://www.5ikanhm.top/book/423");
+
+            if (html.Success)
+            {
+                Console.WriteLine($"获取内容成功");
+
+                if (Directory.Exists(folder))
+                {
+                    Directory.Delete(folder, true);
+                }
+
+                Thread.Sleep(100);
+
+                var comicFolder = folder + "\\" + name + "\\";
+                Directory.CreateDirectory(comicFolder);
+
+                Console.WriteLine($"新建文件夹成功");
+
+                List<string> chapters = new List<string>();
+
+                HtmlDocument htmlDocument = new HtmlDocument();
+                htmlDocument.LoadHtml(html.Content);
+
+                string xpath = "//ul[@id='detail-list-select']//a";
+
+                HtmlNodeCollection nodes = htmlDocument.DocumentNode.SelectNodes(xpath);
+
+                foreach (var node in nodes)
+                {
+                    chapters.Add(prefix + node.Attributes["href"].Value);
+                }
+
+                foreach(var chapter in chapters)
+                {
+                    Console.WriteLine($"处理章节{chapter}");
+
+                    var chtml = HtmlManager.GetHtmlContentViaUrl(chapter, agent: "Mozilla/5.0 (iPhone; CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3 Mobile/15E148 Safari/604.1");
+
+                    if (chtml.Success)
+                    {
+                        Console.WriteLine($"处理章节内容成功");
+                        htmlDocument.LoadHtml(chtml.Content);
+
+                        string cNameXpath = "//p[@class='view-fix-top-bar-title']";
+                        string cXpath = "//div[@id='cp_img']//img";
+
+                        HtmlNode cNameNode = htmlDocument.DocumentNode.SelectSingleNode(cNameXpath);
+                        HtmlNodeCollection cImgNodes = htmlDocument.DocumentNode.SelectNodes(cXpath);
+
+                        var chaperFolder = comicFolder + cNameNode.InnerText + "\\";
+                        Directory.CreateDirectory(chaperFolder);
+
+                        int i = 1;
+
+                        foreach (var img in cImgNodes)
+                        {
+                            DownloadHelper.DownloadFile(img.Attributes["data-original"].Value, chaperFolder + i + ".jpg");
+
+                            Console.WriteLine($"处理章节{cNameNode.InnerText}, 第 {i++} 张图片");
+                        }
+                    }
+                }
+            }
         }
     }
 }

@@ -105,7 +105,7 @@ namespace AVWeb.Controllers
 
         [HttpGet]
         [Route("SiriRunJob")]
-        public TaskCommonModel SiriRunJob(string token, string jobName = "SiriRun", int page = 15)
+        public TaskCommonModel SiriRunJob(string token, string jobName = "SiriRun", int page = 15, string website = "jav")
         {
             TaskCommonModel ret = new TaskCommonModel();
             var to = ScanDataBaseManager.GetToken().Token;
@@ -113,11 +113,22 @@ namespace AVWeb.Controllers
             if (to == token)
             {
                 var parameter = new ScanParameter();
-                parameter.IsAsc = true;
-                parameter.PageSize = page;
-                parameter.StartingPage = new List<string>() { "http://www.javlibrary.com/cn/vl_update.php?mode=" };
 
-                var jobId = ScanDataBaseManager.InsertScanJob(jobName, JsonConvert.SerializeObject(parameter));
+                if (website == "jav")
+                {
+                    parameter.IsAsc = true;
+                    parameter.PageSize = page;
+                    parameter.StartingPage = new List<string>() { "http://www.javlibrary.com/cn/vl_update.php?mode=" };
+                }
+
+                if (website == "bus")
+                {
+                    parameter.IsAsc = true;
+                    parameter.PageSize = page;
+                    parameter.StartingPage = new List<string>() { "https://www.javbus.com/page" };
+                }
+
+                var jobId = ScanDataBaseManager.InsertScanJob($"{jobName} {website} {page} 页", JsonConvert.SerializeObject(parameter), website);
 
                 ret.Message = "建立成功";
             }

@@ -1,6 +1,7 @@
 ﻿using DataBaseManager.JavDataBaseHelper;
 using HtmlAgilityPack;
 using Model.JavModels;
+using Model.ScanModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -203,29 +204,29 @@ namespace Service
                 var publisher = "";
                 var category = "";
 
-                foreach (Match d in mDirector)
+                foreach (System.Text.RegularExpressions.Match d in mDirector)
                 {
                     director += d.Groups[2] + ",";
                 }
 
-                foreach (Match d in mActress)
+                foreach (System.Text.RegularExpressions.Match d in mActress)
                 {
                     var act = d.Groups[3].ToString();
 
                     actress += act + ",";
                 }
 
-                foreach (Match d in mCompany)
+                foreach (System.Text.RegularExpressions.Match d in mCompany)
                 {
                     company += d.Groups[2] + ",";
                 }
 
-                foreach (Match d in mPublisher)
+                foreach (System.Text.RegularExpressions.Match d in mPublisher)
                 {
                     publisher += d.Groups[2] + ",";
                 }
 
-                foreach (Match d in mCategory)
+                foreach (System.Text.RegularExpressions.Match d in mCategory)
                 {
                     category += d.Groups[2] + ",";
                 }
@@ -394,6 +395,68 @@ namespace Service
             javBusRecord.Category = catSb.ToString();
 
             return javBusRecord;
+        }
+
+        public static List<RefreshModel> GetJavbusAVList(string url, int page, bool onlyMag = true)
+        {
+            List<RefreshModel> ret = new List<RefreshModel>();
+
+            var cc = HtmlManager.GetCookies("https://www.javbus.com");
+
+            if (onlyMag)
+            {
+                cc.Add(new Cookie()
+                {
+                    Domain = "www.javbus.com",
+                    Name = "existmag",
+                    Value = "mag"
+                });
+            }
+            else
+            {
+                cc.Add(new Cookie()
+                {
+                    Domain = "www.javbus.com",
+                    Name = "existmag",
+                    Value = "all"
+                });
+            }
+
+            var c = new CookieContainer();
+            c.Add(cc);
+
+            for (int i = 1; i <= page; i++)
+            {
+                var htmlResult = HtmlManager.GetHtmlContentViaUrl(url + "/" + i, "utf-8", true, c);
+
+                if (htmlResult.Success)
+                {
+                    HtmlDocument htmlDocument = new HtmlDocument();
+                    htmlDocument.LoadHtml(htmlResult.Content);
+
+                    var itemPath = "//div[@class='item']";
+
+                    var itemNodes = htmlDocument.DocumentNode.SelectNodes(itemPath);
+
+                    foreach (var item in itemNodes)
+                    {
+                        RefreshModel temp = new RefreshModel();
+
+                        var itemUrl = item.ChildNodes[1].Attributes["href"].Value;
+                        var id = itemUrl.Substring(itemUrl.LastIndexOf("/") + 1);
+                        var name = item.ChildNodes[1].ChildNodes[1].ChildNodes[1].Attributes["title"].Value;
+                        var pic = item.ChildNodes[1].ChildNodes[1].ChildNodes[1].Attributes["src"].Value;
+
+                        temp.Id = id;
+                        temp.Name = name;
+                        temp.Url = pic.Replace("https://pics.javbus.com/thumb/", "https://pics.javbus.com/cover/").Replace(".jpg", "_b.jpg");
+
+                        ret.Add(temp);
+                    }
+                }
+            }
+
+            return ret;
         }
     }
 }

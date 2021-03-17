@@ -59,7 +59,7 @@ namespace Utils
             return cc;
         }
 
-        public static HtmlResponse GetHtmlContentViaUrl(string url, string end = "utf-8",  bool isJav = false, CookieContainer cc = null)
+        public static HtmlResponse GetHtmlContentViaUrl(string url, string end = "utf-8",  bool isJav = false, CookieContainer cc = null, string agent = "")
         {
             HtmlResponse res = new HtmlResponse
             {
@@ -75,7 +75,7 @@ namespace Utils
                 HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
                 request.Credentials = CredentialCache.DefaultCredentials;
                 request.Timeout = 90000;
-                request.UserAgent = string.Format(UserAgent, GetChromeVersion());
+                request.UserAgent = string.IsNullOrEmpty(agent) ? string.Format(UserAgent, GetChromeVersion()) : agent;
                 request.Method = "GET";
 
                 if (isJav)

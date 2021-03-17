@@ -20,11 +20,14 @@ namespace ScanJavMagUrl
     {
         static List<RefreshModel> models = new List<RefreshModel>();
         static bool IsFinish = true;
+        static ScanJob model = null;
 
         static void Main(string[] args)
         {
             string arg = "";
             int jobId = 0;
+
+            model = ScanDataBaseManager.GetFirstScanJob();
 
             if (args.Length == 0)
             {
@@ -32,21 +35,98 @@ namespace ScanJavMagUrl
 
                 ScanDataBaseManager.DeleteRemoteScanMag();
             }
-            else
+            else if (args.Length == 1)
             {
-                var model = ScanDataBaseManager.GetFirstScanJob();
-
                 if (model != null)
                 {
-                    var parameter = JsonConvert.DeserializeObject<ScanParameter>(model.ScanParameter);
-                    parameter.ScanJobId = model.ScanJobId;
-
-                    if (parameter != null && parameter.StartingPage != null && parameter.StartingPage.Count > 0)
+                    if (model.Website == "jav")
                     {
-                        arg = string.Format("dolist {0} {1} {2}", string.Join(",", parameter.StartingPage), parameter.IsAsc, parameter.PageSize);
-                        jobId = parameter.ScanJobId;
+                        var parameter = JsonConvert.DeserializeObject<ScanParameter>(model.ScanParameter);
+                        parameter.ScanJobId = model.ScanJobId;
 
-                        ScanDataBaseManager.SetScanJobFinish(jobId, -1);
+                        if (parameter != null && parameter.StartingPage != null && parameter.StartingPage.Count > 0)
+                        {
+                            arg = string.Format("dolist {0} {1} {2}", string.Join(",", parameter.StartingPage), parameter.IsAsc, parameter.PageSize);
+                            jobId = parameter.ScanJobId;
+
+                            ScanDataBaseManager.SetScanJobFinish(jobId, -1);
+                        }
+                    }
+
+                    if (model.Website == "bus")
+                    {
+                        var parameter = JsonConvert.DeserializeObject<ScanParameter>(model.ScanParameter);
+                        parameter.ScanJobId = model.ScanJobId;
+
+                        if (parameter != null && parameter.StartingPage != null && parameter.StartingPage.Count > 0)
+                        {
+                            jobId = parameter.ScanJobId;
+                            ScanDataBaseManager.SetScanJobFinish(jobId, -1, parameter.PageSize * 30);
+
+                            models = JavBusDownloadHelper.GetJavbusAVList(parameter.StartingPage.FirstOrDefault(), parameter.PageSize, parameter.IsAsc);
+
+                            foreach (var m in models)
+                            {
+                                RemoteScanMag entity = new RemoteScanMag();
+                                entity.JobId = jobId;
+
+                                var matchFiles = new EverythingHelper().SearchFile("!c:\\ " + m.Id + " | " + m.Id.Replace("-", ""), EverythingSearchEnum.Video);
+
+                                var mags = MagService.SearchJavBus(m.Id);
+
+                                if (mags != null && mags.Count > 0)
+                                {
+                                    if (matchFiles.Count > 0)
+                                    {
+                                        var biggestFile = matchFiles.FirstOrDefault(x => x.Length == matchFiles.Max(y => y.Length));
+                                        entity.SearchStatus = 2;
+                                        entity.MatchFile = biggestFile.FullName;
+                                    }
+                                    else
+                                    {
+                                        entity.SearchStatus = 1;
+                                    }
+
+                                    foreach (var seed in mags)
+                                    {
+                                        entity.AvId = m.Id;
+                                        entity.AvName = FileUtility.ReplaceInvalidChar(m.Name);
+                                        entity.AvUrl = m.Url;
+                                        entity.MagDate = seed.Date;
+                                        entity.MagSize = seed.Size;
+                                        entity.MagTitle = FileUtility.ReplaceInvalidChar(seed.Title);
+                                        entity.MagUrl = seed.MagUrl;
+
+                                        try
+                                        {
+                                            if (entity.MagTitle.Contains(m.Id) || entity.MagTitle.Contains(m.Id.Replace("-", "")))
+                                            {
+                                                ScanDataBaseManager.InsertRemoteScanMag(entity);
+                                            }
+                                        }
+                                        catch (Exception ee)
+                                        {
+                                            entity.MatchFile = "";
+                                            entity.SearchStatus = 1;
+                                            ScanDataBaseManager.InsertRemoteScanMag(entity);
+                                        }
+
+                                        ScanDataBaseManager.InsertRemoteScanMag(entity);
+                                    }
+                                }
+                                else
+                                {
+                                    Console.Write(" 没搜到");
+                                    entity.SearchStatus = 0;
+                                }
+                            }
+
+                            ScanDataBaseManager.SetScanJobFinish(jobId, 1, models.Count);
+
+                            new RestClient("https://api.day.app").Get("4z4uANLXpe8BXT3wAZVe9F/下载种子文件完成");
+
+                            return;
+                        }
                     }
                 }
                 else

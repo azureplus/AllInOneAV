@@ -136,11 +136,11 @@ namespace DataBaseManager.ScanDataBaseHelper
             return QuerySingle<TokenModel>(ConnectionStrings.Scan, sql);
         }
 
-        public static int InsertScanJob(string scanJobName, string scanParameter)
+        public static int InsertScanJob(string scanJobName, string scanParameter, string website)
         {
-            var sql = "INSERT INTO ScanJob (ScanJobName, ScanParameter, CreateTime, EndTime, IsFinish) VALUES (@scanJobName, @scanParameter, GETDATE(), GETDATE(), 0) SELECT @@IDENTITY";
+            var sql = "INSERT INTO ScanJob (ScanJobName, ScanParameter, CreateTime, EndTime, IsFinish, Website) VALUES (@scanJobName, @scanParameter, GETDATE(), GETDATE(), 0, @Website) SELECT @@IDENTITY";
 
-            return QuerySingle<int>(ConnectionStrings.Scan, sql, new { scanJobName, scanParameter });
+            return QuerySingle<int>(ConnectionStrings.Scan, sql, new { scanJobName, scanParameter, website });
         }
 
         public static int DeleteRemoteScanMag()

@@ -1047,9 +1047,9 @@ namespace AVWeb.Controllers
         }
 
         [Rights, HttpPost]
-        public JsonResult PostScanJob(string jobName, string scanParameter)
+        public JsonResult PostScanJob(string jobName, string scanParameter, string website = "jav")
         {
-            var jobId = ScanDataBaseManager.InsertScanJob(jobName, scanParameter);
+            var jobId = ScanDataBaseManager.InsertScanJob(jobName, scanParameter, website);
 
             return Json(new { msg = "success", jobId = jobId });
         }

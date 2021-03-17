@@ -1141,8 +1141,8 @@ namespace CombineEpisode
                             {
                                 IsAsc = true,
                                 PageSize = 3,
-                                StartingPage = new List<string> { url },
-                            }));
+                                StartingPage = new List<string> { url }
+                            }), "jav");
                         }
 
                         if (item.Text == "扫描全部")
@@ -1151,8 +1151,8 @@ namespace CombineEpisode
                             {
                                 IsAsc = true,
                                 PageSize = -1,
-                                StartingPage = new List<string> { url },
-                            }));
+                                StartingPage = new List<string> { url }
+                            }), "jav");
                         }
                     }
                 }
@@ -1168,8 +1168,8 @@ namespace CombineEpisode
                             {
                                 IsAsc = true,
                                 PageSize = 3,
-                                StartingPage = new List<string> { url },
-                            }));
+                                StartingPage = new List<string> { url }
+                            }), "jav");
                         }
 
                         if (item.Text == "扫描全部")
@@ -1178,8 +1178,8 @@ namespace CombineEpisode
                             {
                                 IsAsc = true,
                                 PageSize = -1,
-                                StartingPage = new List<string> { url },
-                            }));
+                                StartingPage = new List<string> { url }
+                            }), "jav");
                         }
                     }
                 }
@@ -1195,8 +1195,8 @@ namespace CombineEpisode
                             {
                                 IsAsc = false,
                                 PageSize = 3,
-                                StartingPage = new List<string> { url },
-                            }));
+                                StartingPage = new List<string> { url }
+                            }), "jav");
                         }
 
                         if (item.Text == "扫描全部")
@@ -1205,8 +1205,8 @@ namespace CombineEpisode
                             {
                                 IsAsc = false,
                                 PageSize = -1,
-                                StartingPage = new List<string> { url },
-                            }));
+                                StartingPage = new List<string> { url }
+                            }), "jav");
                         }
                     }
                 }

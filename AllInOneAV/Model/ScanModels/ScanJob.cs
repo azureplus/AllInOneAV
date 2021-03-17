@@ -16,5 +16,6 @@ namespace Model.ScanModels
         public string ScanParameter { get; set; }
         public int TotalItem { get; set; }
         public int CurrentItemCount { get; set; }
+        public string Website { get; set; }
     }
 }

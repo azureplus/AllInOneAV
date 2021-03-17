@@ -12,5 +12,6 @@ namespace Model.ScanModels
         public bool IsAsc { get; set; }
         public int PageSize { get; set; }
         public int ScanJobId { get; set; }
+        public string Website { get; set; }
     }
 }

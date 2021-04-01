@@ -30,6 +30,7 @@
             <button type="button" class="btn btn-success fliterBtn" id="byCate" data-show="cateDiv" aria-pressed="true">按类型</button>
             <button type="button" class="btn btn-danger fliterBtn" id="byActress" data-show="actressDiv" aria-pressed="true">按演员</button>
             <button type="button" class="btn btn-warning fliterBtn" id="byFavi" data-show="faviDiv" aria-pressed="true">按书签</button>
+            <button type="button" class="btn btn-dark fliterBtn" id="javbus" data-show="javbus" aria-pressed="true">下载Javbus</button>
         </div>
 
         <div class="input-group">
@@ -225,6 +226,22 @@
                 url: "/webav/PostScanJob",
                 type: "post",
                 data: { 'jobname': jobName, 'scanParameter': JSON.stringify(parameter), 'website': 'jav' },
+
+                success: function (result) {
+                    window.location.href = 'http://www.cainqs.com:8087/webav/scanjoblist';
+                }
+            });
+        });
+
+        $("#javbus").click(function () {
+            var jobName = "Web扫描Bus";
+
+            var parameter = { 'IsAsc': true, 'PageSize': 5, 'StartingPage': ["https://www.javbus.com/page"] };
+
+            $.ajax({
+                url: "/webav/PostScanJob",
+                type: "post",
+                data: { 'jobname': jobName, 'scanParameter': JSON.stringify(parameter), 'website': 'bus' },
 
                 success: function (result) {
                     window.location.href = 'http://www.cainqs.com:8087/webav/scanjoblist';

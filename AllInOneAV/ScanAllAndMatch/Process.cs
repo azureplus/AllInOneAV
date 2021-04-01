@@ -40,6 +40,14 @@ namespace ScanAllAndMatch
                             Console.WriteLine("获取文件失败");
                         }
                     }
+
+                    if (Directory.Exists(driver + "\\up115\\"))
+                    {
+                        if (!string.IsNullOrEmpty(FileUtility.GetFilesRecursive(driver + "\\up115\\", formats, excludes, fi, 100)))
+                        {
+                            Console.WriteLine("获取文件失败");
+                        }
+                    }
                 }
 
                 var avs = JavDataBaseManager.GetAllAV();

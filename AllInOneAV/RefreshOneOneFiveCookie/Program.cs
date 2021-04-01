@@ -17,7 +17,7 @@ namespace RefreshOneOneFiveCookie
         {
             CookieContainer cc = new CookieContainer();
 
-            var cookieData = new ChromeCookieReader().ReadCookies("115");
+            var cookieData = new ChromeCookieReader().ReadCookies("115.com");
 
             var json = JsonConvert.SerializeObject(cookieData.Where(x => !x.Value.Contains(",")).Distinct());
    

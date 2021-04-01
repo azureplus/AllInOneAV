@@ -227,7 +227,8 @@ namespace Utils
 
                 if (cc != null)
                 {
-                    wc.Headers.Add(HttpRequestHeader.Cookie, cc.GetCookieHeader(new Uri(cookieHost)));
+                    var c = cc.GetCookieHeader(new Uri(cookieHost));
+                    wc.Headers.Add(HttpRequestHeader.Cookie, c);
                 }
 
                 if (userProxy)

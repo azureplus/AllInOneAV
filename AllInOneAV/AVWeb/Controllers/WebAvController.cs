@@ -1054,6 +1054,21 @@ namespace AVWeb.Controllers
             return Json(new { msg = "success", jobId = jobId });
         }
 
+        [Rights, HttpGet]
+        public JsonResult PostBusScanJob(string page, int size, string website = "bus", string jobName = "PostBus")
+        {
+            ScanParameter sp = new ScanParameter();
+
+            sp.IsAsc = true;
+            sp.StartingPage = new List<string>() { { page } };
+            sp.Website = "bus";
+            sp.PageSize = size;
+
+            var jobId = ScanDataBaseManager.InsertScanJob(jobName, JsonConvert.SerializeObject(sp), website);
+
+            return Json(new { msg = "success", jobId = jobId }, JsonRequestBehavior.AllowGet);
+        }
+
         [Rights, HttpPost]
         public JsonResult Add115Task(string mag)
         {

@@ -440,18 +440,21 @@ namespace Service
 
                     foreach (var item in itemNodes)
                     {
-                        RefreshModel temp = new RefreshModel();
+                        if (!item.InnerHtml.Contains("avatar-box"))
+                        {
+                            RefreshModel temp = new RefreshModel();
 
-                        var itemUrl = item.ChildNodes[1].Attributes["href"].Value;
-                        var id = itemUrl.Substring(itemUrl.LastIndexOf("/") + 1);
-                        var name = item.ChildNodes[1].ChildNodes[1].ChildNodes[1].Attributes["title"].Value;
-                        var pic = item.ChildNodes[1].ChildNodes[1].ChildNodes[1].Attributes["src"].Value;
+                            var itemUrl = item.ChildNodes[1].Attributes["href"].Value;
+                            var id = itemUrl.Substring(itemUrl.LastIndexOf("/") + 1);
+                            var name = item.ChildNodes[1].ChildNodes[1].ChildNodes[1].Attributes["title"].Value;
+                            var pic = item.ChildNodes[1].ChildNodes[1].ChildNodes[1].Attributes["src"].Value;
 
-                        temp.Id = id;
-                        temp.Name = name;
-                        temp.Url = pic.Replace("https://pics.javbus.com/thumb/", "https://pics.javbus.com/cover/").Replace(".jpg", "_b.jpg");
+                            temp.Id = id;
+                            temp.Name = name;
+                            temp.Url = pic.Replace("https://pics.javbus.com/thumb/", "https://pics.javbus.com/cover/").Replace(".jpg", "_b.jpg");
 
-                        ret.Add(temp);
+                            ret.Add(temp);
+                        }
                     }
                 }
             }

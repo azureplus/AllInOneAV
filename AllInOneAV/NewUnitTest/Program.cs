@@ -4,6 +4,7 @@ using HtmlAgilityPack;
 using Microsoft.Win32.TaskScheduler;
 using Model.Common;
 using Model.JavModels;
+using Model.OneOneFive;
 using Model.ScanModels;
 using Model.WebModel;
 using Newtonsoft.Json;
@@ -12,6 +13,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Utils;
@@ -22,12 +24,73 @@ namespace NewUnitTest
     {
         static void Main(string[] args)
         {
-            ScanParameter sp = new ScanParameter();
-            sp.IsAsc = false;
-            sp.PageSize = 5;
-            sp.StartingPage = new List<string>() { { "https://www.javbus.com/page" } };
+            //CheckAvatorMatch();
 
-            ScanDataBaseManager.InsertScanJob("test", JsonConvert.SerializeObject(sp), "bus");
+            //MoveUnmatche115dFile(@"C:\Users\cleus\Desktop\l.txt");
+
+            //var list = new List<string>() { { "n:" }, { "o:" }, { "q:" }, { "r:" }, { "s:" } };
+
+            //foreach (var d in list)
+            //{
+            //    FilesDoesnotExistIn115(d);
+            //}
+
+            //GetUnmatched115("j");
+
+            //var root = OneOneFiveService.GetOneOneFileInFolder("0");
+
+            //foreach (var sub in root.data)
+            //{ 
+            //    var count = OneOneFiveService.Get115PagesInFolder(3, sub.cid);
+            //}
+
+            //var repeat = OneOneFiveService.GetRepeatFiles(1150);
+
+            //var result = OneOneFiveService.DeleteAndRename(repeat);
+
+            List<FileItemModel> list = new List<FileItemModel>();
+            List<ValueTuple<string, string, long>> localList = new List<(string, string, long)>();
+
+            List<string> oneOneFiveDoesnt = new List<string>();
+            List<string> localDoesnt = new List<string>();
+
+            var pages = OneOneFiveService.Get115PagesInFolder(1150);
+
+            for(int i = 0; i < pages; i++)
+            {
+                var files = OneOneFiveService.GetOneOneFileInFolder("1834397846621504875", i * 1150, 1150);
+
+                if (files != null && files.data != null)
+                {
+                    list.AddRange(files.data);
+                }
+            }
+
+            var localFiles = ScanDataBaseManager.GetAllMatch();
+
+            foreach (var lf in localFiles)
+            {
+                localList.Add((lf.Name, lf.Location + "\\" + lf.Name, new FileInfo(lf.Location + "\\" + lf.Name).Length));
+            }
+
+            foreach (var l in localList)
+            {
+                var temp = list.Where(x => x.n == l.Item1);
+
+                if (!temp.Any())
+                {
+                    oneOneFiveDoesnt.Add(l.Item2);
+                }
+                else
+                {
+                    var matched = temp.FirstOrDefault(x => x.s == l.Item3);
+
+                    if (matched != null)
+                    {
+                        temp.Where(x => x.fid != matched.fid).ToList().ForEach(x => localDoesnt.Add(x.fid));
+                    }
+                }
+            }
 
             Console.ReadKey();
         }
@@ -511,8 +574,6 @@ namespace NewUnitTest
             {
                 ScanDataBaseManager.UpdateFaviAvator(m.Key, m.Value.FirstOrDefault());
             }
-
-            Console.ReadKey();
         }
 
         public static void DownloadActreeAvator()
@@ -533,7 +594,6 @@ namespace NewUnitTest
                     htmlDocument.LoadHtml(content.Content);
 
                     string xpath = "//a[@class='avatar-box text-center']";
-                    string imgPath = "/img";
 
                     HtmlNodeCollection nodes = htmlDocument.DocumentNode.SelectNodes(xpath);
 
@@ -660,6 +720,36 @@ namespace NewUnitTest
             return result;
         }
 
+        public static string GetUnmatched115(string drive)
+        {
+            StringBuilder sb = new StringBuilder();
+
+            var files = ScanDataBaseManager.GetUnmatched115(drive + ":\\%");
+            List<string> list = new List<string>();
+
+            var up115 = drive + ":\\up115\\";
+
+            if (!Directory.Exists(up115))
+            {
+                Directory.CreateDirectory(up115);
+            }
+
+            foreach (var f in files)
+            {
+                if (File.Exists(f.FilePath))
+                {
+                    sb.Append("\"" + f.FilePath + "\" ");
+
+                    list.Add(f.FilePath);
+                }
+            }
+
+            var res = FileUtility.TransferFileUsingSystem(list, up115, true, true);
+
+            return sb.ToString();
+        }
+
+        //下载漫画
         public static void TestDownload(string name, string folder)
         {
             Console.WriteLine($"正在处理{name}");
@@ -728,6 +818,58 @@ namespace NewUnitTest
                     }
                 }
             }
+        }
+
+        public static List<string> FilesDoesnotExistIn115(string drive)
+        {
+            List<string> ret = new List<string>();
+            var cc = OneOneFiveService.Get115Cookie();
+
+            int index = 1;
+
+            var targetFolder = drive + "\\fin\\";
+            var up115 = drive + "\\up115\\";
+
+            if (!Directory.Exists(up115))
+            {
+                Directory.CreateDirectory(up115);
+            }
+
+            if (Directory.Exists(targetFolder))
+            {
+                var files = Directory.GetFiles(targetFolder);
+
+                foreach (var f in files)
+                {
+                    Console.WriteLine($"{index++} / {files.Count()} ");
+                    var fileName = Path.GetFileName(f);
+                    var result = OneOneFiveService.Get115SearchResultInFolder(cc, fileName);
+
+                    var found = false;
+
+                    if (result != null && result.count > 0)
+                    {
+                        foreach (var r in result.data)
+                        {
+                            if (r.n == fileName && !string.IsNullOrEmpty(r.fid) && r.s == new FileInfo(f).Length)
+                            {
+                                found = true;
+                                Console.WriteLine($"找到{f}在{r.cid}");
+                                break;
+                            }
+                        }
+
+                        if (!found)
+                        {
+                            ret.Add(f);
+                        }
+                    }
+                }
+
+                var res = FileUtility.TransferFileUsingSystem(ret, up115, true, true);
+            }
+
+            return ret;
         }
     }
 }

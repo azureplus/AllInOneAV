@@ -17,6 +17,10 @@ namespace Model.OneOneFive
 
     public class FileItemModel
     { 
+        public string cid { get; set; }
+        public string aid { get; set; }
+        public string uid { get; set; }
+        public string @class { get; set; }
         public string fid { get; set; }
         public string ico { get; set; }
         public string n { get; set; }

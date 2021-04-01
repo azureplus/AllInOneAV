@@ -351,5 +351,12 @@ namespace DataBaseManager.ScanDataBaseHelper
 
             return Execute(ConnectionStrings.Scan, sql, new { name, avator });
         }
+
+        public static List<AvAndShaMapping> GetUnmatched115(string where)
+        {
+            var sql = "  select filepath from AvAndShaMapping where IsExist = 0 and FilePath like @where";
+
+            return Query<AvAndShaMapping>(ConnectionStrings.Scan, sql, new { where });
+        }
     }
 }

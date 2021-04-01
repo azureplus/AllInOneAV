@@ -23,7 +23,7 @@ namespace Service
             bool ret = false;
 
             var url = string.Format(string.Format("https://webapi.115.com/files/search?search_value={0}&format=json", content));
-            var htmlRet = HtmlManager.GetHtmlWebClient("https://115.com", url, cc);
+            var htmlRet = HtmlManager.GetHtmlWebClient("https://webapi.115.com", url, cc);
             if (htmlRet.Success)
             {
                 if (!string.IsNullOrEmpty(htmlRet.Content))
@@ -62,12 +62,29 @@ namespace Service
             return ret;
         }
 
+        public static FileListModel Get115SearchResultInFolder(CookieContainer cc, string content, string host = "115.com", string reffer = "https://115.com/?cid=0&offset=0&mode=wangpan", string ua = "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.94 Safari/537.36 115Browser/12.0.0")
+        {
+            FileListModel ret = new FileListModel();
+
+            var url = string.Format(string.Format("https://webapi.115.com/files/search?search_value={0}&format=json&offset=0&limit=10&&date=&aid=1&cid=0", content));
+            var htmlRet = HtmlManager.GetHtmlWebClient("https://115.com", url, cc);
+            if (htmlRet.Success)
+            {
+                if (!string.IsNullOrEmpty(htmlRet.Content))
+                {
+                    ret = JsonConvert.DeserializeObject<FileListModel>(htmlRet.Content);
+                }
+            }
+
+            return ret;
+        }
+
         public static bool Get115SearchExist(CookieContainer cc, string content, string host = "115.com", string reffer = "https://115.com/?cid=0&offset=0&mode=wangpan", string ua = "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.94 Safari/537.36 115Browser/12.0.0")
         {
             bool ret = false;
 
             var url = string.Format(string.Format("https://webapi.115.com/files/search?search_value={0}&format=json&limit=3&offset=0", content));
-            var htmlRet = HtmlManager.GetHtmlWebClient("https://115.com", url, cc);
+            var htmlRet = HtmlManager.GetHtmlWebClient("https://webapi.115.com", url, cc);
             if (htmlRet.Success)
             {
                 if (!string.IsNullOrEmpty(htmlRet.Content))
@@ -118,24 +135,34 @@ namespace Service
         {
             CookieContainer cc = new CookieContainer();
 
-            var cookieData = new ChromeCookieReader().ReadCookies("115");
+            var cookieData = new ChromeCookieReader().ReadCookies(".115.com");
+
+            foreach (var item in cookieData.Where(x => !x.Value.Contains(",")).Distinct())
+            {
+                if (item.Name == "PHPSESSID" || item.Name == "UID" || item.Name == "CID" || item.Name == "SEID" || item.Name == "115_lang")
+                {
+                    Cookie c = new Cookie(item.Name, item.Value, "/", "115.com");
+                    cc.Add(c);
+                }
+            }
+
+            cookieData = new ChromeCookieReader().ReadCookies("webapi.115.com");
 
             foreach (var item in cookieData.Where(x => !x.Value.Contains(",")).Distinct())
             {
                 Cookie c = new Cookie(item.Name, item.Value, "/", "115.com");
-
                 cc.Add(c);
             }
 
             return cc;
         }
 
-        public static int Get115TotalFileCount(int pageSize = 1150)
+        public static int Get115PagesInFolder(int pageSize = 1, string folder = "1834397846621504875")
         {
-            var url = string.Format(@"https://webapi.115.com/files?aid=1&cid=1834397846621504875&o=user_ptime&asc=0&offset=1&show_dir=1&limit={0}&code=&scid=&snap=0&natsort=1&record_open_time=1&source=&format=json", pageSize);
+            var url = $"https://webapi.115.com/files?aid=1&cid={folder}&o=user_ptime&asc=0&offset=0&show_dir=1&limit={pageSize}&code=&scid=&snap=0&natsort=1&record_open_time=1&source=&format=json";
             var cc = Get115Cookie();
 
-            var htmlRet = HtmlManager.GetHtmlWebClient("https://115.com", url, cc);
+            var htmlRet = HtmlManager.GetHtmlWebClient("https://webapi.115.com", url, cc);
             if (htmlRet.Success)
             {
                 if (!string.IsNullOrEmpty(htmlRet.Content))
@@ -144,6 +171,11 @@ namespace Service
 
                     if (data != null && data.count > 0)
                     {
+                        if (data.data == null)
+                        {
+                            return data.count % pageSize == 0 ? data.count / pageSize : data.count / pageSize + 1;
+                        }
+
                         return data.count % data.page_size == 0 ? data.count / data.page_size : data.count / data.page_size + 1;
                     }
                 }
@@ -185,11 +217,11 @@ namespace Service
             return ret;
         }
 
-        public static Dictionary<string, List<FileItemModel>> GetRepeatFiles(int pageSize = 1150)
+        public static Dictionary<string, List<FileItemModel>> GetRepeatFiles(int pageSize = 1)
         {
             Dictionary<string, List<FileItemModel>> ret = new Dictionary<string, List<FileItemModel>>();
             var pattern = @"\(\d+\)";
-            var data = OneOneFiveService.Get115Files(0, OneOneFiveService.Get115TotalFileCount(pageSize), pageSize);
+            var data = OneOneFiveService.Get115Files(0, OneOneFiveService.Get115PagesInFolder(pageSize), pageSize);
 
             var retRepeat = data.Where(x => Regex.IsMatch(x.n, pattern)).ToList();
 
@@ -206,6 +238,14 @@ namespace Service
                         List<FileItemModel> temp = new List<FileItemModel>();
 
                         temp.Add(oriItem);
+                        temp.Add(repeat);
+
+                        ret.Add(ori, temp);
+                    }
+                    else
+                    {
+                        List<FileItemModel> temp = new List<FileItemModel>();
+
                         temp.Add(repeat);
 
                         ret.Add(ori, temp);
@@ -248,6 +288,12 @@ namespace Service
                     Console.WriteLine("\t重命名 " + biggest.n + " 到 " + Regex.Replace(biggest.n, pattern, ""));
                     Rename(biggest.fid, Regex.Replace(biggest.n, pattern, ""), cc);
                     Console.WriteLine();
+                }
+
+                if (data.Value.Count == 1)
+                {
+                    Console.WriteLine("\t重命名 " + data.Value.LastOrDefault().n + " 到 " + Regex.Replace(data.Value.LastOrDefault().n, pattern, ""));
+                    Rename(data.Value.LastOrDefault().fid, Regex.Replace(data.Value.LastOrDefault().n, pattern, ""), cc);
                 }
             }
 
@@ -303,7 +349,9 @@ namespace Service
 
                         if (possibleSha.IsExist == 0)
                         {
-                            result = OneOneFiveService.Get115SearchResultInFinFolder(cc, possibleSha.Sha1);
+                            possibleSha.IsExist = result ? 1 : 0;
+
+                            ScanDataBaseManager.InsertShaMapping(possibleSha);
                         }
                         else
                         {
@@ -357,6 +405,24 @@ namespace Service
                 sw.WriteLine(JsonConvert.SerializeObject(SearchResult));
                 sw.Close();
             }
+        }
+
+        public static FileListModel GetOneOneFileInFolder(string folder, int page = 0, int pageSize = 1150)
+        {
+            FileListModel ret = new FileListModel();
+            var cc = Get115Cookie();
+            var url = $"https://webapi.115.com/files?aid=1&cid={folder}&o=user_ptime&asc=0&offset={page}&show_dir=1&limit={pageSize}&code=&scid=&snap=0&natsort=1&record_open_time=1&source=&format=json&type=&star=&is_q=&is_share=";
+
+            var htmlRet = HtmlManager.GetHtmlWebClient("https://115.com", url, cc);
+            if (htmlRet.Success)
+            {
+                if (!string.IsNullOrEmpty(htmlRet.Content))
+                {
+                    ret = JsonConvert.DeserializeObject<FileListModel>(htmlRet.Content);
+                }
+            }
+
+            return ret;
         }
     }
 }

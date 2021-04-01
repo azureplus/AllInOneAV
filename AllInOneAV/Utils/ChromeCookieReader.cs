@@ -31,7 +31,7 @@ public class ChromeCookieReader
             prm.Value = hostName;
             cmd.Parameters.Add(prm);
 
-            cmd.CommandText = "SELECT name,encrypted_value FROM cookies WHERE host_key like '%" + hostName + "%'";
+            cmd.CommandText = "SELECT name,encrypted_value FROM cookies WHERE host_key = '" + hostName + "'";
 
             conn.Open();
             using (var reader = cmd.ExecuteReader())

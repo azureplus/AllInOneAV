@@ -424,5 +424,156 @@ namespace Service
 
             return ret;
         }
+
+        public static string RemoveDuplicated115Files()
+        {
+            var repeat = GetRepeatFiles(1150);
+
+            return DeleteAndRename(repeat);
+        }
+
+        public static void GetOneOneFiveDoesntHave()
+        {
+            List<FileItemModel> list = new List<FileItemModel>();
+            List<ValueTuple<string, string, long>> localList = new List<(string, string, long)>();
+
+            List<string> oneOneFiveDoesnt = new List<string>();
+            List<string> localDoesnt = new List<string>();
+
+            var pages = OneOneFiveService.Get115PagesInFolder(1150);
+
+            for (int i = 0; i < pages; i++)
+            {
+                var files = OneOneFiveService.GetOneOneFileInFolder("1834397846621504875", i * 1150, 1150);
+
+                if (files != null && files.data != null)
+                {
+                    list.AddRange(files.data);
+                }
+            }
+
+            var localFiles = ScanDataBaseManager.GetAllMatch();
+
+            foreach (var lf in localFiles)
+            {
+                localList.Add((lf.Name, lf.Location + "\\" + lf.Name, new FileInfo(lf.Location + "\\" + lf.Name).Length));
+            }
+
+            foreach (var l in localList)
+            {
+                var temp = list.Where(x => x.n == l.Item1);
+
+                if (!temp.Any())
+                {
+                    oneOneFiveDoesnt.Add(l.Item2);
+                }
+                else
+                {
+                    var matched = temp.FirstOrDefault(x => x.s == l.Item3);
+
+                    if (matched != null)
+                    {
+                        temp.Where(x => x.fid != matched.fid).ToList().ForEach(x => localDoesnt.Add(x.fid));
+                    }
+                }
+            }
+        }
+
+        public static List<string> MoveFilesThatDoesnotExistIn115(string drive)
+        {
+            List<string> ret = new List<string>();
+            var cc = OneOneFiveService.Get115Cookie();
+
+            int index = 1;
+
+            var targetFolder = drive + "\\fin\\";
+            var up115 = drive + "\\up115\\";
+
+            if (!Directory.Exists(up115))
+            {
+                Directory.CreateDirectory(up115);
+            }
+
+            if (Directory.Exists(targetFolder))
+            {
+                var files = Directory.GetFiles(targetFolder);
+
+                foreach (var f in files)
+                {
+                    Console.WriteLine($"{index++} / {files.Count()} ");
+                    var fileName = Path.GetFileName(f);
+                    var result = OneOneFiveService.Get115SearchResultInFolder(cc, fileName);
+
+                    var found = false;
+
+                    if (result != null && result.count > 0)
+                    {
+                        foreach (var r in result.data)
+                        {
+                            if (r.n == fileName && !string.IsNullOrEmpty(r.fid) && r.s == new FileInfo(f).Length)
+                            {
+                                found = true;
+                                Console.WriteLine($"找到{f}在{r.cid}");
+                                break;
+                            }
+                        }
+
+                        if (!found)
+                        {
+                            ret.Add(f);
+                        }
+                    }
+                }
+
+                var res = FileUtility.TransferFileUsingSystem(ret, up115, true, true);
+            }
+
+            return ret;
+        }
+
+        public static void MoveBackToFin(string drive)
+        {
+            List<string> ret = new List<string>();
+            var cc = OneOneFiveService.Get115Cookie();
+
+            int index = 1;
+
+            var targetFolder = drive + "\\up115\\";
+            var finFolder = drive + "\\fin\\";
+
+            if (Directory.Exists(targetFolder))
+            {
+                var files = Directory.GetFiles(targetFolder);
+
+                foreach (var f in files)
+                {
+                    Console.WriteLine($"{index++} / {files.Count()} ");
+                    var fileName = Path.GetFileName(f);
+                    var result = OneOneFiveService.Get115SearchResultInFolder(cc, fileName);
+
+                    var found = false;
+
+                    if (result != null && result.count > 0)
+                    {
+                        foreach (var r in result.data)
+                        {
+                            if (r.n == fileName && !string.IsNullOrEmpty(r.fid) && r.s == new FileInfo(f).Length)
+                            {
+                                found = true;
+                                Console.WriteLine($"找到{f}在{r.cid}");
+                                break;
+                            }
+                        }
+
+                        if (found)
+                        {
+                            ret.Add(f);
+                        }
+                    }
+                }
+
+                var res = FileUtility.TransferFileUsingSystem(ret, finFolder, true, true);
+            }
+        }
     }
 }

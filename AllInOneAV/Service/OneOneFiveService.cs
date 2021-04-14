@@ -18,6 +18,9 @@ namespace Service
 {
     public class OneOneFiveService
     {
+        private static readonly string FinFolder = "fin\\";
+        private static readonly string UpFolder = "up115\\";
+
         public static bool Get115SearchResult(CookieContainer cc, string content, string host = "115.com", string reffer = "https://115.com/?cid=0&offset=0&mode=wangpan", string ua = "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.94 Safari/537.36 115Browser/12.0.0")
         {
             bool ret = false;
@@ -273,10 +276,19 @@ namespace Service
                     Console.WriteLine("正在处理 " + data.Key);
 
                     var biggest = data.Value.LastOrDefault();
+                    var chinese = data.Value.FirstOrDefault(x => x.n.Contains("-C."));
 
                     Console.WriteLine("\t最大文件为 " + biggest.n + " 大小为 " + FileSize.GetAutoSizeString(biggest.s, 2));
+                    Console.WriteLine("\t" + chinese == null ? "没有中文" : "有中文");
 
-                    data.Value.Remove(biggest);
+                    if (chinese != null)
+                    {
+                        data.Value.Remove(chinese);
+                    }
+                    else
+                    {
+                        data.Value.Remove(biggest);
+                    }
 
                     foreach (var de in data.Value)
                     {
@@ -321,73 +333,63 @@ namespace Service
             HtmlManager.Post(url, param, cc);
         }
 
-        public static void Match115(List<string> drivers, bool overRide = false, bool writeJson = true)
+        public static void Match115(bool overRide = false, bool writeJson = true, bool includeUpFolder = true)
         {
             Dictionary<string, bool> SearchResult = new Dictionary<string, bool>();
+            var cc = Get115Cookie();
 
-            foreach (var d in drivers)
+            var files = GetAllLocalAvs(includeUpFolder);
+            int index = 1;
+
+            foreach (var file in files)
             {
-                var cc = Get115Cookie();
-                string dd = d;
+                var result = false;
+                var possibleSha = ScanDataBaseManager.GetPossibleMaping(file.FullName, file.Length);
 
-                if (d.EndsWith("\\") || d.EndsWith("/"))
+                if (possibleSha != null && overRide == false)
                 {
-                    dd = dd.Substring(0, dd.Length - 1);
-                }
+                    ScanDataBaseManager.DeleteShaMapping(possibleSha.Sha1);
 
-                var files = new DirectoryInfo(dd + @"\fin\").GetFiles();
-                int index = 1;
-
-                foreach (var file in files)
-                {
-                    var result = false;
-                    var possibleSha = ScanDataBaseManager.GetPossibleMaping(file.FullName, file.Length);
-
-                    if (possibleSha != null && overRide == false)
+                    if (possibleSha.IsExist == 0)
                     {
-                        ScanDataBaseManager.DeleteShaMapping(possibleSha.Sha1);
+                        possibleSha.IsExist = result ? 1 : 0;
 
-                        if (possibleSha.IsExist == 0)
-                        {
-                            possibleSha.IsExist = result ? 1 : 0;
+                        ScanDataBaseManager.InsertShaMapping(possibleSha);
+                    }
+                    else
+                    {
+                        result = true;
+                        possibleSha.IsExist = 1;
 
-                            ScanDataBaseManager.InsertShaMapping(possibleSha);
-                        }
-                        else
-                        {
-                            result = true;
-                            possibleSha.IsExist = 1;
-
-                            ScanDataBaseManager.InsertShaMapping(possibleSha);
-                        }
-
-                        Console.WriteLine("处理 " + index++ + " / " + files.Count());
+                        ScanDataBaseManager.InsertShaMapping(possibleSha);
                     }
 
-                    if (possibleSha == null || overRide)
-                    {
-                        DateTime start = DateTime.Now;
-
-                        var sha1 = FileUtility.ComputeSHA1(file.FullName);
-
-                        DateTime finishSha1 = DateTime.Now;
-
-                        result = OneOneFiveService.Get115SearchResultInFinFolder(cc, sha1);
-
-                        Console.WriteLine("处理 " + index++ + " / " + files.Count() + " 结果 " + (result ? "存在" : "不存在") + " 计算用时 " + (finishSha1 - start).TotalSeconds + " 秒 搜索用时 " + (DateTime.Now - finishSha1).TotalSeconds + " 秒 总共用时 " + (DateTime.Now - start).TotalSeconds + " 秒");
-
-                        AvAndShaMapping aasm = new AvAndShaMapping();
-                        aasm.FilePath = file.FullName;
-                        aasm.FileSize = file.Length;
-                        aasm.IsExist = result ? 1 : 0;
-                        aasm.Sha1 = sha1;
-
-                        ScanDataBaseManager.DeleteShaMapping(aasm.Sha1);
-                        ScanDataBaseManager.InsertShaMapping(aasm);
-                    }
-
-                    SearchResult.Add(file.FullName, result);
+                    Console.WriteLine("处理 " + index++ + " / " + files.Count());
                 }
+
+                if (possibleSha == null || overRide)
+                {
+                    DateTime start = DateTime.Now;
+
+                    var sha1 = FileUtility.ComputeSHA1(file.FullName);
+
+                    DateTime finishSha1 = DateTime.Now;
+
+                    result = OneOneFiveService.Get115SearchResultInFinFolder(cc, sha1);
+
+                    Console.WriteLine("处理 " + index++ + " / " + files.Count() + " 结果 " + (result ? "存在" : "不存在") + " 计算用时 " + (finishSha1 - start).TotalSeconds + " 秒 搜索用时 " + (DateTime.Now - finishSha1).TotalSeconds + " 秒 总共用时 " + (DateTime.Now - start).TotalSeconds + " 秒");
+
+                    AvAndShaMapping aasm = new AvAndShaMapping();
+                    aasm.FilePath = file.FullName;
+                    aasm.FileSize = file.Length;
+                    aasm.IsExist = result ? 1 : 0;
+                    aasm.Sha1 = sha1;
+
+                    ScanDataBaseManager.DeleteShaMapping(aasm.Sha1);
+                    ScanDataBaseManager.InsertShaMapping(aasm);
+                }
+
+                SearchResult.Add(file.FullName, result);
             }
 
             if (writeJson)
@@ -573,6 +575,119 @@ namespace Service
                 }
 
                 var res = FileUtility.TransferFileUsingSystem(ret, finFolder, true, true);
+            }
+        }
+
+        public static List<FileItemModel> Get115FilesModel(string folder = "1834397846621504875")
+        {
+            List<FileItemModel> list = new List<FileItemModel>();
+
+            var pages = OneOneFiveService.Get115PagesInFolder(1150);
+
+            for (int i = 0; i < pages; i++)
+            {
+                var files = OneOneFiveService.GetOneOneFileInFolder(folder, i * 1150, 1150);
+
+                if (files != null && files.data != null)
+                {
+                    list.AddRange(files.data);
+                }
+            }
+
+            return list;
+        }
+
+        public static void Insert115FileSha()
+        {
+            var files = Get115FilesModel().Where(x => !string.IsNullOrEmpty(x.fid)).ToList();
+
+            Console.WriteLine($"获取到{files.Count}个文件");
+            int index = 1;
+
+            foreach (var file in files)
+            {
+                Console.WriteLine($"正在处理{index++}");
+
+                OneOneFiveFileShaMapping entity = new OneOneFiveFileShaMapping()
+                {
+                    FileName = file.n,
+                    FileSize = file.s,
+                    Sha = file.sha,
+                };
+
+                ScanDataBaseManager.InserOneOneFiveFileShaMapping(entity);
+            }
+        }
+
+        public static List<FileInfo> GetAllLocalAvs(bool includeUpFolder = true)
+        {
+            List<FileInfo> ret = new List<FileInfo>();
+
+            foreach (var drive in Environment.GetLogicalDrives())
+            {
+                if (Directory.Exists(drive + FinFolder))
+                {
+                    ret.AddRange(new DirectoryInfo(drive + FinFolder).GetFiles());
+                }
+
+                if (includeUpFolder && Directory.Exists(drive + UpFolder))
+                {
+                    ret.AddRange(new DirectoryInfo(drive + UpFolder).GetFiles());
+                }
+            }
+
+            return ret;
+        }
+
+        public static void MatchLocalAndOneOneFive()
+        {
+            Console.WriteLine($"获取115文件");
+            var oneOneFiveFiles = Get115FilesModel();
+            Console.WriteLine($"获取{oneOneFiveFiles.Count}个115文件");
+
+            Console.WriteLine($"获取本地文件");
+            var localFiles = GetAllLocalAvs();
+            Console.WriteLine($"获取{oneOneFiveFiles.Count}个本地文件");
+
+            Console.WriteLine($"获取Sha Mapping");
+            var shaMapping = ScanDataBaseManager.GetAllAvAndShaMapping();
+            Console.WriteLine($"获取{oneOneFiveFiles.Count}个Sha Mapping");
+
+            foreach (var oneOneFiveFile in oneOneFiveFiles)
+            {
+                var matchRecord = shaMapping.FirstOrDefault(x => x.Sha1 == oneOneFiveFile.sha);
+                var matchFile = localFiles.FirstOrDefault(x => x.Name == oneOneFiveFile.n && x.Length == oneOneFiveFile.s);
+
+                if(matchRecord != null && matchFile != null)
+                {
+                    Console.WriteLine($"{oneOneFiveFile.n} 完全匹配");
+                    ScanDataBaseManager.UpdateShaMapping(matchFile.FullName, matchFile.Length, true);
+                }
+                else
+                {
+                    if (matchFile != null)
+                    {
+                        Console.WriteLine($"{oneOneFiveFile.n} 大致匹配");
+                        AvAndShaMapping temp = new AvAndShaMapping
+                        {
+                            FilePath = matchFile.FullName,
+                            Sha1 = oneOneFiveFile.sha,
+                            FileSize = matchFile.Length,
+                            IsExist = 1
+                        };
+
+                        var possibleSha = ScanDataBaseManager.GetPossibleMaping(temp.FilePath, temp.FileSize);
+
+                        if (possibleSha != null)
+                        {
+                            ScanDataBaseManager.UpdateShaMapping(temp.FilePath, temp.FileSize, true);
+                        }
+                        else
+                        {
+                            ScanDataBaseManager.InsertShaMapping(temp);
+                        }
+                    }
+                }
             }
         }
     }

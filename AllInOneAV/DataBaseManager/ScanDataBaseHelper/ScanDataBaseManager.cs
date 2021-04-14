@@ -1,6 +1,7 @@
 ﻿using DataBaseManager.Common;
 using Model.FindModels;
 using Model.JavModels;
+using Model.OneOneFive;
 using Model.ScanModels;
 using Model.WebModel;
 using Newtonsoft.Json;
@@ -338,6 +339,13 @@ namespace DataBaseManager.ScanDataBaseHelper
             return Execute(ConnectionStrings.Scan, sql, entity);
         }
 
+        public static int UpdateShaMapping(string filePath, decimal fileSize, bool isExist)
+        {
+            var sql = "UPDATE AvAndShaMapping SET FilePath = @filePath, FileSize = @fileSize, IsExist = @isExist";
+
+            return Execute(ConnectionStrings.Scan, sql, new { filePath, fileSize, isExist });
+        }
+
         public static int DeleteShaMapping(string sha1)
         {
             var sql = "DELETE FROM AvAndShaMapping WHERE Sha1 = @sha1";
@@ -354,9 +362,26 @@ namespace DataBaseManager.ScanDataBaseHelper
 
         public static List<AvAndShaMapping> GetUnmatched115(string where)
         {
-            var sql = "  select filepath from AvAndShaMapping where IsExist = 0 and FilePath like @where";
+            var sql = "SELECT FilePath FROM AvAndShaMapping WHERE IsExist = 0 AND FilePath LIKE @where";
 
             return Query<AvAndShaMapping>(ConnectionStrings.Scan, sql, new { where });
+        }
+
+        public static List<AvAndShaMapping> GetAllAvAndShaMapping()
+        {
+            var sql = "SELECT * FROM AvAndShaMapping";
+
+            return Query<AvAndShaMapping>(ConnectionStrings.Scan, sql);
+        }
+
+        public static int InserOneOneFiveFileShaMapping(OneOneFiveFileShaMapping entity)
+        {
+            var sql = @"IF NOT EXISTS (SELECT * FROM OneOneFiveFileShaMapping WHERE Sha = @Sha)
+                            INSERT INTO OneOneFiveFileShaMapping (FileName, Sha, FileSize, UpdateTime) VALUES (@FileName, @Sha, @FileSize, GETDATE())
+                        ELSE
+                            UPDATE OneOneFIveFileShaMapping SET FileName = @FileName, FileSize = @FileSize, UpdateTime = GETDATE() WHERE Sha = @Sha";
+
+            return Execute(ConnectionStrings.Scan, sql, entity);
         }
     }
 }

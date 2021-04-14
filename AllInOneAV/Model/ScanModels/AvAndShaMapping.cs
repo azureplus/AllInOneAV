@@ -11,7 +11,7 @@ namespace Model.ScanModels
         public int AvAndShaMappingId { get; set; }
         public string FilePath { get; set; }
         public string Sha1 { get; set; }
-        public double FileSize { get; set; }
+        public long FileSize { get; set; }
         public int IsExist { get; set; }
         public DateTime UpdateTime { get; set; }
     }

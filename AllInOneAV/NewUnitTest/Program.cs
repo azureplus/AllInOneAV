@@ -24,7 +24,16 @@ namespace NewUnitTest
     {
         static void Main(string[] args)
         {
-            CommonService.BackUpJav("g:");
+            var test = OneOneFiveService.RemoveDuplicated115Files();
+            //Console.WriteLine(test);
+
+            OneOneFiveService.Match115();
+
+            //OneOneFiveService.Insert115FileSha();
+
+            //OneOneFiveService.MatchLocalAndOneOneFive();
+
+            //Get115ShaAndMatchLocal();
 
             Console.ReadKey();
         }
@@ -227,81 +236,6 @@ namespace NewUnitTest
             Console.WriteLine("总耗时 " + (DateTime.Now - start).TotalSeconds + " 秒, 共有" + h265Count + " 部H265");
 
             return ret;
-        }
-
-        public static void Match115(List<string> drivers, bool overRide = false, bool writeJson = true)
-        {
-            Dictionary<string, bool> SearchResult = new Dictionary<string, bool>();
-            var cc = OneOneFiveService.Get115Cookie();
-
-            foreach (var d in drivers)
-            {
-                var files = new DirectoryInfo(d + @"\fin\").GetFiles();
-                int index = 1;
-
-                foreach (var file in files)
-                {
-                    var result = false;
-                    var possibleSha = ScanDataBaseManager.GetPossibleMaping(file.FullName, file.Length);
-
-                    if (possibleSha != null && overRide == false)
-                    {
-                        ScanDataBaseManager.DeleteShaMapping(possibleSha.Sha1);
-
-                        if (possibleSha.IsExist == 0)
-                        {
-                            result = OneOneFiveService.Get115SearchResultInFinFolder(cc, possibleSha.Sha1);
-                        }
-                        else
-                        {
-                            result = true;
-                            possibleSha.IsExist = 1;
-
-                            ScanDataBaseManager.InsertShaMapping(possibleSha);
-                        }
-                    }
-
-                    if(possibleSha == null || overRide)
-                    {
-                        DateTime start = DateTime.Now;
-
-                        var sha1 = FileUtility.ComputeSHA1(file.FullName);
-
-                        DateTime finishSha1 = DateTime.Now;
-
-                        result = OneOneFiveService.Get115SearchResultInFinFolder(cc, sha1);
-
-                        Console.WriteLine("处理 " + index++ + " / " + files.Count() + " 结果 " + (result ? "存在" : "不存在") + " 计算用时 " + (finishSha1 - start).TotalSeconds + " 秒 搜索用时 " + (DateTime.Now - finishSha1).TotalSeconds + " 秒 总共用时 " + (DateTime.Now - start).TotalSeconds + " 秒");
-
-                        AvAndShaMapping aasm = new AvAndShaMapping();
-                        aasm.FilePath = file.FullName;
-                        aasm.FileSize = file.Length;
-                        aasm.IsExist = result ? 1 : 0;
-                        aasm.Sha1 = sha1;
-
-                        ScanDataBaseManager.DeleteShaMapping(aasm.Sha1);
-                        ScanDataBaseManager.InsertShaMapping(aasm);
-                    }
-                    
-                    SearchResult.Add(file.FullName, result);
-                }
-            }
-
-            if (writeJson)
-            {
-                var fileResult = @"c:\setting\filter115.json";
-
-                if (File.Exists(fileResult))
-                {
-                    File.Delete(fileResult);
-                    Thread.Sleep(50);
-                }
-
-                File.Create(fileResult).Close();
-                StreamWriter sw = new StreamWriter(fileResult);
-                sw.WriteLine(JsonConvert.SerializeObject(SearchResult));
-                sw.Close();
-            }
         }
 
         public static void GetTaskNextRunTime(string taskName)
@@ -632,6 +566,78 @@ namespace NewUnitTest
                             Console.WriteLine($"处理章节{cNameNode.InnerText}, 第 {i++} 张图片");
                         }
                     }
+                }
+            }
+        }
+
+        public static void Get115ShaAndMatchLocal()
+        {
+            var filesIn115 = OneOneFiveService.Get115FilesModel();
+
+            foreach (var drive in Environment.GetLogicalDrives())
+            {
+                Console.WriteLine($"处理 {drive}");
+
+                List<string> files = new List<string>();
+                List<string> toFin = new List<string>();
+                List<string> to115 = new List<string>();
+
+                var fin = drive + "fin\\";
+                var up = drive + "up115\\";
+
+                if (Directory.Exists(fin))
+                {
+                    files.AddRange(new DirectoryInfo(fin).GetFiles().Select(y => y.FullName).ToList());
+                }
+
+                if (Directory.Exists(up))
+                {
+                    files.AddRange(new DirectoryInfo(up).GetFiles().Select(y => y.FullName).ToList());
+                }
+
+                foreach (var file in files)
+                {
+                    var name = Path.GetFileName(file);
+                    if (filesIn115.Exists(x => x.n == Path.GetFileName(file) && x.s == new FileInfo(file).Length))
+                    {
+                        var path = Path.GetDirectoryName(file) + "\\";
+                        if (path == up)
+                        {
+                            toFin.Add(file);
+                        }
+                    }
+                    else
+                    {
+                        var path = Path.GetDirectoryName(file) + "\\";
+                        if (path == fin)
+                        {
+                            to115.Add(file);
+                        }
+                    }
+                }
+
+                if (toFin.Count > 0)
+                {
+                    if (!Directory.Exists(fin))
+                    {
+                        Directory.CreateDirectory(fin);
+                    }
+
+                    Console.WriteLine($"移动 {toFin.Count} 到 FIN");
+
+                    FileUtility.TransferFileUsingSystem(toFin, fin, true, true);
+                }
+
+                if (to115.Count > 0)
+                {
+                    if (!Directory.Exists(up))
+                    {
+                        Directory.CreateDirectory(up);
+                    }
+
+                    Console.WriteLine($"移动 {to115.Count} 到 UP115");
+
+                    FileUtility.TransferFileUsingSystem(to115, up, true, true);
                 }
             }
         }

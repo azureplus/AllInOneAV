@@ -1,9 +1,11 @@
 ﻿using DataBaseManager.JavDataBaseHelper;
+using DataBaseManager.ScanDataBaseHelper;
 using HtmlAgilityPack;
 using Model.JavModels;
 using Model.ScanModels;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
@@ -460,6 +462,93 @@ namespace Service
             }
 
             return ret;
+        }
+
+        public static void AvatorMatch()
+        {
+            Dictionary<string, List<string>> matchRecord = new Dictionary<string, List<string>>();
+            List<string> avators = new List<string>();
+            var folder = @"G:\Github\AllInOneAV\Setting\avator";
+            var avs = JavDataBaseManager.GetActress();
+
+            foreach (var f in Directory.GetDirectories(folder))
+            {
+                foreach (var a in Directory.GetFiles(f))
+                {
+                    if (!avators.Contains(a))
+                    {
+                        avators.Add(a);
+                    }
+                }
+            }
+
+            foreach (var a in avs)
+            {
+                foreach (var m in avators.OrderByDescending(x => x.Length))
+                {
+                    if (m.Contains(a.Name))
+                    {
+                        if (!matchRecord.ContainsKey(a.Name))
+                        {
+                            matchRecord.Add(a.Name, new List<string>() { m.Replace(@"G:\Github\AllInOneAV\Setting\", @"\Imgs\").Replace(@"\", "/") });
+                            break;
+                        }
+                    }
+                }
+            }
+
+            foreach (var m in matchRecord)
+            {
+                ScanDataBaseManager.UpdateFaviAvator(m.Key, m.Value.FirstOrDefault());
+            }
+        }
+
+        public static void DownloadActreeAvator()
+        {
+            int index = 1;
+            bool contiune = true;
+            var folderPrefix = @"G:\Github\AllInOneAV\Setting\avator\";
+            var url = "https://www.javbus.com/actresses/";
+            var cc = GetJavBusCookie();
+
+            while (contiune)
+            {
+                var content = HtmlManager.GetHtmlContentViaUrl(url + index++, "utf-8", false, cc);
+
+                if (content.Success)
+                {
+                    HtmlDocument htmlDocument = new HtmlDocument();
+                    htmlDocument.LoadHtml(content.Content);
+
+                    string xpath = "//a[@class='avatar-box text-center']";
+
+                    HtmlNodeCollection nodes = htmlDocument.DocumentNode.SelectNodes(xpath);
+
+                    foreach (var node in nodes)
+                    {
+                        var img = node.ChildNodes[1].ChildNodes[1];
+
+                        var src = img.Attributes["src"].Value;
+                        var title = img.Attributes["title"].Value;
+
+                        if (!string.IsNullOrEmpty(src) && !string.IsNullOrEmpty(title))
+                        {
+                            var tempFolder = folderPrefix + title[0] + "\\";
+                            if (!Directory.Exists(tempFolder))
+                            {
+                                Directory.CreateDirectory(tempFolder);
+                            }
+
+                            DownloadHelper.DownloadFile(src, tempFolder + title + ".jpg");
+                            Console.WriteLine($"下载第 {index - 1} 页，{title} 的头像");
+                        }
+                    }
+                }
+                else
+                {
+                    contiune = false;
+                }
+            }
         }
     }
 }

@@ -354,6 +354,13 @@ namespace DataBaseManager.ScanDataBaseHelper
             return Execute(ConnectionStrings.Scan, sql, entity);
         }
 
+        public static List<OneOneFiveFileShaMapping> GetOneOneFiveShaMapping(string content)
+        {
+            var sql = "SELECT * FROM OneOneFiveFilesShaMapping WHERE FileName LIKE @content";
+
+            return Query<OneOneFiveFileShaMapping>(ConnectionStrings.Scan, sql, new { content });
+        }
+
         public static int UpdateOneOneFiveFileShaMapping(string sha, bool isOnLocal)
         {
             var sql = "UPDATE OneOneFiveFileShaMapping SET IsOnLocal = @isOnLocal WHERE Sha = @sha";

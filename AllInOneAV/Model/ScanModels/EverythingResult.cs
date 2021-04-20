@@ -19,5 +19,13 @@ namespace Model.ScanModels
         public string path { get; set; }
         public string size { get; set; }
         public string sizeStr { get; set; }
+        public string chinese
+        {
+            get 
+            {
+                return this.name.Contains("-C.") ? "中文" : "";
+            }
+        }
+        public string location { get; set; }
     }
 }

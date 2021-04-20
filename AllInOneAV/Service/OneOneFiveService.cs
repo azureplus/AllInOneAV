@@ -131,44 +131,11 @@ namespace Service
             return 0;
         }
 
-        public static List<FileItemModel> Get115Files(int start = 0, int end = 0, int pageSize = 1150)
-        {
-            List<FileItemModel> ret = new List<FileItemModel>();
-
-            var cc = Get115Cookie();
-            for (int i = start; i <= end; i++)
-            {
-                var url = string.Format(@"https://webapi.115.com/files?aid=1&cid=1834397846621504875&o=user_ptime&asc=0&offset={0}&show_dir=1&limit={1}&code=&scid=&snap=0&natsort=1&record_open_time=1&source=&format=json", i * pageSize, pageSize);
-
-                var htmlRet = HtmlManager.GetHtmlWebClient("https://115.com", url, cc);
-                if (htmlRet.Success)
-                {
-                    if (!string.IsNullOrEmpty(htmlRet.Content))
-                    {
-                        var data = JsonConvert.DeserializeObject<FileListModel>(htmlRet.Content);
-
-                        if (data != null && data.data != null)
-                        {
-                            foreach (var d in data.data)
-                            {
-                                if (!ret.Exists(x => x.sha == d.sha))
-                                {
-                                    ret.Add(d);
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-
-            return ret;
-        }
-
         public static Dictionary<string, List<FileItemModel>> GetRepeatFiles(int pageSize = 1)
         {
             Dictionary<string, List<FileItemModel>> ret = new Dictionary<string, List<FileItemModel>>();
             var pattern = @"\(\d+\)";
-            var data = OneOneFiveService.Get115Files(0, OneOneFiveService.Get115PagesInFolder(pageSize), pageSize);
+            var data = Get115FilesModel();
 
             var retRepeat = data.Where(x => Regex.IsMatch(x.n, pattern)).ToList();
 
@@ -257,6 +224,36 @@ namespace Service
             param.Add("fid[0]", fid);
 
             HtmlManager.Post(url, param, cc);
+        }
+
+        public static string DeleteList(List<FileItemModel> files, string pid)
+        {
+            var cc = Get115Cookie();
+
+            var url = @"https://webapi.115.com/rb/delete";
+
+            Dictionary<string, string> param = new Dictionary<string, string>();
+            int index = 0;
+            long deleteSize = 0;
+
+            param.Add("pid", pid);
+
+            foreach (var file in files)
+            {
+                param.Add($"fid[{index++}]", file.fid);
+                deleteSize += file.s;
+            }
+
+            try
+            {
+                HtmlManager.Post(url, param, cc);
+            }
+            catch (Exception)
+            { 
+                
+            }
+
+            return FileSize.GetAutoSizeString(deleteSize, 1);
         }
 
         public static void Rename(string fid, string newName, CookieContainer cc)
@@ -500,6 +497,27 @@ namespace Service
                     }
                 }
             }
+        }
+
+        public static List<FileItemModel> Get115HasButLocal()
+        {
+            List<FileItemModel> extraFiles = new List<FileItemModel>();
+
+            var localFiles = GetAllLocalAvs();
+            var oneOneFiveFiles = Get115FilesModel();
+
+            foreach (var oneOneFiveFile in oneOneFiveFiles)
+            {
+                if (localFiles.FirstOrDefault(x => x.Length == oneOneFiveFile.s && x.Name.Equals(oneOneFiveFile.n, StringComparison.OrdinalIgnoreCase)) == null)
+                {
+                    //if (localFiles.FirstOrDefault(x => x.Name.Equals(oneOneFiveFile.n, StringComparison.OrdinalIgnoreCase)) != null)
+                    //{
+                        extraFiles.Add(oneOneFiveFile);
+                    //}
+                }
+            }
+
+            return extraFiles;
         }
 
         public static List<FileInfo> GetFileToBeDeletedBySize(long gb = 1)

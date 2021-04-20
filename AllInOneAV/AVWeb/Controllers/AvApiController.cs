@@ -173,6 +173,7 @@ namespace AVWeb.Controllers
         public Model.ScanModels.EverythingResult EverythingSearch(string token, string content)
         {
             var to = ScanDataBaseManager.GetToken().Token;
+            var retModel = new Model.ScanModels.EverythingResult();
 
             if (to == token)
             {
@@ -180,7 +181,7 @@ namespace AVWeb.Controllers
 
                 if (htmlModel.Success)
                 {
-                    var retModel = JsonConvert.DeserializeObject<Model.ScanModels.EverythingResult>(htmlModel.Content);
+                    retModel = JsonConvert.DeserializeObject<Model.ScanModels.EverythingResult>(htmlModel.Content);
 
                     if (retModel != null && retModel.results != null)
                     {
@@ -189,9 +190,33 @@ namespace AVWeb.Controllers
                         foreach (var r in retModel.results)
                         {
                             r.sizeStr = FileSize.GetAutoSizeString(double.Parse(r.size), 1);
+                            r.location = "本地";
                         }
 
                         return retModel;
+                    }
+                    else
+                    {
+                        retModel = new Model.ScanModels.EverythingResult();
+                        retModel.results = new List<EverythingFileResult>();
+
+                        var oneOneFiveFiles = ScanDataBaseManager.GetOneOneFiveShaMapping(content);
+
+                        if (oneOneFiveFiles != null && oneOneFiveFiles.Any())
+                        {
+                            retModel.totalResults = oneOneFiveFiles.Count + "";
+
+                            foreach (var file in oneOneFiveFiles)
+                            {
+                                EverythingFileResult temp = new EverythingFileResult();
+                                temp.size = file.FileSize + "";
+                                temp.sizeStr = FileSize.GetAutoSizeString(double.Parse(file.FileSize + ""), 1);
+                                temp.location = "115";
+                                temp.name = file.FileName;
+
+                                retModel.results.Add(temp);
+                            }
+                        }
                     }
                 }
             }

@@ -1078,8 +1078,12 @@ namespace AVWeb.Controllers
 
             foreach (var t in JsonConvert.DeserializeObject<List<CookieItem>>(ScanDataBaseManager.GetOneOneFiveCookie().OneOneFiveCookie))
             {
-                Cookie c = new Cookie(t.Name, t.Value, "/", "115.com");
-                cc.Add(c);
+
+                if (t.Name == "PHPSESSID" || t.Name == "UID" || t.Name == "CID" || t.Name == "SEID" || t.Name == "115_lang")
+                {
+                    Cookie c = new Cookie(t.Name, t.Value, "/", "115.com");
+                    cc.Add(c);
+                }
             }
 
             var split = mag.Split(new string[] { "magnet:?" }, StringSplitOptions.None).Where(x => !string.IsNullOrEmpty(x));

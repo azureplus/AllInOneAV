@@ -27,13 +27,25 @@ namespace NewUnitTest
             var test = OneOneFiveService.RemoveDuplicated115Files();
             //Console.WriteLine(test);
 
-            OneOneFiveService.Match115();
+            //OneOneFiveService.Match115();
 
             //OneOneFiveService.Insert115FileSha();
 
             //OneOneFiveService.MatchLocalAndOneOneFive();
 
-            //Get115ShaAndMatchLocal();
+            //OneOneFiveService.Match115AndMoveLocalFile();
+
+            //TestFind115(@"d://up115");
+
+            //var oneOneFilveFiles = OneOneFiveService.Get115FilesModel();
+            //var localFileve = OneOneFiveService.GetAllLocalAvs();
+
+            //var list = OneOneFiveService.InitLocalSha(true);
+
+            //OneOneFiveService.SyncLocalAnd115FileStatus();
+
+            //var list = OneOneFiveService.GetFileToBeDeletedBySize(2);
+            //var deleteSize = FileSize.GetAutoSizeString(list.Sum(x => x.Length), 1);
 
             Console.ReadKey();
         }
@@ -570,74 +582,35 @@ namespace NewUnitTest
             }
         }
 
-        public static void Get115ShaAndMatchLocal()
+        public static void TestFind115(string folder)
         {
-            var filesIn115 = OneOneFiveService.Get115FilesModel();
-
-            foreach (var drive in Environment.GetLogicalDrives())
+            if (Directory.Exists(folder))
             {
-                Console.WriteLine($"处理 {drive}");
+                var files = new DirectoryInfo(folder).GetFiles();
 
-                List<string> files = new List<string>();
-                List<string> toFin = new List<string>();
-                List<string> to115 = new List<string>();
-
-                var fin = drive + "fin\\";
-                var up = drive + "up115\\";
-
-                if (Directory.Exists(fin))
-                {
-                    files.AddRange(new DirectoryInfo(fin).GetFiles().Select(y => y.FullName).ToList());
-                }
-
-                if (Directory.Exists(up))
-                {
-                    files.AddRange(new DirectoryInfo(up).GetFiles().Select(y => y.FullName).ToList());
-                }
+                var oneOneFileFiles = OneOneFiveService.Get115FilesModel();
 
                 foreach (var file in files)
                 {
-                    var name = Path.GetFileName(file);
-                    if (filesIn115.Exists(x => x.n == Path.GetFileName(file) && x.s == new FileInfo(file).Length))
+                    var matchRecord = oneOneFileFiles.FirstOrDefault(x => x.n.Equals(file.Name, StringComparison.OrdinalIgnoreCase) && x.s == file.Length);
+
+                    if (matchRecord != null)
                     {
-                        var path = Path.GetDirectoryName(file) + "\\";
-                        if (path == up)
-                        {
-                            toFin.Add(file);
-                        }
+                        Console.WriteLine($"找到 {file.FullName}");
                     }
                     else
-                    {
-                        var path = Path.GetDirectoryName(file) + "\\";
-                        if (path == fin)
+                    { 
+                        var matchName = oneOneFileFiles.FirstOrDefault(x => x.n.Equals(file.Name, StringComparison.OrdinalIgnoreCase));
+
+                        if (matchName != null)
                         {
-                            to115.Add(file);
+                            Console.WriteLine($"找到名称 {file.FullName}");
+                        }
+                        else
+                        {
+                            Console.WriteLine($"什么都没有找到 {file.FullName}");
                         }
                     }
-                }
-
-                if (toFin.Count > 0)
-                {
-                    if (!Directory.Exists(fin))
-                    {
-                        Directory.CreateDirectory(fin);
-                    }
-
-                    Console.WriteLine($"移动 {toFin.Count} 到 FIN");
-
-                    FileUtility.TransferFileUsingSystem(toFin, fin, true, true);
-                }
-
-                if (to115.Count > 0)
-                {
-                    if (!Directory.Exists(up))
-                    {
-                        Directory.CreateDirectory(up);
-                    }
-
-                    Console.WriteLine($"移动 {to115.Count} 到 UP115");
-
-                    FileUtility.TransferFileUsingSystem(to115, up, true, true);
                 }
             }
         }

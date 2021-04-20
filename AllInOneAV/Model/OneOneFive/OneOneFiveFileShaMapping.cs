@@ -13,5 +13,6 @@ namespace Model.OneOneFive
         public string Sha { get; set; }
         public decimal FileSize { get; set; }
         public DateTime UpdateTime { get; set; }
+        public bool IsOnLocal { get; set; }
     }
 }

@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace Model.ScanModels
 {
-    public class AvAndShaMapping
+    public class LocalShaMapping
     {
-        public int AvAndShaMappingId { get; set; }
+        public int LocalShaMappingId { get; set; }
         public string FilePath { get; set; }
         public string Sha1 { get; set; }
         public long FileSize { get; set; }
-        public int IsExist { get; set; }
+        public string FileFolder { get; set; }
         public DateTime UpdateTime { get; set; }
     }
 }

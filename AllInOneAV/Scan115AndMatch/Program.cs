@@ -11,18 +11,7 @@ namespace Scan115AndMatch
     {
         static void Main(string[] args)
         {
-            string folder = "";
-
-            while (string.IsNullOrEmpty(folder))
-            {
-                Console.WriteLine("输入盘符，如有多个用','分割....");
-
-                folder = Console.ReadLine();
-            }
-
-            List<string> list = folder.Split(',').ToList();
-
-            OneOneFiveService.Match115(list);
+            Match115AndMoveLocalFile
         }
     }
 }

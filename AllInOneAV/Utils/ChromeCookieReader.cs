@@ -33,6 +33,8 @@ public class ChromeCookieReader
 
             cmd.CommandText = "SELECT name,encrypted_value FROM cookies WHERE host_key = '" + hostName + "'";
 
+            //cmd.CommandText = "SELECT * FROM cookies";
+
             conn.Open();
             using (var reader = cmd.ExecuteReader())
             {

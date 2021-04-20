@@ -325,34 +325,6 @@ namespace DataBaseManager.ScanDataBaseHelper
             return Query<WebViewLog>(ConnectionStrings.Scan, sql, new { where });
         }
 
-        public static AvAndShaMapping GetPossibleMaping(string filePath, double fileSize)
-        {
-            var sql = @"SELECT TOP 1 * FROM AvAndShaMapping WHERE FilePath = @filePath AND FileSize = @fileSize";
-
-            return QuerySingle<AvAndShaMapping>(ConnectionStrings.Scan, sql, new { filePath, fileSize });
-        }
-
-        public static int InsertShaMapping(AvAndShaMapping entity)
-        {
-            var sql = "INSERT INTO AvAndShaMapping (FilePath, FileSize, IsExist, Sha1, UpdateTime) VALUES (@FilePath, @FileSize, @IsExist, @Sha1, GETDATE())";
-
-            return Execute(ConnectionStrings.Scan, sql, entity);
-        }
-
-        public static int UpdateShaMapping(string filePath, decimal fileSize, bool isExist)
-        {
-            var sql = "UPDATE AvAndShaMapping SET FilePath = @filePath, FileSize = @fileSize, IsExist = @isExist";
-
-            return Execute(ConnectionStrings.Scan, sql, new { filePath, fileSize, isExist });
-        }
-
-        public static int DeleteShaMapping(string sha1)
-        {
-            var sql = "DELETE FROM AvAndShaMapping WHERE Sha1 = @sha1";
-
-            return Execute(ConnectionStrings.Scan, sql, new { sha1 });
-        }
-
         public static int UpdateFaviAvator(string name, string avator)
         {
             var sql = "UPDATE FaviScan SET Avator = @avator WHERE category = 'actress' AND Name = @name";
@@ -360,26 +332,45 @@ namespace DataBaseManager.ScanDataBaseHelper
             return Execute(ConnectionStrings.Scan, sql, new { name, avator });
         }
 
-        public static List<AvAndShaMapping> GetUnmatched115(string where)
+        public static List<LocalShaMapping> GetAllLocalShaMapping()
         {
-            var sql = "SELECT FilePath FROM AvAndShaMapping WHERE IsExist = 0 AND FilePath LIKE @where";
+            var sql = "SELECT * FROM LocalShaMapping";
 
-            return Query<AvAndShaMapping>(ConnectionStrings.Scan, sql, new { where });
-        }
-
-        public static List<AvAndShaMapping> GetAllAvAndShaMapping()
-        {
-            var sql = "SELECT * FROM AvAndShaMapping";
-
-            return Query<AvAndShaMapping>(ConnectionStrings.Scan, sql);
+            return Query<LocalShaMapping>(ConnectionStrings.Scan, sql);
         }
 
         public static int InserOneOneFiveFileShaMapping(OneOneFiveFileShaMapping entity)
         {
             var sql = @"IF NOT EXISTS (SELECT * FROM OneOneFiveFileShaMapping WHERE Sha = @Sha)
-                            INSERT INTO OneOneFiveFileShaMapping (FileName, Sha, FileSize, UpdateTime) VALUES (@FileName, @Sha, @FileSize, GETDATE())
-                        ELSE
-                            UPDATE OneOneFIveFileShaMapping SET FileName = @FileName, FileSize = @FileSize, UpdateTime = GETDATE() WHERE Sha = @Sha";
+                            INSERT INTO OneOneFiveFileShaMapping (FileName, Sha, FileSize, UpdateTime, IsOnLocal) VALUES (@FileName, @Sha, @FileSize, GETDATE(), @IsOnLocal)";
+
+            return Execute(ConnectionStrings.Scan, sql, entity);
+        }
+
+        public static int UpdateOneOneFiveFileShaMapping(string sha, bool isOnLocal)
+        {
+            var sql = "UPDATE OneOneFiveFileShaMapping SET IsOnLocal = @isOnLocal WHERE Sha = @sha";
+
+            return Execute(ConnectionStrings.Scan, sql, new { isOnLocal, sha });
+        }
+
+        public static int TruncateOneOneFiveFileShaMapping()
+        {
+            var sql = "TRUNCATE TABLE OneOneFiveFileShaMapping";
+
+            return Execute(ConnectionStrings.Scan, sql);
+        }
+
+        public static int TruncateLocalShaMapping()
+        {
+            var sql = "TRUNCATE TABLE LocalShaMapping";
+
+            return Execute(ConnectionStrings.Scan, sql);
+        }
+
+        public static int InsertLocalShaMapping(LocalShaMapping entity)
+        {
+            var sql = "INSERT INTO LocalShaMapping (FilePath, Sha1, FileFolder, UpdateTime, FileSize) VALUES (@FilePath, @Sha1, @FileFolder, GETDATE(), @FileSize)";
 
             return Execute(ConnectionStrings.Scan, sql, entity);
         }

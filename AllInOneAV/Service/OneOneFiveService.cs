@@ -21,11 +21,11 @@ namespace Service
         private static readonly string FinFolder = "fin\\";
         private static readonly string UpFolder = "up115\\";
 
-        public static bool Get115SearchResult(CookieContainer cc, string content, string host = "115.com", string reffer = "https://115.com/?cid=0&offset=0&mode=wangpan", string ua = "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.94 Safari/537.36 115Browser/12.0.0")
+        public static bool Get115SearchResult(CookieContainer cc, string content, string folder = "1834397846621504875", string host = "115.com", string reffer = "https://115.com/?cid=0&offset=0&mode=wangpan", string ua = "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.94 Safari/537.36 115Browser/12.0.0")
         {
             bool ret = false;
 
-            var url = string.Format(string.Format("https://webapi.115.com/files/search?search_value={0}&format=json", content));
+            var url = string.Format(string.Format("https://webapi.115.com/files/search?search_value={0}&format=json&cid={1}", content, folder));
             var htmlRet = HtmlManager.GetHtmlWebClient("https://webapi.115.com", url, cc);
             if (htmlRet.Success)
             {
@@ -43,61 +43,17 @@ namespace Service
             return ret;
         }
 
-        public static bool Get115SearchResultInFinFolder(CookieContainer cc, string content, string host = "115.com", string reffer = "https://115.com/?cid=0&offset=0&mode=wangpan", string ua = "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.94 Safari/537.36 115Browser/12.0.0")
-        {
-            bool ret = false;
-
-            var url = string.Format(string.Format("https://webapi.115.com/files/search?search_value={0}&format=json", content));
-            var htmlRet = HtmlManager.GetHtmlWebClient("https://115.com", url, cc);
-            if (htmlRet.Success)
-            {
-                if (!string.IsNullOrEmpty(htmlRet.Content))
-                {
-                    var data = Newtonsoft.Json.Linq.JObject.Parse(htmlRet.Content);
-
-                    if (data.Property("count").HasValues && int.Parse(data.Property("count").Value.ToString()) > 0 && data.Property("data").FirstOrDefault().FirstOrDefault().Value<string>("dp").ToUpper() == "FIN")
-                    {
-                        ret = true;
-                    }
-                }
-            }
-
-            return ret;
-        }
-
-        public static FileListModel Get115SearchResultInFolder(CookieContainer cc, string content, string host = "115.com", string reffer = "https://115.com/?cid=0&offset=0&mode=wangpan", string ua = "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.94 Safari/537.36 115Browser/12.0.0")
+        public static FileListModel Get115SearchResultInFolder(CookieContainer cc, string content, string folder = "1834397846621504875", string host = "115.com", string reffer = "https://115.com/?cid=0&offset=0&mode=wangpan", string ua = "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.94 Safari/537.36 115Browser/12.0.0")
         {
             FileListModel ret = new FileListModel();
 
-            var url = string.Format(string.Format("https://webapi.115.com/files/search?search_value={0}&format=json&offset=0&limit=10&&date=&aid=1&cid=0", content));
+            var url = string.Format(string.Format("https://webapi.115.com/files/search?search_value={0}&format=json&offset=0&limit=10&&date=&aid=1&cid={1}", content, folder));
             var htmlRet = HtmlManager.GetHtmlWebClient("https://115.com", url, cc);
             if (htmlRet.Success)
             {
                 if (!string.IsNullOrEmpty(htmlRet.Content))
                 {
                     ret = JsonConvert.DeserializeObject<FileListModel>(htmlRet.Content);
-                }
-            }
-
-            return ret;
-        }
-
-        public static bool Get115SearchExist(CookieContainer cc, string content, string host = "115.com", string reffer = "https://115.com/?cid=0&offset=0&mode=wangpan", string ua = "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.94 Safari/537.36 115Browser/12.0.0")
-        {
-            bool ret = false;
-
-            var url = string.Format(string.Format("https://webapi.115.com/files/search?search_value={0}&format=json&limit=3&offset=0", content));
-            var htmlRet = HtmlManager.GetHtmlWebClient("https://webapi.115.com", url, cc);
-            if (htmlRet.Success)
-            {
-                if (!string.IsNullOrEmpty(htmlRet.Content))
-                {
-                    var data = Newtonsoft.Json.Linq.JObject.Parse(htmlRet.Content);
-
-                    if (data.Property("count").HasValues && int.Parse(data.Property("count").Value.ToString()) == 1)
-                    {
-                        ret = true;
-                    }
                 }
             }
 
@@ -279,17 +235,9 @@ namespace Service
                     var chinese = data.Value.FirstOrDefault(x => x.n.Contains("-C."));
 
                     Console.WriteLine("\t最大文件为 " + biggest.n + " 大小为 " + FileSize.GetAutoSizeString(biggest.s, 2));
-                    Console.WriteLine("\t" + chinese == null ? "没有中文" : "有中文");
 
-                    if (chinese != null)
-                    {
-                        data.Value.Remove(chinese);
-                    }
-                    else
-                    {
-                        data.Value.Remove(biggest);
-                    }
-
+                    data.Value.Remove(biggest);
+  
                     foreach (var de in data.Value)
                     {
                         Console.WriteLine("\t删除 " + de.n + " 大小为 " + FileSize.GetAutoSizeString(de.s, 2));
@@ -333,82 +281,6 @@ namespace Service
             HtmlManager.Post(url, param, cc);
         }
 
-        public static void Match115(bool overRide = false, bool writeJson = true, bool includeUpFolder = true)
-        {
-            Dictionary<string, bool> SearchResult = new Dictionary<string, bool>();
-            var cc = Get115Cookie();
-
-            var files = GetAllLocalAvs(includeUpFolder);
-            int index = 1;
-
-            foreach (var file in files)
-            {
-                var result = false;
-                var possibleSha = ScanDataBaseManager.GetPossibleMaping(file.FullName, file.Length);
-
-                if (possibleSha != null && overRide == false)
-                {
-                    ScanDataBaseManager.DeleteShaMapping(possibleSha.Sha1);
-
-                    if (possibleSha.IsExist == 0)
-                    {
-                        possibleSha.IsExist = result ? 1 : 0;
-
-                        ScanDataBaseManager.InsertShaMapping(possibleSha);
-                    }
-                    else
-                    {
-                        result = true;
-                        possibleSha.IsExist = 1;
-
-                        ScanDataBaseManager.InsertShaMapping(possibleSha);
-                    }
-
-                    Console.WriteLine("处理 " + index++ + " / " + files.Count());
-                }
-
-                if (possibleSha == null || overRide)
-                {
-                    DateTime start = DateTime.Now;
-
-                    var sha1 = FileUtility.ComputeSHA1(file.FullName);
-
-                    DateTime finishSha1 = DateTime.Now;
-
-                    result = OneOneFiveService.Get115SearchResultInFinFolder(cc, sha1);
-
-                    Console.WriteLine("处理 " + index++ + " / " + files.Count() + " 结果 " + (result ? "存在" : "不存在") + " 计算用时 " + (finishSha1 - start).TotalSeconds + " 秒 搜索用时 " + (DateTime.Now - finishSha1).TotalSeconds + " 秒 总共用时 " + (DateTime.Now - start).TotalSeconds + " 秒");
-
-                    AvAndShaMapping aasm = new AvAndShaMapping();
-                    aasm.FilePath = file.FullName;
-                    aasm.FileSize = file.Length;
-                    aasm.IsExist = result ? 1 : 0;
-                    aasm.Sha1 = sha1;
-
-                    ScanDataBaseManager.DeleteShaMapping(aasm.Sha1);
-                    ScanDataBaseManager.InsertShaMapping(aasm);
-                }
-
-                SearchResult.Add(file.FullName, result);
-            }
-
-            if (writeJson)
-            {
-                var fileResult = @"c:\setting\filter115.json";
-
-                if (File.Exists(fileResult))
-                {
-                    File.Delete(fileResult);
-                    Thread.Sleep(50);
-                }
-
-                File.Create(fileResult).Close();
-                StreamWriter sw = new StreamWriter(fileResult);
-                sw.WriteLine(JsonConvert.SerializeObject(SearchResult));
-                sw.Close();
-            }
-        }
-
         public static FileListModel GetOneOneFileInFolder(string folder, int page = 0, int pageSize = 1150)
         {
             FileListModel ret = new FileListModel();
@@ -434,150 +306,6 @@ namespace Service
             return DeleteAndRename(repeat);
         }
 
-        public static void GetOneOneFiveDoesntHave()
-        {
-            List<FileItemModel> list = new List<FileItemModel>();
-            List<ValueTuple<string, string, long>> localList = new List<(string, string, long)>();
-
-            List<string> oneOneFiveDoesnt = new List<string>();
-            List<string> localDoesnt = new List<string>();
-
-            var pages = OneOneFiveService.Get115PagesInFolder(1150);
-
-            for (int i = 0; i < pages; i++)
-            {
-                var files = OneOneFiveService.GetOneOneFileInFolder("1834397846621504875", i * 1150, 1150);
-
-                if (files != null && files.data != null)
-                {
-                    list.AddRange(files.data);
-                }
-            }
-
-            var localFiles = ScanDataBaseManager.GetAllMatch();
-
-            foreach (var lf in localFiles)
-            {
-                localList.Add((lf.Name, lf.Location + "\\" + lf.Name, new FileInfo(lf.Location + "\\" + lf.Name).Length));
-            }
-
-            foreach (var l in localList)
-            {
-                var temp = list.Where(x => x.n == l.Item1);
-
-                if (!temp.Any())
-                {
-                    oneOneFiveDoesnt.Add(l.Item2);
-                }
-                else
-                {
-                    var matched = temp.FirstOrDefault(x => x.s == l.Item3);
-
-                    if (matched != null)
-                    {
-                        temp.Where(x => x.fid != matched.fid).ToList().ForEach(x => localDoesnt.Add(x.fid));
-                    }
-                }
-            }
-        }
-
-        public static List<string> MoveFilesThatDoesnotExistIn115(string drive)
-        {
-            List<string> ret = new List<string>();
-            var cc = OneOneFiveService.Get115Cookie();
-
-            int index = 1;
-
-            var targetFolder = drive + "\\fin\\";
-            var up115 = drive + "\\up115\\";
-
-            if (!Directory.Exists(up115))
-            {
-                Directory.CreateDirectory(up115);
-            }
-
-            if (Directory.Exists(targetFolder))
-            {
-                var files = Directory.GetFiles(targetFolder);
-
-                foreach (var f in files)
-                {
-                    Console.WriteLine($"{index++} / {files.Count()} ");
-                    var fileName = Path.GetFileName(f);
-                    var result = OneOneFiveService.Get115SearchResultInFolder(cc, fileName);
-
-                    var found = false;
-
-                    if (result != null && result.count > 0)
-                    {
-                        foreach (var r in result.data)
-                        {
-                            if (r.n == fileName && !string.IsNullOrEmpty(r.fid) && r.s == new FileInfo(f).Length)
-                            {
-                                found = true;
-                                Console.WriteLine($"找到{f}在{r.cid}");
-                                break;
-                            }
-                        }
-
-                        if (!found)
-                        {
-                            ret.Add(f);
-                        }
-                    }
-                }
-
-                var res = FileUtility.TransferFileUsingSystem(ret, up115, true, true);
-            }
-
-            return ret;
-        }
-
-        public static void MoveBackToFin(string drive)
-        {
-            List<string> ret = new List<string>();
-            var cc = OneOneFiveService.Get115Cookie();
-
-            int index = 1;
-
-            var targetFolder = drive + "\\up115\\";
-            var finFolder = drive + "\\fin\\";
-
-            if (Directory.Exists(targetFolder))
-            {
-                var files = Directory.GetFiles(targetFolder);
-
-                foreach (var f in files)
-                {
-                    Console.WriteLine($"{index++} / {files.Count()} ");
-                    var fileName = Path.GetFileName(f);
-                    var result = OneOneFiveService.Get115SearchResultInFolder(cc, fileName);
-
-                    var found = false;
-
-                    if (result != null && result.count > 0)
-                    {
-                        foreach (var r in result.data)
-                        {
-                            if (r.n == fileName && !string.IsNullOrEmpty(r.fid) && r.s == new FileInfo(f).Length)
-                            {
-                                found = true;
-                                Console.WriteLine($"找到{f}在{r.cid}");
-                                break;
-                            }
-                        }
-
-                        if (found)
-                        {
-                            ret.Add(f);
-                        }
-                    }
-                }
-
-                var res = FileUtility.TransferFileUsingSystem(ret, finFolder, true, true);
-            }
-        }
-
         public static List<FileItemModel> Get115FilesModel(string folder = "1834397846621504875")
         {
             List<FileItemModel> list = new List<FileItemModel>();
@@ -597,25 +325,34 @@ namespace Service
             return list;
         }
 
-        public static void Insert115FileSha()
+        public static void Insert115FileSha(List<FileItemModel> models, bool truncate = false)
         {
-            var files = Get115FilesModel().Where(x => !string.IsNullOrEmpty(x.fid)).ToList();
+            var files = models.Where(x => !string.IsNullOrEmpty(x.fid)).ToList();
 
             Console.WriteLine($"获取到{files.Count}个文件");
             int index = 1;
 
-            foreach (var file in files)
+            if (files != null && files.Any())
             {
-                Console.WriteLine($"正在处理{index++}");
-
-                OneOneFiveFileShaMapping entity = new OneOneFiveFileShaMapping()
+                if (truncate)
                 {
-                    FileName = file.n,
-                    FileSize = file.s,
-                    Sha = file.sha,
-                };
+                    ScanDataBaseManager.TruncateOneOneFiveFileShaMapping();
+                }
 
-                ScanDataBaseManager.InserOneOneFiveFileShaMapping(entity);
+                foreach (var file in files)
+                {
+                    Console.WriteLine($"正在处理{index++}");
+
+                    OneOneFiveFileShaMapping entity = new OneOneFiveFileShaMapping()
+                    {
+                        FileName = file.n,
+                        FileSize = file.s,
+                        Sha = file.sha,
+                        IsOnLocal = false
+                    };
+
+                    ScanDataBaseManager.InserOneOneFiveFileShaMapping(entity);
+                }
             }
         }
 
@@ -639,56 +376,151 @@ namespace Service
             return ret;
         }
 
-        public static void MatchLocalAndOneOneFive()
+        public static List<string> InitLocalSha(bool earse = false)
         {
-            Console.WriteLine($"获取115文件");
-            var oneOneFiveFiles = Get115FilesModel();
-            Console.WriteLine($"获取{oneOneFiveFiles.Count}个115文件");
+            List<string> needToCalculateSha = new List<string>();
 
-            Console.WriteLine($"获取本地文件");
+            var filesIn115 = OneOneFiveService.Get115FilesModel();
             var localFiles = GetAllLocalAvs();
-            Console.WriteLine($"获取{oneOneFiveFiles.Count}个本地文件");
 
-            Console.WriteLine($"获取Sha Mapping");
-            var shaMapping = ScanDataBaseManager.GetAllAvAndShaMapping();
-            Console.WriteLine($"获取{oneOneFiveFiles.Count}个Sha Mapping");
-
-            foreach (var oneOneFiveFile in oneOneFiveFiles)
+            if (filesIn115 != null && filesIn115.Any())
             {
-                var matchRecord = shaMapping.FirstOrDefault(x => x.Sha1 == oneOneFiveFile.sha);
-                var matchFile = localFiles.FirstOrDefault(x => x.Name == oneOneFiveFile.n && x.Length == oneOneFiveFile.s);
-
-                if(matchRecord != null && matchFile != null)
+                if (earse)
                 {
-                    Console.WriteLine($"{oneOneFiveFile.n} 完全匹配");
-                    ScanDataBaseManager.UpdateShaMapping(matchFile.FullName, matchFile.Length, true);
+                    ScanDataBaseManager.TruncateLocalShaMapping();
                 }
-                else
+
+                foreach (var localFile in localFiles)
                 {
-                    if (matchFile != null)
+                    var matchedRecord = filesIn115.FirstOrDefault(x => x.n.Equals(localFile.Name, StringComparison.OrdinalIgnoreCase) && x.s == localFile.Length);
+
+                    if (matchedRecord != null && !string.IsNullOrEmpty(matchedRecord.sha))
                     {
-                        Console.WriteLine($"{oneOneFiveFile.n} 大致匹配");
-                        AvAndShaMapping temp = new AvAndShaMapping
+                        LocalShaMapping temp = new LocalShaMapping
                         {
-                            FilePath = matchFile.FullName,
-                            Sha1 = oneOneFiveFile.sha,
-                            FileSize = matchFile.Length,
-                            IsExist = 1
+                            FilePath = localFile.Name,
+                            FileFolder = Path.GetPathRoot(localFile.FullName),
+                            FileSize = localFile.Length,
+                            Sha1 = matchedRecord.sha
                         };
 
-                        var possibleSha = ScanDataBaseManager.GetPossibleMaping(temp.FilePath, temp.FileSize);
-
-                        if (possibleSha != null)
-                        {
-                            ScanDataBaseManager.UpdateShaMapping(temp.FilePath, temp.FileSize, true);
-                        }
-                        else
-                        {
-                            ScanDataBaseManager.InsertShaMapping(temp);
-                        }
+                        ScanDataBaseManager.InsertLocalShaMapping(temp);
+                    }
+                    else
+                    {
+                        needToCalculateSha.Add(localFile.FullName);
                     }
                 }
             }
+
+            return needToCalculateSha;
+        }
+
+        public static void Match115AndMoveLocalFile()
+        {
+            var filesIn115 = OneOneFiveService.Get115FilesModel();
+
+            foreach (var drive in Environment.GetLogicalDrives())
+            {
+                Console.WriteLine($"处理 {drive}");
+
+                List<string> files = new List<string>();
+                List<string> toFin = new List<string>();
+                List<string> to115 = new List<string>();
+
+                var fin = drive + FinFolder;
+                var up = drive + UpFolder;
+
+                if (Directory.Exists(fin))
+                {
+                    files.AddRange(new DirectoryInfo(fin).GetFiles().Select(y => y.FullName).ToList());
+                }
+
+                if (Directory.Exists(up))
+                {
+                    files.AddRange(new DirectoryInfo(up).GetFiles().Select(y => y.FullName).ToList());
+                }
+
+                foreach (var file in files)
+                {
+                    var name = Path.GetFileName(file);
+                    if (filesIn115.Exists(x => x.n.Equals(Path.GetFileName(file), StringComparison.OrdinalIgnoreCase) && x.s == new FileInfo(file).Length))
+                    {
+                        var path = Path.GetDirectoryName(file) + "\\";
+                        if (path == up)
+                        {
+                            toFin.Add(file);
+                        }
+                    }
+                    else
+                    {
+                        var path = Path.GetDirectoryName(file) + "\\";
+                        if (path == fin)
+                        {
+                            to115.Add(file);
+                        }
+                    }
+                }
+
+                if (toFin.Count > 0)
+                {
+                    if (!Directory.Exists(fin))
+                    {
+                        Directory.CreateDirectory(fin);
+                    }
+
+                    Console.WriteLine($"移动 {toFin.Count} 到 FIN");
+
+                    FileUtility.TransferFileUsingSystem(toFin, fin, true, true);
+                }
+
+                if (to115.Count > 0)
+                {
+                    if (!Directory.Exists(up))
+                    {
+                        Directory.CreateDirectory(up);
+                    }
+
+                    Console.WriteLine($"移动 {to115.Count} 到 UP115");
+
+                    FileUtility.TransferFileUsingSystem(to115, up, true, true);
+                }
+            }
+        }
+
+        public static void SyncLocalAnd115FileStatus(string folder = "1834397846621504875", bool update115Maping = false)
+        {
+            var oneOneFiles = Get115FilesModel(folder);
+            var localFiles = GetAllLocalAvs();
+            var localShaMapping = ScanDataBaseManager.GetAllLocalShaMapping();
+
+            if (oneOneFiles != null && oneOneFiles.Any())
+            {
+                if (update115Maping)
+                {
+                    Insert115FileSha(oneOneFiles);
+                }
+
+                //刷新本地sha，更新本地是否保存
+                foreach (var oneOneFive in oneOneFiles)
+                {
+                    var matchedMapping = localShaMapping.FirstOrDefault(x => x.Sha1 == oneOneFive.sha);
+                    
+                    if (matchedMapping != null)
+                    {
+                        ScanDataBaseManager.UpdateOneOneFiveFileShaMapping(matchedMapping.Sha1, true);
+                    }
+                }
+            }
+        }
+
+        public static List<FileInfo> GetFileToBeDeletedBySize(long gb = 1)
+        {
+            var files = GetAllLocalAvs();
+
+            var delete = files.Where(x => x.Length <= gb * 1024 * 1024 * 1024).ToList();
+
+            return delete;
         }
     }
 }

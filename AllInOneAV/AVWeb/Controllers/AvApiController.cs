@@ -183,7 +183,7 @@ namespace AVWeb.Controllers
                 {
                     retModel = JsonConvert.DeserializeObject<Model.ScanModels.EverythingResult>(htmlModel.Content);
 
-                    if (retModel != null && retModel.results != null)
+                    if (retModel != null && retModel.results != null && retModel.results.Count > 0)
                     {
                         retModel.results = retModel.results.OrderByDescending(x => double.Parse(x.size)).ToList();
 
@@ -197,8 +197,10 @@ namespace AVWeb.Controllers
                     }
                     else
                     {
-                        retModel = new Model.ScanModels.EverythingResult();
-                        retModel.results = new List<EverythingFileResult>();
+                        retModel = new Model.ScanModels.EverythingResult
+                        {
+                            results = new List<EverythingFileResult>()
+                        };
 
                         var oneOneFiveFiles = ScanDataBaseManager.GetOneOneFiveShaMapping(content);
 
@@ -208,14 +210,18 @@ namespace AVWeb.Controllers
 
                             foreach (var file in oneOneFiveFiles)
                             {
-                                EverythingFileResult temp = new EverythingFileResult();
-                                temp.size = file.FileSize + "";
-                                temp.sizeStr = FileSize.GetAutoSizeString(double.Parse(file.FileSize + ""), 1);
-                                temp.location = "115";
-                                temp.name = file.FileName;
+                                EverythingFileResult temp = new EverythingFileResult
+                                {
+                                    size = file.FileSize + "",
+                                    sizeStr = FileSize.GetAutoSizeString(double.Parse(file.FileSize + ""), 1),
+                                    location = "115网盘",
+                                    name = file.FileName
+                                };
 
                                 retModel.results.Add(temp);
                             }
+
+                            return retModel;
                         }
                     }
                 }

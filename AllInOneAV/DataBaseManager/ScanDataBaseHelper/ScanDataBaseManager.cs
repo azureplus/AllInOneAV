@@ -356,9 +356,9 @@ namespace DataBaseManager.ScanDataBaseHelper
 
         public static List<OneOneFiveFileShaMapping> GetOneOneFiveShaMapping(string content)
         {
-            var sql = "SELECT * FROM OneOneFiveFilesShaMapping WHERE FileName LIKE @content";
+            var sql = "SELECT * FROM OneOneFiveFileShaMapping WHERE FileName LIKE '%" + content + "%'";
 
-            return Query<OneOneFiveFileShaMapping>(ConnectionStrings.Scan, sql, new { content });
+            return Query<OneOneFiveFileShaMapping>(ConnectionStrings.Scan, sql);
         }
 
         public static int UpdateOneOneFiveFileShaMapping(string sha, bool isOnLocal)

@@ -33,7 +33,7 @@ namespace NewUnitTest
 
             //OneOneFiveService.MatchLocalAndOneOneFive();
 
-            //OneOneFiveService.Match115AndMoveLocalFile();
+            OneOneFiveService.Match115AndMoveLocalFile();
 
             //TestFind115(@"d://up115");
 

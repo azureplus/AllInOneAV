@@ -44,23 +44,6 @@ namespace Service
             return ret;
         }
 
-        public static FileListModel Get115SearchResultInFolder(CookieContainer cc, string content, string folder = "1834397846621504875", string host = "115.com", string reffer = "https://115.com/?cid=0&offset=0&mode=wangpan", string ua = "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.94 Safari/537.36 115Browser/12.0.0")
-        {
-            FileListModel ret = new FileListModel();
-
-            var url = string.Format(string.Format("https://webapi.115.com/files/search?search_value={0}&format=json&offset=0&limit=10&&date=&aid=1&cid={1}", content, folder));
-            var htmlRet = HtmlManager.GetHtmlWebClient("https://115.com", url, cc);
-            if (htmlRet.Success)
-            {
-                if (!string.IsNullOrEmpty(htmlRet.Content))
-                {
-                    ret = JsonConvert.DeserializeObject<FileListModel>(htmlRet.Content);
-                }
-            }
-
-            return ret;
-        }
-
         public static ValueTuple<bool, string> Add115MagTask(string cookieStr, string mag, string uid, string sign, string host = "115.com", string reffer = "https://115.com/?cid=1835025974666577373&offset=0&tab=download&mode=wangpan", string ua = "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.94 Safari/537.36 115Browser/12.0.0")
         {
             bool ret = false;

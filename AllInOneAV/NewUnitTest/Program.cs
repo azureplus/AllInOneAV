@@ -24,10 +24,10 @@ namespace NewUnitTest
     {
         static void Main(string[] args)
         {
-            var test = OneOneFiveService.RemoveDuplicated115Files();
-            Console.WriteLine(test);
+            //var test = OneOneFiveService.RemoveDuplicated115Files();
+            //Console.WriteLine(test);
 
-            //OneOneFiveService.Match115();
+            OneOneFiveService.Match115AndMoveLocalFile();
 
             //OneOneFiveService.Insert115FileSha();
 

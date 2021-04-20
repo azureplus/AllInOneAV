@@ -1,4 +1,5 @@
 ﻿using DataBaseManager.ScanDataBaseHelper;
+using Model.JavModels;
 using Model.OneOneFive;
 using Model.ScanModels;
 using Newtonsoft.Json;
@@ -94,24 +95,28 @@ namespace Service
         {
             CookieContainer cc = new CookieContainer();
 
-            var cookieData = new ChromeCookieReader().ReadCookies(".115.com");
+            var sessionCookie = ScanDataBaseManager.GetOneOneFiveCookie();
 
-            foreach (var item in cookieData.Where(x => !x.Value.Contains(",")).Distinct())
+            if (sessionCookie != null && !string.IsNullOrEmpty(sessionCookie.OneOneFiveCookie))
             {
-                if (item.Name == "PHPSESSID" || item.Name == "UID" || item.Name == "CID" || item.Name == "SEID" || item.Name == "115_lang")
+                List<CookieItem> sessionCookieItems = JsonConvert.DeserializeObject<List<CookieItem>>(sessionCookie.OneOneFiveCookie);
+
+                foreach (var item in sessionCookieItems)
                 {
-                    Cookie c = new Cookie(item.Name, item.Value, "/", "115.com");
-                    cc.Add(c);
+                    Cookie temp = new Cookie(item.Name, item.Value, "/", "115.com");
+                    cc.Add(temp);
                 }
             }
 
-            cookieData = new ChromeCookieReader().ReadCookies("webapi.115.com");
+            //cookieData = new ChromeCookieReader().ReadCookies("webapi.115.com");
 
-            foreach (var item in cookieData.Where(x => !x.Value.Contains(",")).Distinct())
-            {
-                Cookie c = new Cookie(item.Name, item.Value, "/", "115.com");
-                cc.Add(c);
-            }
+            //foreach (var item in cookieData.Where(x => !x.Value.Contains(",")).Distinct())
+            //{
+            //    Cookie c = new Cookie(item.Name, item.Value, "/", "115.com");
+            //    cc.Add(c);
+            //}
+
+            //var tempCc = HtmlManager.GetCookies("http://www.115.com", "utf-8", cc);
 
             return cc;
         }

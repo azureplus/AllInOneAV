@@ -9,17 +9,33 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
+using Utils;
 
 public class ChromeCookieReader
 {
+    private static string localUser = JavINIClass.IniReadValue("Scan", "LocalUser");
+
     public List<CookieItem> ReadCookies(string hostName)
     {
         if (hostName == null) throw new ArgumentNullException("hostName");
 
         List<CookieItem> ret = new List<CookieItem>();
 
-        var dbPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\115Chrome\User Data\Default\Cookies";
-        if (!System.IO.File.Exists(dbPath)) throw new System.IO.FileNotFoundException("Cant find cookie store", dbPath); // race condition, but i'll risk it
+        var oriCookieFile = $@"C:\Users\{localUser}\AppData\Local\115Chrome\User Data\Default\Cookies";
+        var copyCookieFile = @"c:\setting\Cookies";
+
+        if (File.Exists(oriCookieFile))
+        {
+            File.Copy(oriCookieFile, copyCookieFile, true);
+        }
+        else
+        {
+            throw new System.IO.FileNotFoundException("Cant find cookie store", oriCookieFile);
+        }
+
+        var dbPath = copyCookieFile;
+        if (!System.IO.File.Exists(dbPath)) throw new System.IO.FileNotFoundException("Cant find cookie store", dbPath);
 
         var connectionString = "Data Source=" + dbPath + ";pooling=false";
 
@@ -42,15 +58,23 @@ public class ChromeCookieReader
                 {
                     var name = reader[0].ToString();
                     var encryptedData = (byte[])reader[1];
-                    var decodedData = System.Security.Cryptography.ProtectedData.Unprotect(encryptedData, null, System.Security.Cryptography.DataProtectionScope.CurrentUser);
-                    var plainText = Encoding.ASCII.GetString(decodedData); // Looks like ASCII
+
+                    string encKey = File.ReadAllText($@"C:\Users\{localUser}\AppData\Local\115Chrome\User Data\Local State");
+                    encKey = JObject.Parse(encKey)["os_crypt"]["encrypted_key"].ToString();
+                    var decodedKey = System.Security.Cryptography.ProtectedData.Unprotect(Convert.FromBase64String(encKey).Skip(5).ToArray(), null, System.Security.Cryptography.DataProtectionScope.LocalMachine);
+                    var _cookie = _decryptWithKey(encryptedData, decodedKey, 3);
+
+                    if (string.IsNullOrEmpty(_cookie))
+                    { 
+                        _cookie = Encoding.ASCII.GetString(System.Security.Cryptography.ProtectedData.Unprotect(encryptedData, null, System.Security.Cryptography.DataProtectionScope.CurrentUser));
+                    }
 
                     if (ret.Find(x => x.Name == name) == null)
                     {
                         ret.Add(new CookieItem
                         {
                             Name = name,
-                            Value = plainText
+                            Value = _cookie
                         });
                     }
                 }

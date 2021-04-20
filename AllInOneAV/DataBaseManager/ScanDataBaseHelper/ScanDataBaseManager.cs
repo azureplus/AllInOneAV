@@ -207,6 +207,13 @@ namespace DataBaseManager.ScanDataBaseHelper
             return Execute(ConnectionStrings.Scan, sql, entity);
         }
 
+        public static int TruncateOneOneFiveCookie()
+        {
+            var sql = "TRUNCATE TABLE OneOneFiveCookie";
+
+            return Execute(ConnectionStrings.Scan, sql);
+        }
+
         public static OneOneFiveCookieModel GetOneOneFiveCookie()
         {
             var sql = "SELECT TOP 1 * FROM OneOneFiveCookie ORDER BY OneOneFiveCookieId DESC";

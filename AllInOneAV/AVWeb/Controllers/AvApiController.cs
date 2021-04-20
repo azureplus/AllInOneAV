@@ -334,6 +334,53 @@ namespace AVWeb.Controllers
             return ret;
         }
 
+
+        [HttpPost]
+        [Route("Save115Cookie")]
+        public string Save115Cookie(string cookie)
+        {
+            List<CookieItem> items = new List<CookieItem>();
+
+            CookieContainer cc = new CookieContainer();
+
+            var cookieData = new ChromeCookieReader().ReadCookies(".115.com");
+
+            if (cookieData != null)
+            {
+                items.AddRange(cookieData);
+            }
+
+            try
+            {
+                if (!string.IsNullOrEmpty(cookie))
+                {
+                    foreach (var item in cookie.Split(';'))
+                    {
+                        items.Add(new CookieItem()
+                        {
+                            Name = item.Split('=')[0].Trim(),
+                            Value = item.Split('=')[1].Trim(),
+                        });
+                    }
+                }
+
+                if (items.Count > 0)
+                {
+                    ScanDataBaseManager.TruncateOneOneFiveCookie();
+
+                    ScanDataBaseManager.InsertOneOneFiveCookie(new OneOneFiveCookieModel
+                    {
+                        OneOneFiveCookie = JsonConvert.SerializeObject(items)
+                    });
+                }
+            }
+            catch (Exception)
+            {
+                return "fail";
+            }
+
+            return "success";
+        }
         #region 工具
         private string PostFiles(HttpFileCollection filelist, string folder, bool addDate, string ext)
         {

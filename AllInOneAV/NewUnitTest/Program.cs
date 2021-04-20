@@ -25,7 +25,7 @@ namespace NewUnitTest
         static void Main(string[] args)
         {
             var test = OneOneFiveService.RemoveDuplicated115Files();
-            //Console.WriteLine(test);
+            Console.WriteLine(test);
 
             //OneOneFiveService.Match115();
 

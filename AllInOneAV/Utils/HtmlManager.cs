@@ -33,7 +33,7 @@ namespace Utils
             }
         }
 
-        public static CookieCollection GetCookies(string url, string end = "utf-8")
+        public static CookieCollection GetCookies(string url, string end = "utf-8", CookieContainer inCc = null)
         {
             CookieCollection cc = new CookieCollection();
             try
@@ -44,6 +44,11 @@ namespace Utils
                 request.Timeout = 90000;
                 request.UserAgent = string.Format(UserAgent, GetChromeVersion());
                 request.Method = "GET";
+
+                if (cc != null)
+                {
+                    request.CookieContainer = inCc;
+                }
 
                 request.KeepAlive = false;
                 HttpWebResponse response = (HttpWebResponse)request.GetResponse();

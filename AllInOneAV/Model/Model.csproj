@@ -88,6 +88,7 @@
     <Compile Include="ScanModels\AvAndShaMapping.cs" />
     <Compile Include="ScanModels\AvInfo.cs" />
     <Compile Include="ScanModels\EverythingResult.cs" />
+    <Compile Include="ScanModels\LocalAndRemoteFiles.cs" />
     <Compile Include="ScanModels\ReportItem.cs" />
     <Compile Include="ScanModels\TaskModel.cs" />
     <Compile Include="ScanModels\Token.cs" />

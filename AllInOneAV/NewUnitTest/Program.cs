@@ -33,7 +33,7 @@ namespace NewUnitTest
 
             //OneOneFiveService.MatchLocalAndOneOneFive();
 
-            OneOneFiveService.Match115AndMoveLocalFile();
+            //OneOneFiveService.Match115AndMoveLocalFile();
 
             //TestFind115(@"d://up115");
 
@@ -51,6 +51,13 @@ namespace NewUnitTest
 
             //var extraFiles = OneOneFiveService.Get115HasButLocal();
             //OneOneFiveService.DeleteList(extraFiles, "1834397846621504875");
+
+            var ret = OneOneFiveService.GetLocalAndRemoteFiles(includeUpFolder: true, scope: FileSearchScope.Remote);
+
+            var local = ret.Where(x => x.IsLocal == true).ToList();
+            var remote = ret.Where(x => x.IsLocal == false).ToList();
+
+            OneOneFiveService.GetM3U8(remote.FirstOrDefault().PickCode);
 
             Console.ReadKey();
         }

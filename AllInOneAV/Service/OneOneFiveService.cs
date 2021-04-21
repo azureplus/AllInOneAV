@@ -528,5 +528,82 @@ namespace Service
 
             return delete;
         }
+
+        public static List<LocalAndRemoteFiles> GetLocalAndRemoteFiles(bool includeUpFolder = true, FileSearchScope scope = FileSearchScope.Both)
+        {
+            List<LocalAndRemoteFiles> ret = new List<LocalAndRemoteFiles>();
+
+            if (scope.HasFlag(FileSearchScope.Local))
+            {
+                var localFiles = GetAllLocalAvs(includeUpFolder);
+
+                foreach (var file in localFiles)
+                {
+                    ret.Add(new LocalAndRemoteFiles()
+                    {
+                        FileExtension = Path.GetExtension(file.FullName),
+                        FileLocation = Path.GetDirectoryName(file.FullName),
+                        FileName = file.Name,
+                        FileNameWithoutExtension = Path.GetFileNameWithoutExtension(file.FullName),
+                        FileSize = file.Length,
+                        FileSizeStr = FileSize.GetAutoSizeString(file.Length, 1),
+                        IsChinese = file.Name.Contains("-C."),
+                        IsLocal = true,
+                        FileAvId = file.Name.Split('-').Length >= 3 ? file.Name.Split('-')[0] + "-" + file.Name.Split('-')[1] : ""
+                    });
+                    ;
+                }
+            }
+
+            if (scope.HasFlag(FileSearchScope.Remote))
+            {
+                var remoteFiles = Get115FilesModel();
+
+                foreach (var file in remoteFiles)
+                {
+                    ret.Add(new LocalAndRemoteFiles()
+                    {
+                        FileExtension = "." + file.ico,
+                        FileLocation = file.cid,
+                        FileName = file.n,
+                        FileNameWithoutExtension = file.n.Replace("." + file.ico, ""),
+                        FileSize = file.s,
+                        FileSizeStr = FileSize.GetAutoSizeString(file.s, 1),
+                        IsChinese = file.n.Contains("-C."),
+                        IsLocal = false,
+                        FileAvId = file.n.Split('-').Length >= 3 ? file.n.Split('-')[0] + "-" + file.n.Split('-')[1] : "",
+                        PickCode = file.pc
+                    });
+                }
+            }
+
+            return ret;
+        }
+
+        public static string GetM3U8(string pc)
+        {
+            var cc = Get115Cookie();
+            var url = "https://v.anxia.com/site/api/video/m3u8/" + pc + ".m3u8";
+            var m3u8 = "";
+
+            var htmlRet = HtmlManager.GetHtmlWebClient("https://webapi.115.com", url, cc);
+            if (htmlRet.Success)
+            {
+                if (!string.IsNullOrEmpty(htmlRet.Content))
+                {
+                    m3u8 = htmlRet.Content.Substring(htmlRet.Content.IndexOf("http"));
+                }
+            }
+
+            return m3u8;
+        }
+    }
+
+    [Flags]
+    public enum FileSearchScope
+    { 
+        Local = 1,
+        Remote = 2,
+        Both = 4
     }
 }

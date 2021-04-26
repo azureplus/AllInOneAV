@@ -1,4 +1,5 @@
-﻿using DataBaseManager.ScanDataBaseHelper;
+﻿using DataBaseManager.JavDataBaseHelper;
+using DataBaseManager.ScanDataBaseHelper;
 using Model.JavModels;
 using Model.OneOneFive;
 using Model.ScanModels;
@@ -104,9 +105,9 @@ namespace Service
             return cc;
         }
 
-        public static int Get115PagesInFolder(int pageSize = 1, string folder = "1834397846621504875")
+        public static int Get115PagesInFolder(OneOneFiveSearchType type, int pageSize = 1, string folder = "1834397846621504875")
         {
-            var url = $"https://webapi.115.com/files?aid=1&cid={folder}&o=user_ptime&asc=0&offset=0&show_dir=1&limit={pageSize}&code=&scid=&snap=0&natsort=1&record_open_time=1&source=&format=json";
+            var url = $"https://webapi.115.com/files?aid=1&cid={folder}&o=user_ptime&asc=0&offset=0&show_dir=1&limit={pageSize}&code=&scid=&snap=0&natsort=1&record_open_time=1&source=&format=json&type={((int)type).ToString()}";
             var cc = Get115Cookie();
 
             var htmlRet = HtmlManager.GetHtmlWebClient("https://webapi.115.com", url, cc);
@@ -266,11 +267,22 @@ namespace Service
             HtmlManager.Post(url, param, cc);
         }
 
-        public static FileListModel GetOneOneFileInFolder(string folder, int page = 0, int pageSize = 1150)
+        public static void Move(string fid, string folder, CookieContainer cc)
+        {
+            var url = @"https://webapi.115.com/files/move";
+
+            Dictionary<string, string> param = new Dictionary<string, string>();
+            param.Add("pid", folder);
+            param.Add("fid[0]", fid);
+
+            HtmlManager.Post(url, param, cc);
+        }
+
+        public static FileListModel GetOneOneFileInFolder(string folder, OneOneFiveSearchType type, int page = 0, int pageSize = 1150)
         {
             FileListModel ret = new FileListModel();
             var cc = Get115Cookie();
-            var url = $"https://webapi.115.com/files?aid=1&cid={folder}&o=user_ptime&asc=0&offset={page}&show_dir=1&limit={pageSize}&code=&scid=&snap=0&natsort=1&record_open_time=1&source=&format=json&type=&star=&is_q=&is_share=";
+            var url = $"https://webapi.115.com/files?aid=1&cid={folder}&o=user_ptime&asc=0&offset={page}&show_dir=1&limit={pageSize}&code=&scid=&snap=0&natsort=1&record_open_time=1&source=&format=json&type={((int)type).ToString()}&star=&is_q=&is_share=";
 
             var htmlRet = HtmlManager.GetHtmlWebClient("https://115.com", url, cc);
             if (htmlRet.Success)
@@ -291,15 +303,15 @@ namespace Service
             return DeleteAndRename(repeat);
         }
 
-        public static List<FileItemModel> Get115FilesModel(string folder = "1834397846621504875")
+        public static List<FileItemModel> Get115FilesModel(string folder = "1834397846621504875", OneOneFiveSearchType type = OneOneFiveSearchType.All)
         {
             List<FileItemModel> list = new List<FileItemModel>();
 
-            var pages = OneOneFiveService.Get115PagesInFolder(1150);
+            var pages = OneOneFiveService.Get115PagesInFolder(type, 1150, folder);
 
             for (int i = 0; i < pages; i++)
             {
-                var files = OneOneFiveService.GetOneOneFileInFolder(folder, i * 1150, 1150);
+                var files = OneOneFiveService.GetOneOneFileInFolder(folder, type, i * 1150, 1150);
 
                 if (files != null && files.data != null)
                 {
@@ -596,6 +608,101 @@ namespace Service
             }
 
             return m3u8;
+        }
+
+        public static void Rename(List<FileItemModel> files, string toFolder, string notFoundFolder, CookieContainer cc)
+        {
+            var avs = JavDataBaseManager.GetAllAV();
+            List<string> allPrefix = new List<string>();
+
+            foreach (var name in avs.Select(x => x.ID).ToList())
+            {
+                var tempPrefix = name.Split('-')[0];
+                if (!allPrefix.Contains(tempPrefix))
+                {
+                    allPrefix.Add(tempPrefix);
+                }
+            }
+
+            allPrefix = allPrefix.OrderByDescending(x => x.Length).ToList();
+
+            foreach (var file in files)
+            {
+                List<RenameModel> tempRet = new List<RenameModel>();
+                List<AV> possibleAv = new List<AV>();
+                var fileNameWithoutFormat = file.n.Replace("." + file.ico, "").ToLower();
+
+                foreach (var prefix in allPrefix)
+                {
+                    var pattern = prefix + "{1}-?\\d{1,7}";
+                    var matches = Regex.Matches(fileNameWithoutFormat, pattern, RegexOptions.IgnoreCase);
+
+                    foreach (System.Text.RegularExpressions.Match m in matches)
+                    {
+                        var possibleAvId = m.Groups[0].Value;
+
+                        if (!possibleAvId.Contains("-"))
+                        {
+                            bool isFirst = true;
+                            StringBuilder sb = new StringBuilder();
+
+                            foreach (var c in possibleAvId)
+                            {
+                                if (c >= '0' && c <= '9')
+                                {
+                                    if (isFirst)
+                                    {
+                                        sb.Append("-");
+                                        isFirst = false;
+                                    }
+                                }
+                                sb.Append(c);
+                            }
+                            possibleAvId = sb.ToString();
+                        }
+
+                        var tempAv = JavDataBaseManager.GetAllAV(possibleAvId);
+
+                        if (tempAv != null && tempAv.Count > 0)
+                        {
+                            possibleAv.AddRange(tempAv);
+                        }
+                        else
+                        {
+                            var prefixPart = possibleAvId.Split('-')[0];
+                            var numberPart = possibleAvId.Split('-')[1];
+
+                            while (numberPart.StartsWith("0"))
+                            {
+                                numberPart = numberPart.Substring(1);
+                                possibleAvId = prefixPart + "-" + numberPart;
+                                tempAv = JavDataBaseManager.GetAllAV(possibleAvId);
+                                if (tempAv != null && tempAv.Count > 0)
+                                {
+                                    possibleAv.AddRange(tempAv);
+                                }
+                            }
+                        }
+                    }
+                }
+
+                if (possibleAv != null && possibleAv.Count >= 1)
+                {
+                    var rename = possibleAv.OrderByDescending(x => x.Name.Length).Take(1).FirstOrDefault();
+                    var chinese = (fileNameWithoutFormat.EndsWith("-c") || fileNameWithoutFormat.EndsWith("-ch") || fileNameWithoutFormat.EndsWith("ch")) ? "-C" : "";
+
+                    var tempName = rename.ID + "-" + rename.Name + chinese + "." + file.ico;
+
+                    Rename(file.fid, tempName, cc);
+                    //TODO 查询目标文件夹有没有相同SHA，如果有删除当前
+                    //TODO 查询目标文件夹有没有相同名称，如果有旧的名称加上-1，当前文件用之前同名文件最大的-X + 1
+                    Move(file.fid, toFolder, cc);
+                }
+                else
+                {
+                    Move(file.fid, notFoundFolder, cc);
+                }
+            }
         }
     }
 

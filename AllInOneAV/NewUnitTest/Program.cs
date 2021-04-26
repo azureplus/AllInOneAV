@@ -52,13 +52,24 @@ namespace NewUnitTest
             //var extraFiles = OneOneFiveService.Get115HasButLocal();
             //OneOneFiveService.DeleteList(extraFiles, "1834397846621504875");
 
-            var ret = OneOneFiveService.GetLocalAndRemoteFiles(includeUpFolder: true, scope: FileSearchScope.Remote);
+            //var ret = OneOneFiveService.GetLocalAndRemoteFiles(includeUpFolder: true, scope: FileSearchScope.Remote);
 
-            var local = ret.Where(x => x.IsLocal == true).ToList();
-            var remote = ret.Where(x => x.IsLocal == false).ToList();
+            //var local = ret.Where(x => x.IsLocal == true).ToList();
+            //var remote = ret.Where(x => x.IsLocal == false).ToList();
 
-            OneOneFiveService.GetM3U8(remote.FirstOrDefault().PickCode);
+            var m3u8 = OneOneFiveService.GetM3U8("dv8lxbvp9vuqnx2ps");
 
+            //RedisService.SetHash("avdb", "115cookie", JsonConvert.SerializeObject(OneOneFiveService.Get115FilesModel()));
+
+            //var ret = RedisService.GetHash("avdb", "123");
+            //var ret2 = RedisService.GetHashAll("avdb");
+
+            //var filesInCloudDownload = OneOneFiveService.Get115FilesModel("2068937774368408801", OneOneFiveSearchType.Video);
+
+            //var targetFiles = filesInCloudDownload.Where(x => x.s >= 500 * 1024 * 1024).ToList();
+
+            //OneOneFiveService.Rename(targetFiles, "2091444771508569858", "2091514445650838660", OneOneFiveService.Get115Cookie());
+          
             Console.ReadKey();
         }
               

@@ -43,4 +43,10 @@ namespace Model.OneOneFive
             } 
         }
     }
+
+    public enum OneOneFiveSearchType
+    { 
+        All = 0,
+        Video = 4,
+    }
 }

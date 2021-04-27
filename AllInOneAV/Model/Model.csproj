@@ -82,7 +82,9 @@
     <Compile Include="JavModels\SecondTry.cs" />
     <Compile Include="MangaModel\MangaCategory.cs" />
     <Compile Include="MangaModel\ManhuadbPic.cs" />
+    <Compile Include="OneOneFive\DeleteFileBackup.cs" />
     <Compile Include="OneOneFive\FileListModel.cs" />
+    <Compile Include="OneOneFive\MoveBackToLocal.cs" />
     <Compile Include="OneOneFive\OneOneFiveFileShaMapping.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ScanModels\AvAndShaMapping.cs" />

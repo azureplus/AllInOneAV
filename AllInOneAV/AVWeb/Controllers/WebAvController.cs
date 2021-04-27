@@ -4,6 +4,7 @@ using DataBaseManager.ScanDataBaseHelper;
 using Microsoft.Ajax.Utilities;
 using Microsoft.Win32.TaskScheduler;
 using Model.JavModels;
+using Model.OneOneFive;
 using Model.ScanModels;
 using Model.WebModel;
 using Newtonsoft.Json;
@@ -1246,6 +1247,61 @@ namespace AVWeb.Controllers
             ViewData.Add("router", router);
 
             return View();
+        }
+
+        [Rights]
+        public ActionResult MoveBackToLocal(int page, int pagesize, bool force, int limit = 2)
+        {
+            List<FileItemModel> models = new List<FileItemModel>();
+            List<AV> avdb = new List<AV>();
+
+            if (force)
+            {
+                models = OneOneFiveService.Get115FilesModel();
+                avdb = JavDataBaseManager.GetAllAV();
+
+                RedisService.DeleteHash("webav", "avs");
+                RedisService.DeleteHash("webav", "moveback");
+
+                RedisService.SetHash("webav", "avs", JsonConvert.SerializeObject(avdb));
+                RedisService.SetHash("webav", "moveback", JsonConvert.SerializeObject(models));
+            }
+            else
+            {
+                avdb = JsonConvert.DeserializeObject<List<AV>>(RedisService.GetHash("webav", "avs"));
+                models = JsonConvert.DeserializeObject<List<FileItemModel>>(RedisService.GetHash("webav", "moveback"));
+            }
+
+            var targetModel = models.Where(x => x.s >= limit * 1024 * 1024 * 1024).Skip((page - 1) * pagesize).Take(pagesize).ToList();
+
+            List<MoveBackToLocal> avs = new List<MoveBackToLocal>();
+
+            foreach (var m in targetModel)
+            {
+                avs.Add(new MoveBackToLocal()
+                {
+                    AvId = m.n.Split('-')[0] + "-" + m.n.Split('-')[1],
+                    AvName = m.n,
+                    AvSize = m.s,
+                    AvSizeStr = FileSize.GetAutoSizeString(m.s, 1),
+                    Fid = m.fid,
+                    AvPic = avdb.FirstOrDefault(x => (x.ID + "-" + x.Name).Equals(m.n.Replace("." + m.ico, "").Replace("-C", ""), StringComparison.OrdinalIgnoreCase)) == null ? "" : avdb.FirstOrDefault(x => (x.ID + "-" + x.Name).Equals(m.n.Replace("." + m.ico, "").Replace("-C", ""), StringComparison.OrdinalIgnoreCase)).PictureURL
+                });
+            }
+
+            ViewData.Add("avs", avs);
+            ViewData.Add("size", pagesize);
+            ViewData.Add("count", (models.Count / pagesize) + 1);
+            ViewData.Add("current", page);
+
+            return View();
+        }
+
+        [Base, HttpGet]
+        public JsonResult SaveBack(string fid)
+        {
+            OneOneFiveService.Move(fid, "2092826214403000069", OneOneFiveService.Get115Cookie());
+            return Json(new { success = "success" }, JsonRequestBehavior.AllowGet);
         }
     }
 }

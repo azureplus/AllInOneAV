@@ -279,12 +279,13 @@ namespace AVWeb.Controllers
                         key.Type |= ShowMagType.HasNoMagSize;
                     }
 
-                    if (!string.IsNullOrEmpty(d.Value.FirstOrDefault().MatchFile))
+                    //TODO
+                    if (!string.IsNullOrEmpty(d.Value.FirstOrDefault().MatchFile) || d.Value.FirstOrDefault().MatchFile == "网盘")
                     {
                         var count = d.Value.Count;
 
                         //扫描的时候文件在浏览的时候删除或者移动了位置，重新定位
-                        if (d.Value.Exists(x => !System.IO.File.Exists(x.MatchFile)))
+                        if (!string.IsNullOrEmpty(d.Value.FirstOrDefault().MatchFile) && d.Value.Exists(x => !System.IO.File.Exists(x.MatchFile)))
                         {
                             var newFiles = new EverythingHelper().SearchFile(d.Value.FirstOrDefault().AvId + "-" + d.Value.FirstOrDefault().AvName, Model.Common.EverythingSearchEnum.Video);
 

@@ -50,6 +50,8 @@ namespace ScanJavMagUrl
                             jobId = parameter.ScanJobId;
 
                             ScanDataBaseManager.SetScanJobFinish(jobId, -1);
+
+                            DoJob(arg, jobId);
                         }
                     }
 
@@ -63,69 +65,7 @@ namespace ScanJavMagUrl
                             jobId = parameter.ScanJobId;
                             ScanDataBaseManager.SetScanJobFinish(jobId, -1, parameter.PageSize * 30);
 
-                            models = JavBusDownloadHelper.GetJavbusAVList(parameter.StartingPage.FirstOrDefault(), parameter.PageSize, parameter.IsAsc);
-
-                            foreach (var m in models)
-                            {
-                                RemoteScanMag entity = new RemoteScanMag();
-                                entity.JobId = jobId;
-
-                                var matchFiles = new EverythingHelper().SearchFile("!c:\\ " + m.Id + " | " + m.Id.Replace("-", ""), EverythingSearchEnum.Video);
-
-                                var mags = MagService.SearchJavBus(m.Id);
-
-                                if (mags != null && mags.Count > 0)
-                                {
-                                    if (matchFiles.Count > 0)
-                                    {
-                                        var biggestFile = matchFiles.FirstOrDefault(x => x.Length == matchFiles.Max(y => y.Length));
-                                        entity.SearchStatus = 2;
-                                        entity.MatchFile = biggestFile.FullName;
-                                    }
-                                    else
-                                    {
-                                        entity.SearchStatus = 1;
-                                    }
-
-                                    foreach (var seed in mags)
-                                    {
-                                        entity.AvId = m.Id;
-                                        entity.AvName = FileUtility.ReplaceInvalidChar(m.Name);
-                                        entity.AvUrl = m.Url;
-                                        entity.MagDate = seed.Date;
-                                        entity.MagSize = seed.Size;
-                                        entity.MagTitle = FileUtility.ReplaceInvalidChar(seed.Title);
-                                        entity.MagUrl = seed.MagUrl;
-
-                                        try
-                                        {
-                                            if (entity.MagTitle.Contains(m.Id) || entity.MagTitle.Contains(m.Id.Replace("-", "")))
-                                            {
-                                                ScanDataBaseManager.InsertRemoteScanMag(entity);
-                                            }
-                                        }
-                                        catch (Exception ee)
-                                        {
-                                            entity.MatchFile = "";
-                                            entity.SearchStatus = 1;
-                                            ScanDataBaseManager.InsertRemoteScanMag(entity);
-                                        }
-
-                                        ScanDataBaseManager.InsertRemoteScanMag(entity);
-                                    }
-                                }
-                                else
-                                {
-                                    Console.Write(" 没搜到");
-                                    entity.SearchStatus = 0;
-                                }
-                            }
-
-                            ScanDataBaseManager.SetScanJobFinish(jobId, 1, models.Count);
-
-                            new RestClient("https://api.day.app").Get("4z4uANLXpe8BXT3wAZVe9F/下载种子文件完成");
-
-                            return;
+                            DoJob(arg, jobId, parameter);
                         }
                     }
                 }
@@ -134,8 +74,6 @@ namespace ScanJavMagUrl
                     return;
                 }
             }
-
-            DoJob(arg, jobId);
 
             while (IsFinish)
             {
@@ -147,9 +85,16 @@ namespace ScanJavMagUrl
             new RestClient("https://api.day.app").Get("4z4uANLXpe8BXT3wAZVe9F/下载种子文件完成");
         }
 
-        async static void DoJob(string arg, int jobId)
+        async static void DoJob(string arg, int jobId, ScanParameter parameter = null)
         {
-            await StartJavRefresh("", arg, OutputJavRefresh);
+            if (parameter == null)
+            {
+                await StartJavRefresh("", arg, OutputJavRefresh);
+            }
+            else
+            {
+                models = JavBusDownloadHelper.GetJavbusAVList(parameter.StartingPage.FirstOrDefault(), parameter.PageSize, parameter.IsAsc);
+            }
 
             ScanDataBaseManager.SetScanJobFinish(jobId, -1, models.Count);
 
@@ -207,7 +152,38 @@ namespace ScanJavMagUrl
 
                 Console.Write("处理 --> " + rm.Name + " " + count++ + "/" + models.Count);
 
-                var matchFiles = new EverythingHelper().SearchFile("!c:\\ " + rm.Id + " | " + rm.Id.Replace("-", ""), EverythingSearchEnum.Video);
+                var token = ScanDataBaseManager.GetToken();
+
+                var htmlResult = HtmlManager.GetHtmlContentViaUrl($"http://www.cainqs.com:8087/avapi/EverythingSearch?token={token.Token}&content=" + rm.Id);
+
+                Model.ScanModels.EverythingResult searchResult = new Model.ScanModels.EverythingResult();
+                List<MyFileInfo> matchFiles = new List<MyFileInfo>();
+
+                if (htmlResult.Success)
+                {
+                    searchResult = JsonConvert.DeserializeObject<Model.ScanModels.EverythingResult>(htmlResult.Content);
+
+                    if (searchResult != null && searchResult.results != null)
+                    {
+                        foreach (var result in searchResult.results)
+                        {
+                            var temp = new MyFileInfo();
+
+                            if (result.location == "本地")
+                            {
+                                temp.Length = long.Parse(result.size);
+                                temp.FullName = result.path + "\\" + result.name;
+                            }
+                            else
+                            {
+                                temp.Length = long.Parse(result.size);
+                                temp.FullName = "网盘";
+                            }
+
+                            matchFiles.Add(temp);
+                        }
+                    }
+                }
 
                 List<SeedMagnetSearchModel> list = new List<SeedMagnetSearchModel>();
 
@@ -267,6 +243,12 @@ namespace ScanJavMagUrl
                 Console.WriteLine();
             });
         }
+    }
+
+    public class MyFileInfo
+    { 
+        public long Length { get; set; }
+        public string FullName { get; set; }
     }
 
     public static class ProcessExtensions

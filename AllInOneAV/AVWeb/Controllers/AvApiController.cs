@@ -7,6 +7,7 @@ using Model.Common;
 using Model.JavModels;
 using Model.ScanModels;
 using Newtonsoft.Json;
+using Service;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -202,23 +203,27 @@ namespace AVWeb.Controllers
                             results = new List<EverythingFileResult>()
                         };
 
-                        var oneOneFiveFiles = ScanDataBaseManager.GetOneOneFiveShaMapping(content);
+                        var oneOneFiveFiles = OneOneFiveService.Get115SearchFileResult(OneOneFiveService.Get115Cookie(), content);
 
                         if (oneOneFiveFiles != null && oneOneFiveFiles.Any())
                         {
+                            var targetFile = oneOneFiveFiles.Where(x => x.n.ToLower().Contains(content.ToLower())).ToList();
                             retModel.totalResults = oneOneFiveFiles.Count + "";
 
-                            foreach (var file in oneOneFiveFiles)
+                            if (targetFile != null)
                             {
-                                EverythingFileResult temp = new EverythingFileResult
+                                foreach (var file in targetFile)
                                 {
-                                    size = file.FileSize + "",
-                                    sizeStr = FileSize.GetAutoSizeString(double.Parse(file.FileSize + ""), 1),
-                                    location = "115网盘",
-                                    name = file.FileName
-                                };
+                                    EverythingFileResult temp = new EverythingFileResult
+                                    {
+                                        size = file.s + "",
+                                        sizeStr = FileSize.GetAutoSizeString(double.Parse(file.s + ""), 1),
+                                        location = "115网盘",
+                                        name = file.n
+                                    };
 
-                                retModel.results.Add(temp);
+                                    retModel.results.Add(temp);
+                                }
                             }
 
                             return retModel;

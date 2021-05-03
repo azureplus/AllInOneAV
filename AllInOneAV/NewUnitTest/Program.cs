@@ -34,6 +34,8 @@ namespace NewUnitTest
             //var deleteSize = OneOneFiveService.RemoveDuplicated115Files();
             //Console.WriteLine($"共删除 {deleteSize} ");
 
+            TestSearchEverything("ATID-462");
+
             Console.WriteLine("按任意键退出...");
             Console.ReadKey();
         }         
@@ -65,6 +67,63 @@ namespace NewUnitTest
                         else
                         {
                             Console.WriteLine($"什么都没有找到 {file.FullName}");
+                        }
+                    }
+                }
+            }
+        }
+
+        public static void TestSearchEverything(string content)
+        {
+            var retModel = new Model.ScanModels.EverythingResult();
+            var htmlModel = HtmlManager.GetHtmlContentViaUrl("http://localhost:8086/" + @"?s=&o=0&j=1&p=c&path_column=1&size_column=1&j=1&q=!c:\ " + EverythingHelper.Extensions + " " + content);
+
+            if (htmlModel.Success)
+            {
+                retModel = JsonConvert.DeserializeObject<Model.ScanModels.EverythingResult>(htmlModel.Content);
+
+                if (retModel != null && retModel.results != null && retModel.results.Count > 0)
+                {
+                    retModel.results = retModel.results.OrderByDescending(x => double.Parse(x.size)).ToList();
+
+                    foreach (var r in retModel.results)
+                    {
+                        r.sizeStr = FileSize.GetAutoSizeString(double.Parse(r.size), 1);
+                        r.location = "本地";
+                    }
+                }
+                else
+                {
+                    retModel = new Model.ScanModels.EverythingResult
+                    {
+                        results = new List<EverythingFileResult>()
+                    };
+
+                    List<FileItemModel> oneOneFiveFiles = new List<FileItemModel>();
+
+                    oneOneFiveFiles = OneOneFiveService.Get115SearchFileResult(OneOneFiveService.Get115Cookie(), content);
+
+                    oneOneFiveFiles.AddRange(OneOneFiveService.Get115SearchFileResult(OneOneFiveService.Get115Cookie(), content, "2068937774368408801"));
+
+                    if (oneOneFiveFiles != null && oneOneFiveFiles.Any())
+                    {
+                        var targetFile = oneOneFiveFiles.Where(x => x.n.ToLower().Contains(content.ToLower()) && !string.IsNullOrEmpty(x.fid)).ToList();
+                        retModel.totalResults = targetFile.Count + "";
+
+                        if (targetFile != null)
+                        {
+                            foreach (var file in targetFile)
+                            {
+                                EverythingFileResult temp = new EverythingFileResult
+                                {
+                                    size = file.s + "",
+                                    sizeStr = FileSize.GetAutoSizeString(double.Parse(file.s + ""), 1),
+                                    location = "115网盘",
+                                    name = file.n
+                                };
+
+                                retModel.results.Add(temp);
+                            }
                         }
                     }
                 }

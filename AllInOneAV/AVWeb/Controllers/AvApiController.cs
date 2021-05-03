@@ -5,6 +5,7 @@ using log4net;
 using Microsoft.Win32.TaskScheduler;
 using Model.Common;
 using Model.JavModels;
+using Model.OneOneFive;
 using Model.ScanModels;
 using Newtonsoft.Json;
 using Service;
@@ -203,12 +204,16 @@ namespace AVWeb.Controllers
                             results = new List<EverythingFileResult>()
                         };
 
-                        var oneOneFiveFiles = OneOneFiveService.Get115SearchFileResult(OneOneFiveService.Get115Cookie(), content);
+                        List<FileItemModel> oneOneFiveFiles = new List<FileItemModel>();
+
+                        oneOneFiveFiles = OneOneFiveService.Get115SearchFileResult(OneOneFiveService.Get115Cookie(), content);
+
+                        oneOneFiveFiles.AddRange(OneOneFiveService.Get115SearchFileResult(OneOneFiveService.Get115Cookie(), content, "2068937774368408801"));
 
                         if (oneOneFiveFiles != null && oneOneFiveFiles.Any())
                         {
-                            var targetFile = oneOneFiveFiles.Where(x => x.n.ToLower().Contains(content.ToLower())).ToList();
-                            retModel.totalResults = oneOneFiveFiles.Count + "";
+                            var targetFile = oneOneFiveFiles.Where(x => x.n.ToLower().Contains(content.ToLower()) && !string.IsNullOrEmpty(x.fid)).ToList();
+                            retModel.totalResults = targetFile.Count + "";
 
                             if (targetFile != null)
                             {

@@ -96,7 +96,9 @@
                 data: { 'fid': $(this).data("fid") },
 
                 success: function (result) {
-                    //alert("添加成功");
+                    if (result.success == 'fail') {
+                        alert('复制失败');
+                    }
                 }
             });
         });

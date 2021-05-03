@@ -280,12 +280,12 @@ namespace AVWeb.Controllers
                     }
 
                     //TODO
-                    if (!string.IsNullOrEmpty(d.Value.FirstOrDefault().MatchFile) || d.Value.FirstOrDefault().MatchFile == "网盘")
+                    if (!string.IsNullOrEmpty(d.Value.FirstOrDefault().MatchFile))
                     {
                         var count = d.Value.Count;
 
                         //扫描的时候文件在浏览的时候删除或者移动了位置，重新定位
-                        if (!string.IsNullOrEmpty(d.Value.FirstOrDefault().MatchFile) && d.Value.Exists(x => !System.IO.File.Exists(x.MatchFile)))
+                        if (!d.Value.FirstOrDefault().MatchFile.StartsWith("网盘") && d.Value.Exists(x => !System.IO.File.Exists(x.MatchFile)))
                         {
                             var newFiles = new EverythingHelper().SearchFile(d.Value.FirstOrDefault().AvId + "-" + d.Value.FirstOrDefault().AvName, Model.Common.EverythingSearchEnum.Video);
 
@@ -302,7 +302,18 @@ namespace AVWeb.Controllers
                             count = newFiles.Count;
                         }
 
-                        d.Value.Take(count).ForEach(x => x.MatchFileSize = new FileInfo(x.MatchFile).Length);
+                        foreach (var temp in d.Value.Take(count))
+                        {
+                            if (!string.IsNullOrEmpty(temp.MatchFile) && !temp.MatchFile.StartsWith("网盘"))
+                            {
+                                temp.MatchFileSize = new FileInfo(temp.MatchFile).Length;
+                            }
+
+                            if (!string.IsNullOrEmpty(temp.MatchFile) && temp.MatchFile.StartsWith("网盘"))
+                            {
+                                temp.MatchFileSize = long.Parse(temp.MatchFile.Replace("网盘", ""));
+                            }
+                        }
 
                         if (d.Value.Max(x => x.MagSize >= x.MatchFileSize))
                         {
@@ -1149,7 +1160,7 @@ namespace AVWeb.Controllers
             {
                 StartInfo =
                 {
-                    FileName = @"G:\Github\AllInOneAV\AllInOneAV\GenerateReport\bin\Debug\GenerateReport.exe",
+                    FileName = @"E:\Github\AllInOneAV\AllInOneAV\GenerateReport\bin\Debug\GenerateReport.exe",
                     UseShellExecute = false,
                     Arguments = " new",
                     CreateNoWindow = false,
@@ -1301,8 +1312,15 @@ namespace AVWeb.Controllers
         [Base, HttpGet]
         public JsonResult SaveBack(string fid)
         {
-            OneOneFiveService.Move(fid, "2092826214403000069", OneOneFiveService.Get115Cookie());
-            return Json(new { success = "success" }, JsonRequestBehavior.AllowGet);
+            var ret = OneOneFiveService.Copy(fid, "2092826214403000069", OneOneFiveService.Get115Cookie());
+            if (ret)
+            {
+                return Json(new { success = "success" }, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json(new { success = "fail" }, JsonRequestBehavior.AllowGet);
+            }
         }
     }
 }

@@ -32,5 +32,6 @@ namespace Model.JavModels
         public DateTime CreateTime { get; set; }
         public string PictureURL { get; set; }
         public string URL { get; set; }
+        public string AvIdAndName { get; set; }
     }
 }

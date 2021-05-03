@@ -17,20 +17,63 @@ namespace Service
 {
     public class ReportService
     {
-        private static Dictionary<int, List<FileInfo>> GenerateExistingAVs()
+        private static Dictionary<int, List<MyFileInfo>> GenerateExistingAVs(List<AV> avs)
         {
-            Dictionary<int, List<FileInfo>> fileContainer = new Dictionary<int, List<FileInfo>>();
-            var matches = ScanDataBaseManager.GetAllMatch();
+            Dictionary<int, List<MyFileInfo>> fileContainer = new Dictionary<int, List<MyFileInfo>>();
+            var oneOneFiveFiles = OneOneFiveService.Get115FilesModel();
+            List<OneOneFiveItemWIthMatchId> matches = new List<OneOneFiveItemWIthMatchId>();
+
+            avs.ForEach(x => x.AvIdAndName = x.ID + "-" + x.Name);
+            foreach (var file in oneOneFiveFiles)
+            {
+                if (file.n.Split('-').Length >= 3)
+                {
+                    file.AvId = file.n.Split('-')[0] + "-" + file.n.Split('-')[1];
+                    file.AvName = file.n.Replace(file.AvId, "").Substring(1).Replace("." + file.ico, "").Replace("-C", "");
+                }
+            }
+
+            foreach (var file in oneOneFiveFiles.Where(x => !string.IsNullOrEmpty(x.AvName)))
+            {
+                var matchList = avs.FirstOrDefault(x => x.Name == file.AvName);
+                AV match = null;
+
+                if (matchList != null)
+                {
+                    match = matchList;
+                }
+
+                if (match != null)
+                {
+                    matches.Add(new OneOneFiveItemWIthMatchId()
+                    {
+                        ico = file.ico,
+                        n = file.n,
+                        s = file.s,
+                        MatchId = match.AvId
+                    });
+                }
+            }
 
             foreach (var match in matches)
             {
-                if (fileContainer.ContainsKey(match.MatchAVId))
+                if (fileContainer.ContainsKey(match.MatchId))
                 {
-                    fileContainer[match.MatchAVId].Add(new FileInfo(match.Location + "\\" + match.Name));
+                    fileContainer[match.MatchId].Add(new MyFileInfo() { 
+                        Extension = "." + match.ico,
+                        FullName = match.n,
+                        Length = match.s,
+                        Name = match.n
+                    });
                 }
                 else
                 {
-                    fileContainer.Add(match.MatchAVId, new List<FileInfo> { new FileInfo(match.Location + "\\" + match.Name) });
+                    fileContainer.Add(match.MatchId, new List<MyFileInfo> { new MyFileInfo() {
+                        Extension = "." + match.ico,
+                        FullName = match.n,
+                        Length = match.s,
+                        Name = match.n
+                    } });
                 }
             }
 
@@ -405,50 +448,12 @@ namespace Service
             }
         }
 
-        public static void GenerateReport()
-        {
-            ReportModel report = new ReportModel();
-
-            report.Formats = new Dictionary<string, int>();
-
-            report.ActressRatio = new List<ReportRatioModel>();
-            report.CategoryRatio = new List<ReportRatioModel>();
-            report.CompanyRatio = new List<ReportRatioModel>();
-            report.DirectorRatio = new List<ReportRatioModel>();
-            
-            report.PrefixRatio = new List<ReportRatioModel>();
-            report.YearRatio = new List<ReportRatioModel>();
-
-            report.TopActress = new Dictionary<string, int>();
-            report.TopCategory = new Dictionary<string, int>();
-            report.TopCompany = new Dictionary<string, int>();
-            report.TopDirctor = new Dictionary<string, int>();
-            
-            report.TopPrefix = new Dictionary<string, int>();
-            report.TopDate = new Dictionary<string, int>();
-
-            report.Top = 10;
-
-            Console.WriteLine("正在获取AV爬虫信息...");
-            var avs = JavDataBaseManager.GetAllAV();
-
-            Console.WriteLine("正在获取本地AV信息...");
-            var filesContainer = GenerateExistingAVs();
-
-            Console.WriteLine("正在生成报表基本数据...");
-            GenerateBasicReportData(avs, filesContainer, report);
-
-            var reportStr = PrintReport(report);
-
-            Console.WriteLine(reportStr);
-       }
-
         public static void GenerateReportDataOnly()
         {
             List<ReportItem> items = new List<ReportItem>();
             ScanDataBaseManager.DeleteReportItem();
             var allAv = JavDataBaseManager.GetAllAV();
-            var allMatch = GenerateExistingAVs();
+            var allMatch = GenerateExistingAVs(allAv);
 
             Report report = new Report();
             report.ExtensionModel = new Dictionary<string, int>();
@@ -470,7 +475,7 @@ namespace Service
             ScanDataBaseManager.UpdateReportFinish(reportId);
         }
 
-        private static void ProcessReportType(AV av, Dictionary<int, List<FileInfo>> existFiles, Report report, List<ReportItem> items)
+        private static void ProcessReportType(AV av, Dictionary<int, List<MyFileInfo>> existFiles, Report report, List<ReportItem> items)
         {
             int exist = 0;
             double existSize = 0d;

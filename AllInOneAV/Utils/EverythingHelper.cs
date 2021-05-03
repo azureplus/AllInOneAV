@@ -37,7 +37,7 @@ namespace Utils
         private void SearchEverythign(string strArg)
         {
             Process p = new Process();//建立外部调用线程
-            p.StartInfo.FileName = @"G:\AVWeb\exe\es.exe";//要调用外部程序的绝对路径
+            p.StartInfo.FileName = @"E:\AVWeb\exe\es.exe";//要调用外部程序的绝对路径
             p.StartInfo.Arguments = strArg;
             p.StartInfo.UseShellExecute = false;//不使用操作系统外壳程序启动线程(一定为FALSE,详细的请看MSDN)
             p.StartInfo.RedirectStandardOutput = true;

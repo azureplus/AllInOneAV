@@ -105,7 +105,7 @@ namespace ScanJavMagUrl
 
         private async static Task StartJavRefresh(string exe, string arg, DataReceivedEventHandler output)
         {
-            exe = "G:\\Github\\AllInOneAV\\AllInOneAV\\BatchJavScanerAndMacthMagUrl\\bin\\Debug\\BatchJavScanerAndMacthMagUrl.exe";
+            exe = "E:\\Github\\AllInOneAV\\AllInOneAV\\BatchJavScanerAndMacthMagUrl\\bin\\Debug\\BatchJavScanerAndMacthMagUrl.exe";
 
             using (var p = new Process())
             {
@@ -177,7 +177,7 @@ namespace ScanJavMagUrl
                             else
                             {
                                 temp.Length = long.Parse(result.size);
-                                temp.FullName = "网盘";
+                                temp.FullName = "网盘" + long.Parse(result.size);
                             }
 
                             matchFiles.Add(temp);
@@ -243,12 +243,6 @@ namespace ScanJavMagUrl
                 Console.WriteLine();
             });
         }
-    }
-
-    public class MyFileInfo
-    { 
-        public long Length { get; set; }
-        public string FullName { get; set; }
     }
 
     public static class ProcessExtensions

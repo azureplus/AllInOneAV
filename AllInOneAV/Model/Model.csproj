@@ -86,11 +86,14 @@
     <Compile Include="OneOneFive\FileListModel.cs" />
     <Compile Include="OneOneFive\MoveBackToLocal.cs" />
     <Compile Include="OneOneFive\OneOneFiveFileShaMapping.cs" />
+    <Compile Include="OneOneFive\OneOneFiveResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ScanModels\AvAndShaMapping.cs" />
     <Compile Include="ScanModels\AvInfo.cs" />
     <Compile Include="ScanModels\EverythingResult.cs" />
     <Compile Include="ScanModels\LocalAndRemoteFiles.cs" />
+    <Compile Include="ScanModels\MyFileInfo.cs" />
+    <Compile Include="ScanModels\OneOneFiveItemWIthMatchId.cs" />
     <Compile Include="ScanModels\ReportItem.cs" />
     <Compile Include="ScanModels\TaskModel.cs" />
     <Compile Include="ScanModels\Token.cs" />

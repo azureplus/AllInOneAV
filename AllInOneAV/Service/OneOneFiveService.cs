@@ -295,7 +295,7 @@ namespace Service
             HtmlManager.Post(url, param, cc);
         }
 
-        public static void Copy(string fid, string folder, CookieContainer cc)
+        public static bool Copy(string fid, string folder, CookieContainer cc)
         {
             var url = @"https://webapi.115.com/files/copy";
 
@@ -303,7 +303,9 @@ namespace Service
             param.Add("pid", folder);
             param.Add("fid[0]", fid);
 
-            HtmlManager.Post(url, param, cc);
+            var ret = HtmlManager.Post(url, param, cc);
+
+            return JsonConvert.DeserializeObject<OneOneFiveResult>(ret).state;
         }
 
         public static FileListModel GetOneOneFileInFolder(string folder, OneOneFiveSearchType type, int page = 0, int pageSize = 1150)
@@ -311,6 +313,29 @@ namespace Service
             FileListModel ret = new FileListModel();
             var cc = Get115Cookie();
             var url = $"https://webapi.115.com/files?aid=1&cid={folder}&o=user_ptime&asc=0&offset={page}&show_dir=1&limit={pageSize}&code=&scid=&snap=0&natsort=1&record_open_time=1&source=&format=json&type={((int)type).ToString()}&star=&is_q=&is_share=";
+
+            var htmlRet = HtmlManager.GetHtmlWebClient("https://115.com", url, cc);
+            if (htmlRet.Success)
+            {
+                if (!string.IsNullOrEmpty(htmlRet.Content))
+                {
+                    ret = JsonConvert.DeserializeObject<FileListModel>(htmlRet.Content);
+
+                    if (ret.data == null)
+                    {
+                        ret = GetMixedOneOneFileInFolder(folder, page, pageSize);
+                    }
+                }
+            }
+
+            return ret;
+        }
+
+        public static FileListModel GetMixedOneOneFileInFolder(string folder, int page = 0, int pageSize = 1150)
+        {
+            FileListModel ret = new FileListModel();
+            var cc = Get115Cookie();
+            var url = $"https://aps.115.com/natsort/files.php?aid=1&cid={folder}&o=file_name&asc=1&offset={page}&show_dir=1&limit={pageSize}&code=&scid=&snap=0&natsort=1&record_open_time=1&source=&format=json&fc_mix=0";
 
             var htmlRet = HtmlManager.GetHtmlWebClient("https://115.com", url, cc);
             if (htmlRet.Success)
@@ -857,6 +882,50 @@ namespace Service
             sw.Close();
 
             return NotFound;
+        }
+
+        public static Dictionary<string, List<FileItemModel>> CheckFolderSameSha(string folder)
+        {
+            var files = Get115FilesModel(folder);
+
+            var dic = files.GroupBy(x => x.sha).ToDictionary(x => x.Key, x => x.ToList());
+            dic = dic.Where(x => x.Value.Count > 1).ToDictionary(x => x.Key, x => x.Value);
+
+            return dic;
+        }
+
+        public static Dictionary<string, List<FileItemModel>> CheckFolderSameShaRecursive(string folder, List<string> except)
+        {
+            Dictionary<string, List<FileItemModel>> ret = new Dictionary<string, List<FileItemModel>>();
+            List<FileItemModel> files = new List<FileItemModel>();
+
+            DoRecursive(folder, except, files);
+
+            ret = files.GroupBy(x => x.sha).ToDictionary(x => x.Key, x => x.ToList());
+            ret = ret.Where(x => x.Value.Count > 1).ToDictionary(x => x.Key, x => x.Value);
+
+            return ret;
+        }
+
+        private static void DoRecursive(string folder, List<string> except, List<FileItemModel> files)
+        {
+            var content = Get115FilesModel(folder);
+
+            var subFolder = content.Where(x => string.IsNullOrEmpty(x.fid)).ToList();
+            files.AddRange(content.Where(x => !string.IsNullOrEmpty(x.fid)).ToList());
+
+            foreach (var sub in subFolder)
+            {
+                if (!except.Contains(sub.cid))
+                {
+                    Console.WriteLine($"处理文件夹 {sub.n} ");
+                    DoRecursive(sub.cid, except, files);
+                }
+                else
+                {
+                    Console.WriteLine($"跳过 {sub.n} ");
+                }
+            }
         }
     }
 

@@ -18,7 +18,7 @@ namespace GenerateReport
         {
             if (args.Length == 0)
             {
-                Service.ReportService.GenerateReport();
+                //Service.ReportService.GenerateReport();
             }
             else
             {
@@ -42,7 +42,7 @@ namespace GenerateReport
             {
                 StartInfo =
                     {
-                        FileName = @"G:\Github\AllInOneAV\AllInOneAV\ScanAllAndMatch\bin\Debug\ScanAllAndMatch.exe",
+                        FileName = @"E:\Github\AllInOneAV\AllInOneAV\ScanAllAndMatch\bin\Debug\ScanAllAndMatch.exe",
                         UseShellExecute = false,
                         Arguments = "",
                         CreateNoWindow = false,

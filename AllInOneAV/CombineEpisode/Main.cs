@@ -372,7 +372,7 @@ namespace CombineEpisode
 
         private void btnManualRename_Click(object sender, EventArgs e)
         {
-            var exeFile = "G:\\AllInOneAV\\AvReName\\bin\\Debug\\AvRename.exe";
+            var exeFile = "E:\\AllInOneAV\\AvReName\\bin\\Debug\\AvRename.exe";
             if (File.Exists(exeFile))
             {
                 Process.Start(exeFile);
@@ -1872,7 +1872,7 @@ namespace CombineEpisode
 
                 ShowConvertFiles(files);
 
-                string convert = "G:\\convert\\";
+                string convert = "E:\\convert\\";
 
                 if (!Directory.Exists(convert))
                 {
@@ -2288,7 +2288,7 @@ namespace CombineEpisode
                 treeView5.ExpandAll();
                 treeView5.EndUpdate();
 
-                string uFile = "G:\\" + FileUtility.ReplaceInvalidChar(txtUnmatched.Text) + "-unmatched.json";
+                string uFile = "E:\\" + FileUtility.ReplaceInvalidChar(txtUnmatched.Text) + "-unmatched.json";
                 File.Create(uFile).Close();
                 StreamWriter sw = new StreamWriter(uFile);
                 sw.WriteLine(JsonConvert.SerializeObject(unmatchedList));
@@ -2832,7 +2832,7 @@ namespace CombineEpisode
 
         private async Task StartJavScan(string exe, string arg, DataReceivedEventHandler output)
         {
-            exe = "G:\\Github\\AllInOneAV\\AllInOneAV\\BatchJavScanerAndMacthMagUrl\\bin\\Debug\\BatchJavScanerAndMacthMagUrl.exe";
+            exe = "E:\\Github\\AllInOneAV\\AllInOneAV\\BatchJavScanerAndMacthMagUrl\\bin\\Debug\\BatchJavScanerAndMacthMagUrl.exe";
 
             using (var p = new Process())
             {
@@ -2872,7 +2872,7 @@ namespace CombineEpisode
 
         private async Task StartScanAndMatchTask(DataReceivedEventHandler output)
         {
-            var exe = "G:\\Github\\AllInOneAV\\AllInOneAV\\ScanAllAndMatch\\bin\\Debug\\ScanAllAndMatch.exe";
+            var exe = "E:\\Github\\AllInOneAV\\AllInOneAV\\ScanAllAndMatch\\bin\\Debug\\ScanAllAndMatch.exe";
             var arg = "";
 
             using (var p = new Process())
@@ -3094,7 +3094,7 @@ namespace CombineEpisode
 
         private async Task StartReportTask(DataReceivedEventHandler output)
         {
-            var exe = @"G:\Github\AllInOneAV\AllInOneAV\GenerateReport\bin\Debug\GenerateReport.exe";
+            var exe = @"E:\Github\AllInOneAV\AllInOneAV\GenerateReport\bin\Debug\GenerateReport.exe";
             var arg = "report";
 
             using (var p = new Process())
@@ -3390,7 +3390,7 @@ namespace CombineEpisode
 
         private async Task StartJavRefresh(string exe, string arg, DataReceivedEventHandler output)
         {
-            exe = "G:\\Github\\AllInOneAV\\AllInOneAV\\BatchJavScanerAndMacthMagUrl\\bin\\Debug\\BatchJavScanerAndMacthMagUrl.exe";
+            exe = "E:\\Github\\AllInOneAV\\AllInOneAV\\BatchJavScanerAndMacthMagUrl\\bin\\Debug\\BatchJavScanerAndMacthMagUrl.exe";
 
             using (var p = new Process())
             {
@@ -3454,7 +3454,7 @@ namespace CombineEpisode
 
         private async Task StartJavFaviScan(DataReceivedEventHandler output)
         {
-            var exe = "G:\\Github\\AllInOneAV\\AllInOneAV\\BatchJavScanerAndMacthMagUrl\\bin\\Debug\\BatchJavScanerAndMacthMagUrl.exe";
+            var exe = "E:\\Github\\AllInOneAV\\AllInOneAV\\BatchJavScanerAndMacthMagUrl\\bin\\Debug\\BatchJavScanerAndMacthMagUrl.exe";
 
             using (var p = new Process())
             {

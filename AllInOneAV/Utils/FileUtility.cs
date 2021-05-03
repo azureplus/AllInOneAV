@@ -1079,7 +1079,7 @@ namespace Utils
                 CollectExistAvInfo(infos, fi, FFmpeg);
             }
 
-            var fileName = "G:\\AllScan" + date.ToString("yyyyMMdd") + ".json";
+            var fileName = "E:\\AllScan" + date.ToString("yyyyMMdd") + ".json";
             if (File.Exists(fileName))
             {
                 File.Delete(fileName);

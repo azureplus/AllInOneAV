@@ -468,7 +468,7 @@ namespace Service
         {
             Dictionary<string, List<string>> matchRecord = new Dictionary<string, List<string>>();
             List<string> avators = new List<string>();
-            var folder = @"G:\Github\AllInOneAV\Setting\avator";
+            var folder = @"E:\Github\AllInOneAV\Setting\avator";
             var avs = JavDataBaseManager.GetActress();
 
             foreach (var f in Directory.GetDirectories(folder))
@@ -490,7 +490,7 @@ namespace Service
                     {
                         if (!matchRecord.ContainsKey(a.Name))
                         {
-                            matchRecord.Add(a.Name, new List<string>() { m.Replace(@"G:\Github\AllInOneAV\Setting\", @"\Imgs\").Replace(@"\", "/") });
+                            matchRecord.Add(a.Name, new List<string>() { m.Replace(@"E:\Github\AllInOneAV\Setting\", @"\Imgs\").Replace(@"\", "/") });
                             break;
                         }
                     }
@@ -507,7 +507,7 @@ namespace Service
         {
             int index = 1;
             bool contiune = true;
-            var folderPrefix = @"G:\Github\AllInOneAV\Setting\avator\";
+            var folderPrefix = @"E:\Github\AllInOneAV\Setting\avator\";
             var url = "https://www.javbus.com/actresses/";
             var cc = GetJavBusCookie();
 

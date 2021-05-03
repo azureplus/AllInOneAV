@@ -42,6 +42,8 @@ namespace Model.OneOneFive
                 }
             } 
         }
+        public string AvId { get; set; }
+        public string AvName { get; set; }
     }
 
     public enum OneOneFiveSearchType

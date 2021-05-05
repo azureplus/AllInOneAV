@@ -28,13 +28,13 @@ namespace NewUnitTest
             //var ret = OneOneFiveService.CheckFolderSameShaRecursive("0", new List<string>() { "2068937774368408801" });
 
             //匹配115并移动本地文件    
-            //OneOneFiveService.Match115AndMoveLocalFile();
+            OneOneFiveService.Match115AndMoveLocalFile();
 
             //移除115同名文件（保留文件体积大的）
             //var deleteSize = OneOneFiveService.RemoveDuplicated115Files();
             //Console.WriteLine($"共删除 {deleteSize} ");
 
-            TestSearchEverything("ATID-462");
+            //TestSearchEverything("ATID-462");
 
             Console.WriteLine("按任意键退出...");
             Console.ReadKey();

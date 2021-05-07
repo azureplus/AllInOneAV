@@ -1,0 +1,116 @@
+﻿@using Model.OneOneFive;
+@using Utils
+
+@{
+    var avs = (List<MoveBackToLocal>)ViewData["avs"];
+    var size = (int)ViewData["size"];
+    var count = (int)ViewData["count"];
+    var current = (int)ViewData["current"];
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>WebAV-移回本地</title>
+
+    @Html.Partial("Header")
+</head>
+
+<body>
+    @Html.Partial("Share")
+
+    <div class="jumbotron">
+        <div class="container">
+            <h1 class="display-4">全目录</h1>
+            <p class="lead">共有 @avs.Count</p>
+        </div>
+    </div>
+
+    <div id="content">
+        <div class="container-fluid" style="width:90%;margin-left:50px">
+            <div class="row row-cols-5">
+                @foreach (var av in avs)
+                {
+                    <div class="col">
+                        <div class='card'>
+                            <img src="@av.AvPic" class="card-img-top" alt="">
+                            <div class="card-body">
+                                <h6 class="card-title">@(av.AvId + "  " + av.AvSizeStr)</h6>
+                                <a class="card-text" style="font-size:12px" href="javascript:;">@av.AvName</a>
+                                <a class="btn btn-info delete" data-fid="@av.Fid" href="javascript:;" target="" style="font-size:12px">删除本地</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+    <nav aria-label="...">
+        <ul class="pagination">
+            <li class="page-item"><a class="page-link" href="@("/webav/movebacktolocal?page=1&pagesize=" + size + "&force=false")">首页(1)</a></li>
+
+            @for (int i = current - 8; i >= 0 && i <= current; i++)
+            {
+                if (i != current)
+                {
+                    <li class="page-item"><a class="page-link" href="@("/webav/movebacktolocal?page=" + i + "&pagesize=" + size + "&force=false")">@i</a></li>
+                }
+                else
+                {
+                    <li class="page-item active" aria-current="page">
+                        <span class="page-link">
+                            @i
+                            <span class="sr-only">(current)</span>
+                        </span>
+                    </li>
+                }
+            }
+
+            @for (int i = current + 1; i < count && i <= current + 8; i++)
+            {
+                if (i != current)
+                {
+                    <li class="page-item"><a class="page-link" href="@("/webav/movebacktolocal?page=" + i + "&pagesize=" + size + "&force=false")">@i</a></li>
+                }
+                else
+                {
+                    <li class="page-item active" aria-current="page">
+                        <span class="page-link">
+                            @i
+                            <span class="sr-only">(current)</span>
+                        </span>
+                    </li>
+                }
+            }
+            <li class="page-item"><a class="page-link" href="@("/webav/movebacktolocal?page=" + count + "&pagesize=" + size + "&force=false")">尾页(@count)</a></li>
+        </ul>
+    </nav>
+
+    <script>
+        $(".delete").click(function () {
+            var context = $(this);
+            $.ajax({
+                url: "/webav/DeleteLocalFile",
+                type: "get",
+                data: { 'file': $(this).data("fid") },
+
+                success: function (result) {
+                    if (result.success == 'fail') {
+                        alert('删除失败');
+                    }
+                    else if (result.success == 'notExists') {
+                        alert('115不存在')
+                    }
+                    else {
+                        context.removeClass('btn-info');
+                        context.addClass('btn-danger');
+                        context.text("已删除");
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>

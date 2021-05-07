@@ -1322,5 +1322,90 @@ namespace AVWeb.Controllers
                 return Json(new { success = "fail" }, JsonRequestBehavior.AllowGet);
             }
         }
+
+        [Base, Rights]
+        public ActionResult DeleteLocal(int page, int pagesize, bool force)
+        {
+            var files = OneOneFiveService.GetAllLocalAvs(false);
+
+            var targetModel = files.Skip((page - 1) * pagesize).Take(pagesize).ToList();
+            List<AV> avdb = new List<AV>();
+
+            if (force)
+            {
+                avdb = JavDataBaseManager.GetAllAV();
+
+                RedisService.DeleteHash("webav", "avs");
+
+                RedisService.SetHash("webav", "avs", JsonConvert.SerializeObject(avdb));
+            }
+            else
+            {
+                avdb = JsonConvert.DeserializeObject<List<AV>>(RedisService.GetHash("webav", "avs"));
+            }
+
+            List<MoveBackToLocal> avs = new List<MoveBackToLocal>();
+
+            foreach (var m in targetModel)
+            {
+                var avId = m.Name.Split('-')[0] + "-" + m.Name.Split('-')[1];
+                var avName = m.Name.Replace(m.Extension, "").Replace("-C", "").Replace(avId, "");
+
+                avs.Add(new MoveBackToLocal()
+                {
+                    AvId = avId,
+                    AvName = avName,
+                    AvSize = m.Length,
+                    AvSizeStr = FileSize.GetAutoSizeString(m.Length, 1),
+                    Fid = m.FullName,
+                    AvPic = avdb.FirstOrDefault(x => (x.ID + "-" + x.Name).Equals(m.Name.Replace(m.Extension, "").Replace("-C", ""), StringComparison.OrdinalIgnoreCase)) == null ? "" : avdb.FirstOrDefault(x => (x.ID + "-" + x.Name).Equals(m.Name.Replace(m.Extension, "").Replace("-C", ""), StringComparison.OrdinalIgnoreCase)).PictureURL
+                });
+            }
+
+            ViewData.Add("avs", avs);
+            ViewData.Add("size", pagesize);
+            ViewData.Add("count", (files.Count / pagesize) + 1);
+            ViewData.Add("current", page);
+
+            return View();
+        }
+
+        [Base, HttpGet]
+        public JsonResult DeleteLocalFile(string file)
+        {
+            //var ret = OneOneFiveService.Copy(fid, "2092826214403000069", OneOneFiveService.Get115Cookie());
+
+            try
+            {
+                var fi = new FileInfo(file);
+
+                var result = OneOneFiveService.Get115SearchFileResult(OneOneFiveService.Get115Cookie(), fi.Name);
+
+                if (result != null && result.Any())
+                {
+                    var deleteFile = result.FirstOrDefault(x => x.n.Equals(fi.Name) && x.s == fi.Length);
+                    if (deleteFile != null)
+                    {
+                        fi.Delete();
+  
+                        return Json(new { success = "success" }, JsonRequestBehavior.AllowGet);
+                    }
+                    else
+                    {
+                        return Json(new { success = "notExists" }, JsonRequestBehavior.AllowGet);
+                    }
+                }
+                else
+                {
+                    return Json(new { success = "notExists" }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception)
+            {
+
+            }
+
+            return Json(new { success = "fail" }, JsonRequestBehavior.AllowGet);
+        }
     }
 }

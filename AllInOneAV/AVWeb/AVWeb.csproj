@@ -201,6 +201,7 @@
     <Content Include="Views\WebAv\BatchRename.cshtml" />
     <Content Include="Views\WebAv\BatchRenameList.cshtml" />
     <Content Include="Views\WebAv\MoveBackToLocal.cshtml" />
+    <Content Include="Views\WebAv\DeleteLocal.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -2,7 +2,7 @@
 @using Utils
 
 @{
-    var avs = (List<MoveBackToLocal>)ViewData["avs"];
+    var avs = (List<DeleteLocal>)ViewData["avs"];
     var size = (int)ViewData["size"];
     var count = (int)ViewData["count"];
     var current = (int)ViewData["current"];
@@ -38,7 +38,14 @@
                             <div class="card-body">
                                 <h6 class="card-title">@(av.AvId + "  " + av.AvSizeStr)</h6>
                                 <a class="card-text" style="font-size:12px" href="javascript:;">@av.AvName</a>
-                                <a class="btn btn-info delete" data-fid="@av.Fid" href="javascript:;" target="" style="font-size:12px">删除本地</a>
+                                @if (av.IsExist)
+                                {
+                                    <a class="btn btn-info delete" data-fid="@av.File" href="javascript:;" target="" style="font-size:12px">删除本地</a>
+                                }
+                                else
+                                { 
+                                    <a class="btn btn-danger" data-fid="@av.File" href="javascript:;" target="" style="font-size:12px">已删除</a>
+                                }
                             </div>
                         </div>
                     </div>
@@ -49,13 +56,13 @@
 
     <nav aria-label="...">
         <ul class="pagination">
-            <li class="page-item"><a class="page-link" href="@("/webav/movebacktolocal?page=1&pagesize=" + size + "&force=false")">首页(1)</a></li>
+            <li class="page-item"><a class="page-link" href="@("/webav/deletelocal?page=1&pagesize=" + size + "&force=false")">首页(1)</a></li>
 
             @for (int i = current - 8; i >= 0 && i <= current; i++)
             {
                 if (i != current)
                 {
-                    <li class="page-item"><a class="page-link" href="@("/webav/movebacktolocal?page=" + i + "&pagesize=" + size + "&force=false")">@i</a></li>
+                    <li class="page-item"><a class="page-link" href="@("/webav/deletelocal?page=" + i + "&pagesize=" + size + "&force=false")">@i</a></li>
                 }
                 else
                 {
@@ -72,7 +79,7 @@
             {
                 if (i != current)
                 {
-                    <li class="page-item"><a class="page-link" href="@("/webav/movebacktolocal?page=" + i + "&pagesize=" + size + "&force=false")">@i</a></li>
+                    <li class="page-item"><a class="page-link" href="@("/webav/deletelocal?page=" + i + "&pagesize=" + size + "&force=false")">@i</a></li>
                 }
                 else
                 {
@@ -84,7 +91,7 @@
                     </li>
                 }
             }
-            <li class="page-item"><a class="page-link" href="@("/webav/movebacktolocal?page=" + count + "&pagesize=" + size + "&force=false")">尾页(@count)</a></li>
+            <li class="page-item"><a class="page-link" href="@("/webav/deletelocal?page=" + count + "&pagesize=" + size + "&force=false")">尾页(@count)</a></li>
         </ul>
     </nav>
 
@@ -105,6 +112,7 @@
                     }
                     else {
                         context.removeClass('btn-info');
+                        context.removeClass('btn-delete');
                         context.addClass('btn-danger');
                         context.text("已删除");
                     }

@@ -1326,39 +1326,54 @@ namespace AVWeb.Controllers
         [Base, Rights]
         public ActionResult DeleteLocal(int page, int pagesize, bool force)
         {
-            var files = OneOneFiveService.GetAllLocalAvs(false);
-
-            var targetModel = files.Skip((page - 1) * pagesize).Take(pagesize).ToList();
+            List<MyFileInfo> files = new List<MyFileInfo>();
+            List<DeleteLocal> avs = new List<DeleteLocal>();
             List<AV> avdb = new List<AV>();
 
             if (force)
             {
                 avdb = JavDataBaseManager.GetAllAV();
+                var locals = OneOneFiveService.GetAllLocalAvs(false);
+
+                foreach (var l in locals)
+                {
+                    files.Add(new MyFileInfo()
+                    {
+                        Length = l.Length,
+                        FullName = l.FullName,
+                        Name = l.Name,
+                        Extension = l.Extension
+                    });
+                }
 
                 RedisService.DeleteHash("webav", "avs");
+                RedisService.DeleteHash("webav", "locals");
 
                 RedisService.SetHash("webav", "avs", JsonConvert.SerializeObject(avdb));
+                RedisService.SetHash("webav", "locals", JsonConvert.SerializeObject(files));
             }
             else
             {
                 avdb = JsonConvert.DeserializeObject<List<AV>>(RedisService.GetHash("webav", "avs"));
+                files = JsonConvert.DeserializeObject<List<MyFileInfo>>(RedisService.GetHash("webav", "locals"));
             }
 
-            List<MoveBackToLocal> avs = new List<MoveBackToLocal>();
+            var targetModel = files.Skip((page - 1) * pagesize).Take(pagesize).ToList();
 
             foreach (var m in targetModel)
             {
                 var avId = m.Name.Split('-')[0] + "-" + m.Name.Split('-')[1];
                 var avName = m.Name.Replace(m.Extension, "").Replace("-C", "").Replace(avId, "");
 
-                avs.Add(new MoveBackToLocal()
+                avs.Add(new DeleteLocal()
                 {
                     AvId = avId,
                     AvName = avName,
                     AvSize = m.Length,
                     AvSizeStr = FileSize.GetAutoSizeString(m.Length, 1),
-                    Fid = m.FullName,
-                    AvPic = avdb.FirstOrDefault(x => (x.ID + "-" + x.Name).Equals(m.Name.Replace(m.Extension, "").Replace("-C", ""), StringComparison.OrdinalIgnoreCase)) == null ? "" : avdb.FirstOrDefault(x => (x.ID + "-" + x.Name).Equals(m.Name.Replace(m.Extension, "").Replace("-C", ""), StringComparison.OrdinalIgnoreCase)).PictureURL
+                    File = m.FullName,
+                    AvPic = avdb.FirstOrDefault(x => (x.ID + "-" + x.Name).Equals(m.Name.Replace(m.Extension, "").Replace("-C", ""), StringComparison.OrdinalIgnoreCase)) == null ? "" : avdb.FirstOrDefault(x => (x.ID + "-" + x.Name).Equals(m.Name.Replace(m.Extension, "").Replace("-C", ""), StringComparison.OrdinalIgnoreCase)).PictureURL,
+                    IsExist = System.IO.File.Exists(m.FullName)
                 });
             }
 
@@ -1383,7 +1398,7 @@ namespace AVWeb.Controllers
 
                 if (result != null && result.Any())
                 {
-                    var deleteFile = result.FirstOrDefault(x => x.n.Equals(fi.Name) && x.s == fi.Length);
+                    var deleteFile = result.FirstOrDefault(x => x.n.Equals(fi.Name, StringComparison.OrdinalIgnoreCase) && x.s == fi.Length);
                     if (deleteFile != null)
                     {
                         fi.Delete();

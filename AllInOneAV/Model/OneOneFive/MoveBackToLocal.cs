@@ -15,4 +15,15 @@ namespace Model.OneOneFive
         public string AvSizeStr { get; set; }
         public string Fid { get; set; }
     }
+
+    public class DeleteLocal
+    {
+        public string AvId { get; set; }
+        public string AvName { get; set; }
+        public string AvPic { get; set; }
+        public long AvSize { get; set; }
+        public string AvSizeStr { get; set; }
+        public string File { get; set; }
+        public bool IsExist { get; set; }
+    }
 }

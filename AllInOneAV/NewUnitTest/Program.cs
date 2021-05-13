@@ -36,6 +36,8 @@ namespace NewUnitTest
 
             //TestSearchEverything("ATID-462");
 
+            //MakeUpPic();
+
             Console.WriteLine("按任意键退出...");
             Console.ReadKey();
         }         
@@ -126,6 +128,26 @@ namespace NewUnitTest
                             }
                         }
                     }
+                }
+            }
+        }
+
+        public static void MakeUpPic()
+        {
+            var imageFolder = @"E:\JavLibraryImgs\";
+            var avs = JavDataBaseManager.GetAllAV().OrderByDescending(x => x.CreateTime);
+
+            int index = 0;
+
+            foreach (var av in avs)
+            {
+                var pic = imageFolder + av.ID + av.Name + ".jpg";
+
+                if (!File.Exists(pic))
+                {
+                    DownloadHelper.DownloadHttps(av.PictureURL, pic, "");
+
+                    Console.WriteLine(++index + "  " + pic);
                 }
             }
         }
